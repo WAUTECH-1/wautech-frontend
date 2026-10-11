@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "workspaces/*/src",
+    "workspaces/*/vite.config.ts",
+    "packages/contracts/src"
+  ]
+}
