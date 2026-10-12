@@ -16,6 +16,9 @@ import {
 import { emptyOverview, loadOverview } from '../integrations/overview';
 import type { AppPath } from '../routing/routes';
 import { navigate } from '../routing/history';
+import { featureAt, featureRoutes } from '../features/registry';
+import { FeatureView } from '../features/FeatureView';
+import { routeAccess } from '../routing/access';
 const pagePaths: Record<Page, AppPath> = {
   Overview: '/dashboard',
   Companies: '/companies',
@@ -47,6 +50,7 @@ function TenantApplication({
   app: ApplicationContextValue;
 }) {
   const { config, session, auth, tenant } = app;
+  const feature = featureAt(path);
   const [data, setData] = useState<DashboardData>(emptyOverview);
   const [state, setState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [error, setError] = useState('');
@@ -167,17 +171,22 @@ function TenantApplication({
               : 'ready'
         }
         pageTitle={
-          path === '/profile'
-            ? 'Profile'
-            : path === '/organizations'
-              ? 'Organizations'
-              : undefined
+          feature
+            ? feature.title
+            : path === '/profile'
+              ? 'Profile'
+              : path === '/organizations'
+                ? 'Organizations'
+                : undefined
         }
         period="Current snapshot"
         periods={['Current snapshot']}
         onPeriodChange={() => {}}
         state={
-          resource || path === '/profile' || path === '/organizations'
+          feature ||
+          resource ||
+          path === '/profile' ||
+          path === '/organizations'
             ? 'ready'
             : state
         }
@@ -189,6 +198,25 @@ function TenantApplication({
         logoutError={logoutError}
         hostControls={
           <div className="production-controls">
+            {featureRoutes
+              .filter(
+                (route) =>
+                  route.navigation &&
+                  routeAccess(route, auth, tenant) === 'allowed',
+              )
+              .sort(
+                (a, b) =>
+                  (a.navigation?.order ?? 0) - (b.navigation?.order ?? 0),
+              )
+              .map((route) => (
+                <button
+                  key={route.path}
+                  aria-current={route.path === path ? 'page' : undefined}
+                  onClick={() => navigate(route.path)}
+                >
+                  {route.navigation!.label}
+                </button>
+              ))}
             <button
               onClick={() => navigate('/organizations')}
               aria-label="Switch organization"
@@ -211,7 +239,9 @@ function TenantApplication({
           busy ? undefined : () => void mutate('/notifications/read-all')
         }
         renderPage={() =>
-          resource ? (
+          feature ? (
+            <FeatureView route={feature} />
+          ) : resource ? (
             <CrmContent
               key={resource}
               resource={resource}

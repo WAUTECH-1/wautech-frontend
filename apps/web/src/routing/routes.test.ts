@@ -19,6 +19,7 @@ test('all requested routes exist, root maps to dashboard and unknown is not-foun
     '/organizations',
     '/unauthorized',
     '/access-denied',
+    '/feature-example',
   ]);
   expect(resolveRoute('/')?.path).toBe('/dashboard');
   expect(resolveRoute('/missing')).toBeUndefined();
