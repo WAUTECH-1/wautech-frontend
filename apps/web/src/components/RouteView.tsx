@@ -48,7 +48,16 @@ export function RouteView({
   if (access === 'checking') return <StatusPanel kind="checking" />;
   if (access === 'unavailable')
     return <StatusPanel kind="unavailable" onRetry={onRetry} />;
-  if (access === 'unauthorized') return <StatusPanel kind="unauthorized" />;
+  if (access === 'unauthorized')
+    return (
+      <StatusPanel
+        kind={
+          auth.status === 'anonymous' && auth.reason === 'expired'
+            ? 'expired'
+            : 'unauthorized'
+        }
+      />
+    );
   if (access === 'denied') return <StatusPanel kind="denied" />;
   if (access === 'organization-unavailable')
     return renderProtected ? (

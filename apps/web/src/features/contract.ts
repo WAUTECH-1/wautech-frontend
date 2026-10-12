@@ -11,6 +11,7 @@ export interface FeatureRoute {
   load: () => Promise<{ default: ComponentType }>;
   Provider?: ComponentType<{ children: ReactNode }>;
   loading?: ReactNode;
+  error?: ReactNode;
 }
 export interface FeatureModule {
   id: string;

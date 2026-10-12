@@ -32,7 +32,11 @@ const pagePaths: Record<Page, AppPath> = {
 };
 export function ProductionApplication({ path }: { path: AppPath }) {
   const app = useApplication();
-  if (app.auth.status !== 'authenticated' || app.tenant.status !== 'ready')
+  if (
+    app.auth.status !== 'authenticated' ||
+    app.tenant.status !== 'ready' ||
+    app.tenant.organization.memberUserId !== app.auth.user.id
+  )
     return null;
   return (
     <TenantApplication

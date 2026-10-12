@@ -17,6 +17,14 @@ const screen = (path: string, auth: AuthState) =>
       onRetry={onRetry}
     />,
   );
+test('expired protected route clears content and explains session recovery', () => {
+  const html = screen('/administration', {
+    status: 'anonymous',
+    reason: 'expired',
+  });
+  expect(html).toContain('Your session expired');
+  expect(html).not.toContain('memberships');
+});
 test('startup keeps private view closed while verifying', () => {
   const html = screen('/companies', { status: 'checking' });
   expect(html).toContain('Verifying your session');

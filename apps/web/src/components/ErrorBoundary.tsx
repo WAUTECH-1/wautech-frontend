@@ -16,7 +16,7 @@ export function ErrorFallback({ onReset }: { onReset: () => void }) {
   );
 }
 export class ErrorBoundary extends Component<
-  { children: ReactNode },
+  { children: ReactNode; fallback?: ReactNode },
   { failed: boolean }
 > {
   state = { failed: false };
@@ -24,10 +24,10 @@ export class ErrorBoundary extends Component<
     return { failed: true };
   }
   render() {
-    return this.state.failed ? (
-      <ErrorFallback onReset={() => window.location.reload()} />
-    ) : (
-      this.props.children
-    );
+    return this.state.failed
+      ? (this.props.fallback ?? (
+          <ErrorFallback onReset={() => window.location.reload()} />
+        ))
+      : this.props.children;
   }
 }

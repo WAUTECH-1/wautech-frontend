@@ -44,6 +44,7 @@ export default function App() {
     route &&
     auth.status === 'authenticated' &&
     tenant.status === 'ready' &&
+    tenant.organization.memberUserId === auth.user.id &&
     route.access !== 'public' &&
     routeAccess(route, auth, tenant) === 'allowed'
   )

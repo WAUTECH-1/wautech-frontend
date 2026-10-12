@@ -6,6 +6,11 @@ body {
   display: flex;
   gap: 0.5rem;
 }
+.wautech-dashboard .topbar {
+  height: auto;
+  min-height: 76px;
+  padding-block: 12px;
+}
 .wautech-dashboard .production-controls button {
   border: 1px solid var(--border);
   background: var(--raised);
@@ -93,10 +98,84 @@ body {
   color: #fff;
 }
 @media (max-width: 700px) {
+  .wautech-dashboard .topbar {
+    height: auto;
+    min-height: 66px;
+    padding: 12px 14px;
+    flex-wrap: wrap;
+  }
   .wautech-dashboard .topbar-actions {
     flex-wrap: wrap;
+    flex-basis: 100%;
+    justify-content: flex-end;
+  }
+  .wautech-dashboard .production-controls {
+    margin-right: auto;
   }
   .wautech-dashboard .wautech-crm .table-toolbar {
     flex-wrap: wrap;
   }
+}
+.platform-page {
+  padding: 1.25rem;
+  max-width: 72rem;
+}
+.platform-page form {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0;
+  max-width: 36rem;
+}
+.platform-page label {
+  display: grid;
+  gap: 0.5rem;
+}
+.platform-page input,
+.platform-page select {
+  color: inherit;
+  background: var(--surface, #fff);
+  border: 1px solid #64748b;
+  border-radius: 0.5rem;
+  padding: 0.65rem;
+  max-width: 100%;
+}
+.platform-page button,
+.platform-actions button {
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.platform-page button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+.platform-table {
+  overflow-x: auto;
+}
+.platform-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.platform-table th,
+.platform-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #64748b;
+  overflow-wrap: anywhere;
+}
+.platform-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+.platform-dialog {
+  max-width: min(32rem, calc(100vw - 2rem));
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+.platform-dialog::backdrop {
+  background: #0009;
+}
+.production-controls {
+  flex-wrap: wrap;
 }

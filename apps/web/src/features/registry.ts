@@ -8,7 +8,11 @@ export function collectFeatures(modules: readonly FeatureModule[]) {
       throw new Error('Duplicate feature ID');
     ids.add(module.id);
     return module.routes.map((route) => {
-      if (!/^\/[a-z0-9/-]+$/.test(route.path) || paths.has(route.path))
+      if (
+        !/^\/[a-z0-9/-]+$/.test(route.path) ||
+        paths.has(route.path) ||
+        ['/login', '/unauthorized', '/access-denied'].includes(route.path)
+      )
         throw new Error('Invalid or duplicate feature path');
       if (route.roles && route.access !== 'tenant')
         throw new Error('Role restrictions require tenant access');

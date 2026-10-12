@@ -25,6 +25,11 @@ test('automatically discovers an independently lazy loaded example', async () =>
   );
 });
 test('rejects collisions and session-only role checks', () => {
+  expect(() =>
+    collectFeatures([
+      { ...module, routes: [{ ...module.routes[0], path: '/login' }] },
+    ]),
+  ).toThrow();
   expect(() => collectFeatures([module, module])).toThrow();
   expect(() =>
     collectFeatures([
