@@ -1,21 +1,17 @@
-# Proposed shared configuration changes — approval required
+# Root workspace and CI enrollment
 
-No root files were modified for Sprint 2. The current root `workspaces` list contains only `workspaces/*` and `packages/*`, so apps/web is deliberately not included in root workspace scripts or CI aggregation yet. The existing root dependency tree can run its workspace-local commands.
+Checkpoint A enrolls `apps/web` as `@wautech/web` through root workspace patterns `apps/*`, `workspaces/*` and `packages/*`. The root lockfile is regenerated with npm 11.6.2 to register the app and its workspace link; no framework dependency version change is required.
 
-After explicit approval, the minimal root `package.json` changes are:
+From the repository root:
 
-```diff
- "workspaces": [
-+  "apps/*",
-   "workspaces/*",
-   "packages/*"
- ],
- "scripts": {
-+  "dev:web": "npm run dev --workspace=@wautech/web",
-   ...
- }
+```sh
+npm ci
+npm run dev:web
+npm run check
 ```
 
-Then regenerate only the necessary `package-lock.json` workspace registration using the specified Node/npm versions (for example, `npm install --package-lock-only`). Review the diff to preserve the existing package resolutions. `apps/web/package.json` declares the same React/react-dom versions already used by all workspaces; it adds no new library. Root `--workspaces` typecheck/test/build aggregation will automatically discover @wautech/web after registration. Root ESLint and Prettier already scan apps/web, so their configuration needs no changes. Changing the default `dev` script is optional and is not requested by this proposal.
+`dev:web` delegates to the existing app dev script (strict port 5176). The default dev command and Wajahat/Asad/Umer development scripts are unchanged. Root typecheck/test/build commands use existing `--workspaces` execution, so apps/web now participates automatically. Root ESLint and formatting checks already scan apps/web and need no configuration change.
 
-Until approved, use `npm --prefix apps/web run dev` and `npm --prefix apps/web run check`. No approval is needed to review or run these local app files. This document is a proposal, not permission to modify shared files.
+Root `check` runs lint, TypeScript, tests, formatting and production builds. The existing frontend CI workflow runs npm ci and these same repository-level checks, including the added formatting check. No deployment infrastructure or application integration is introduced by enrollment.
+
+The app's dependencies remain React/react-dom 19.3.0, shared with the other frontend workspaces. Do not create a separate dependency tree in apps/web; install from the root lockfile. Existing workspace-local npm commands remain available for focused development.

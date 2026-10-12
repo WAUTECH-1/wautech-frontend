@@ -9,6 +9,7 @@
     "npm": ">=11.6.2 <12"
   },
   "workspaces": [
+    "apps/*",
     "workspaces/*",
     "packages/*"
   ],
@@ -16,6 +17,7 @@
     "verify:dev": "node scripts/verify-dev.mjs",
     "install:dependencies": "npm ci",
     "dev": "npm run dev --workspace=@wautech/wajahat",
+    "dev:web": "npm run dev --workspace=@wautech/web",
     "dev:wajahat": "npm run dev --workspace=@wautech/wajahat",
     "dev:asad": "npm run dev --workspace=@wautech/asad",
     "dev:umer": "npm run dev --workspace=@wautech/umer",
@@ -25,7 +27,7 @@
     "build": "npm run build --workspaces --if-present",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "npm run lint && npm run typecheck && npm test && npm run build"
+    "check": "npm run lint && npm run typecheck && npm test && npm run format:check && npm run build"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
