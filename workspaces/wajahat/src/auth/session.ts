@@ -18,6 +18,14 @@ export class AuthSession {
     this.state = state;
     this.listeners.forEach((listener) => listener());
   }
+  /** Call for protected API failures; tenant 403 must not become a global logout. */
+  handleApiError(error: unknown): boolean {
+    if (!(error instanceof ApiError) || error.kind !== 'unauthorized')
+      return false;
+    ++this.generation;
+    this.set({ status: 'anonymous', reason: 'expired' });
+    return true;
+  }
   async restore() {
     if (this.mutating) return;
     const generation = ++this.generation;

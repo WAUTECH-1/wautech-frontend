@@ -1,6 +1,8 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { createAuthApi } from './api/auth-api';
 import { AuthSession, routeAccess } from './auth/session';
+import { AuthProvider } from './auth/provider';
+import { useAuth } from './auth/context';
 import type { LoginInput, PortalRoute } from './auth/types';
 import Brand from './components/Brand';
 import LoginPage from './components/LoginPage';
@@ -30,40 +32,27 @@ export default function AuthApplication() {
   const [session] = useState(
     () => new AuthSession(createAuthApi(import.meta.env.VITE_API_BASE_URL)),
   );
-  const state = useSyncExternalStore(
-    session.subscribe,
-    session.getSnapshot,
-    session.getSnapshot,
+  return (
+    <AuthProvider session={session}>
+      <AuthScreens />
+    </AuthProvider>
   );
+}
+
+function AuthScreens() {
+  const { state, login: signIn, logout: signOut, verifySession } = useAuth();
   const path = useSyncExternalStore(subscribeRoute, pathname, serverPathname);
   const route = (path === '/' ? '/login' : path) as PortalRoute;
-  useEffect(() => {
-    void session.restore();
-  }, [session]);
-  useEffect(() => {
-    if (state.status !== 'authenticated') return;
-    const refresh = () => {
-      if (document.visibilityState === 'visible') void session.restore();
-    };
-    window.addEventListener('focus', refresh);
-    document.addEventListener('visibilitychange', refresh);
-    const timer = window.setInterval(refresh, 60000);
-    return () => {
-      window.removeEventListener('focus', refresh);
-      document.removeEventListener('visibilitychange', refresh);
-      window.clearInterval(timer);
-    };
-  }, [state.status, session]);
   useEffect(() => {
     document.title = `${route === '/portal' ? 'Your account' : route === '/organizations' ? 'Organizations' : 'Sign in'} — WAUTECH Intelligence`;
   }, [route]);
 
   async function login(input: LoginInput) {
-    await session.login(input);
+    await signIn(input);
     navigate('/portal');
   }
   async function logout() {
-    await session.logout();
+    await signOut();
     navigate('/login');
   }
   const access = routeAccess(route, state);
@@ -81,7 +70,7 @@ export default function AuthApplication() {
       <StatusPage
         kind="unavailable"
         message={state.message}
-        onRetry={() => void session.restore()}
+        onRetry={() => void verifySession()}
       />
     );
   else if (state.status === 'authenticated')
