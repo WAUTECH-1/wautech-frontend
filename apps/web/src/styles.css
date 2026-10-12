@@ -1,0 +1,320 @@
+.foundation-app {
+  min-height: 100dvh;
+  max-width: 1600px;
+  margin: auto;
+  padding: 0 36px;
+  display: flex;
+  flex-direction: column;
+}
+.foundation-header {
+  min-height: 106px;
+  border-bottom: 1px solid #ffffff10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.foundation-session {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 13px;
+}
+.foundation-session small {
+  display: block;
+  color: #8e9eb5;
+  font-size: 10px;
+  margin-top: 5px;
+}
+.foundation-app button {
+  background: #152132;
+  color: #dbe5f5;
+  border: 1px solid #344355;
+  border-radius: 8px;
+  padding: 10px 15px;
+}
+.foundation-app .foundation-primary {
+  background: #b3e1e7;
+  color: #102029;
+  border: 0;
+  font-weight: 650;
+}
+.foundation-layout {
+  display: grid;
+  grid-template-columns: 218px minmax(0, 1fr);
+  flex: 1;
+}
+.foundation-sidebar {
+  padding: 34px 20px 30px 0;
+  border-right: 1px solid #ffffff10;
+}
+.foundation-eyebrow {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #8aa1b7;
+  font-weight: 600;
+}
+.foundation-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 22px;
+}
+.foundation-sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  color: #92a3b9;
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+.foundation-sidebar nav a[aria-current='page'],
+.foundation-sidebar nav a:hover {
+  background: #142333;
+  color: #cde8ed;
+}
+.foundation-sidebar-note {
+  padding-top: 27px;
+  margin-top: 35px;
+  border-top: 1px solid #ffffff10;
+}
+.foundation-sidebar-note p {
+  font-size: 12px;
+  color: #cad5e5;
+  margin-top: 14px;
+}
+.foundation-sidebar-note small {
+  display: block;
+  font-size: 11px;
+  line-height: 1.7;
+  color: #7e90a6;
+  margin-top: 8px;
+}
+.foundation-layout main {
+  padding: 32px 38px 45px;
+  min-width: 0;
+}
+.foundation-breadcrumb {
+  font-size: 11px;
+  color: #8e9eb5;
+  margin-bottom: 32px;
+}
+.foundation-breadcrumb span {
+  margin: 0 12px;
+  color: #4c647b;
+}
+.foundation-status {
+  max-width: 680px;
+  margin: 20px auto;
+  padding: 48px;
+  border: 1px solid #ffffff14;
+  border-radius: 17px;
+  background: linear-gradient(125deg, #15253680, #131b3080);
+  box-shadow: 0 20px 50px #00000010;
+}
+.foundation-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 53px;
+  height: 53px;
+  border: 1px solid #68939b50;
+  border-radius: 13px;
+  color: #b4dbe5;
+  margin: 30px 0 22px;
+  font-size: 27px;
+}
+.foundation-status h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.7px;
+  font-weight: 650;
+  color: #eef4fc;
+}
+.foundation-status p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #9cacc1;
+  margin-top: 17px;
+  max-width: 540px;
+}
+.foundation-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.foundation-link {
+  font-size: 13px;
+  color: #b3e1e7;
+  font-weight: 550;
+}
+.foundation-availability {
+  display: inline-flex;
+  border: 1px solid #6f98a840;
+  color: #9ebbd0;
+  background: #122134;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+.foundation-status > .foundation-availability {
+  margin-top: 24px;
+}
+.foundation-status .foundation-small {
+  font-size: 11px;
+}
+.foundation-loading {
+  height: 6px;
+  max-width: 220px;
+  margin-top: 30px;
+  background: #274357;
+  border-radius: 4px;
+  animation: foundation-pulse 1.3s infinite;
+}
+@keyframes foundation-pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+.foundation-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #ffffff10;
+  padding: 21px 0;
+  color: #70849a;
+  font-size: 10px;
+  letter-spacing: 0.6px;
+}
+.foundation-auth .login-layout {
+  gap: 30px;
+  padding-top: 15px;
+}
+.foundation-auth .introduction h1 {
+  font-size: 44px;
+}
+.foundation-auth .orbital-scene {
+  display: none;
+}
+.foundation-auth .introduction {
+  padding-top: 20px;
+}
+.foundation-auth .login-panel {
+  padding: 28px;
+}
+.foundation-auth .intro-footnote {
+  margin-top: 32px;
+}
+.foundation-app main:focus {
+  outline: none;
+}
+@media (max-width: 1100px) {
+  .foundation-auth .login-layout {
+    grid-template-columns: 1fr;
+  }
+  .foundation-auth .introduction {
+    display: none;
+  }
+  .foundation-app {
+    padding: 0 24px;
+  }
+  .foundation-layout {
+    grid-template-columns: 185px minmax(0, 1fr);
+  }
+  .foundation-layout main {
+    padding: 28px 24px;
+  }
+  .foundation-status {
+    padding: 35px;
+  }
+  .foundation-header {
+    min-height: 95px;
+  }
+}
+@media (max-width: 640px) {
+  .foundation-app {
+    padding: 0 18px;
+  }
+  .foundation-layout {
+    display: block;
+  }
+  .foundation-sidebar {
+    padding: 21px 0 16px;
+    border-right: 0;
+    border-bottom: 1px solid #ffffff10;
+  }
+  .foundation-sidebar > span,
+  .foundation-sidebar-note {
+    display: none;
+  }
+  .foundation-sidebar nav {
+    flex-direction: row;
+    overflow-x: auto;
+    margin-top: 0;
+    gap: 6px;
+    padding: 5px 0;
+  }
+  .foundation-sidebar nav a {
+    font-size: 12px;
+    padding: 9px 10px;
+    white-space: nowrap;
+  }
+  .foundation-sidebar nav a span {
+    display: none;
+  }
+  .foundation-header {
+    min-height: 90px;
+  }
+  .foundation-session > span:not(.foundation-availability) {
+    max-width: 105px;
+    font-size: 11px;
+  }
+  .foundation-session small {
+    font-size: 9px;
+  }
+  .foundation-session {
+    gap: 10px;
+  }
+  .foundation-session button {
+    padding: 9px;
+    font-size: 10px;
+  }
+  .foundation-header .brand-name {
+    font-size: 14px;
+  }
+  .foundation-layout main {
+    padding: 24px 0 32px;
+  }
+  .foundation-breadcrumb {
+    font-size: 10px;
+    margin-bottom: 20px;
+  }
+  .foundation-status {
+    padding: 28px 24px;
+    margin: 0;
+  }
+  .foundation-status h1 {
+    font-size: 27px;
+  }
+  .foundation-status p {
+    font-size: 13px;
+  }
+  .foundation-auth .login-panel {
+    padding: 25px 22px;
+  }
+  .foundation-footer {
+    font-size: 9px;
+    gap: 20px;
+  }
+  .foundation-actions {
+    gap: 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .foundation-loading {
+    animation: none;
+  }
+}
