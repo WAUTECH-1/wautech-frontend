@@ -1,0 +1,1450 @@
+.wautech-dashboard {
+  font-family: Inter, 'Segoe UI', sans-serif;
+  font-synthesis: none;
+  font-weight: 400;
+}
+:where(.wautech-dashboard) * {
+  box-sizing: border-box;
+}
+.wautech-dashboard {
+  margin: 0;
+}
+:where(.wautech-dashboard) button,
+:where(.wautech-dashboard) input,
+:where(.wautech-dashboard) select,
+:where(.wautech-dashboard) textarea {
+  font: inherit;
+}
+:where(.wautech-dashboard) button,
+:where(.wautech-dashboard) a,
+:where(.wautech-dashboard) select,
+:where(.wautech-dashboard) input[type='checkbox'] {
+  -webkit-tap-highlight-color: transparent;
+}
+:where(.wautech-dashboard) button {
+  cursor: pointer;
+}
+:where(.wautech-dashboard) button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+:where(.wautech-dashboard) button,
+:where(.wautech-dashboard) a,
+:where(.wautech-dashboard) input,
+:where(.wautech-dashboard) select,
+:where(.wautech-dashboard) textarea {
+  outline-offset: 4px;
+}
+:where(.wautech-dashboard) *:focus-visible {
+  outline: 2px solid var(--cyan);
+}
+:where(.wautech-dashboard) button {
+  color: inherit;
+}
+:where(.wautech-dashboard) a {
+  color: inherit;
+  text-decoration: none;
+}
+:where(.wautech-dashboard) button {
+  border: 0;
+}
+:where(.wautech-dashboard) svg {
+  flex-shrink: 0;
+}
+:where(.wautech-dashboard) h1,
+:where(.wautech-dashboard) h2,
+:where(.wautech-dashboard) h3,
+:where(.wautech-dashboard) p {
+  margin: 0;
+}
+:where(.wautech-dashboard) small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.wautech-dashboard {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 65% 0%, #6357a017, transparent 50%), var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+:where(.wautech-dashboard) .sidebar {
+  width: 238px;
+  position: fixed;
+  inset: 0 auto 0 0;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  padding: 28px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  z-index: 30;
+  transition: width 0.2s;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+:where(.wautech-dashboard) .brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0 10px 28px;
+}
+:where(.wautech-dashboard) .brand-mark {
+  font-size: 29px;
+  font-weight: 900;
+  letter-spacing: -5px;
+  color: var(--text);
+  position: relative;
+  padding-right: 8px;
+}
+:where(.wautech-dashboard) .brand-mark span {
+  color: var(--cyan);
+  letter-spacing: 0;
+  font-size: 24px;
+}
+:where(.wautech-dashboard) .brand-copy {
+  font-size: 17px;
+  font-weight: 750;
+  letter-spacing: 2px;
+}
+:where(.wautech-dashboard) .brand-copy small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 3.6px;
+  color: var(--accent);
+}
+:where(.wautech-dashboard) .workspace {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 11px;
+  margin-bottom: 26px;
+}
+:where(.wautech-dashboard) .workspace-avatar,
+:where(.wautech-dashboard) .avatar,
+:where(.wautech-dashboard) .company-avatar,
+:where(.wautech-dashboard) .task-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  font-weight: 650;
+}
+:where(.wautech-dashboard) .workspace strong,
+:where(.wautech-dashboard) .sidebar-profile strong {
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .workspace small,
+:where(.wautech-dashboard) .sidebar-profile small {
+  display: block;
+  font-size: 10px;
+}
+:where(.wautech-dashboard) .nav-label {
+  font-size: 9px;
+  letter-spacing: 1.6px;
+  color: var(--muted);
+  margin: 0 12px 12px;
+}
+:where(.wautech-dashboard) .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  width: 100%;
+  background: transparent;
+  border-radius: 7px;
+  color: var(--muted);
+  text-align: left;
+  margin-bottom: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+:where(.wautech-dashboard) .nav-item:hover {
+  background: var(--raised);
+  color: var(--text);
+}
+:where(.wautech-dashboard) .nav-item.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  position: relative;
+}
+:where(.wautech-dashboard) .nav-item.active:before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 4px;
+}
+:where(.wautech-dashboard) .nav-count {
+  font-size: 10px;
+  margin-left: auto;
+  background: var(--raised);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+:where(.wautech-dashboard) .sidebar-bottom {
+  margin-top: auto;
+  padding-top: 30px;
+}
+:where(.wautech-dashboard) .assistant-nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: linear-gradient(110deg, var(--accent-soft), var(--surface));
+  color: var(--accent);
+  font-size: 11px;
+  margin-bottom: 20px;
+}
+:where(.wautech-dashboard) .assistant-nav small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1px;
+  margin-top: 3px;
+}
+:where(.wautech-dashboard) .sidebar-profile {
+  border-top: 1px solid var(--border);
+  margin-top: 12px;
+  padding: 18px 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+:where(.wautech-dashboard) .online-dot,
+:where(.wautech-dashboard) .demo-dot,
+:where(.wautech-dashboard) .read-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+:where(.wautech-dashboard) .sidebar-profile .online-dot {
+  margin-left: auto;
+}
+:where(.wautech-dashboard) .avatar {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .main-shell {
+  margin-left: 238px;
+  transition: margin-left 0.2s;
+}
+:where(.wautech-dashboard) .topbar {
+  height: 76px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 32px;
+  background: var(--sidebar);
+}
+:where(.wautech-dashboard) .breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .breadcrumb strong {
+  font-weight: 500;
+  color: var(--text);
+}
+:where(.wautech-dashboard) .search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: auto;
+  color: var(--muted);
+}
+:where(.wautech-dashboard) .search-wrap input {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  width: 160px;
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .search-wrap kbd {
+  font-size: 9px;
+  border: 1px solid var(--border);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+:where(.wautech-dashboard) .search-results {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 260px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 8px;
+  z-index: 40;
+}
+:where(.wautech-dashboard) .search-results button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  border-radius: 6px;
+}
+:where(.wautech-dashboard) .search-results button:hover {
+  background: var(--raised);
+}
+:where(.wautech-dashboard) .search-results p {
+  padding: 12px;
+}
+:where(.wautech-dashboard) .topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+:where(.wautech-dashboard) .environment {
+  font-size: 10px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+:where(.wautech-dashboard) .environment span {
+  width: 5px;
+  height: 5px;
+  background: var(--green);
+  border-radius: 50%;
+}
+:where(.wautech-dashboard) .icon-button {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 6px;
+  color: var(--muted);
+  min-width: 36px;
+  min-height: 36px;
+}
+:where(.wautech-dashboard) .icon-button:hover {
+  background: var(--raised);
+}
+:where(.wautech-dashboard) .notification-button {
+  position: relative;
+}
+:where(.wautech-dashboard) .notification-button i {
+  position: absolute;
+  right: 9px;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+:where(.wautech-dashboard) .profile-button {
+  cursor: pointer;
+}
+:where(.wautech-dashboard) .mobile-toggle {
+  display: none;
+}
+:where(.wautech-dashboard) main {
+  padding: 32px;
+  max-width: 1800px;
+  margin: auto;
+}
+:where(.wautech-dashboard) .page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+:where(.wautech-dashboard) .eyebrow {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  font-weight: 650;
+  margin-bottom: 7px;
+}
+:where(.wautech-dashboard) h1 {
+  font-size: 29px;
+  letter-spacing: -0.9px;
+  font-weight: 650;
+}
+:where(.wautech-dashboard) .intro {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 6px;
+}
+:where(.wautech-dashboard) .heading-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+:where(.wautech-dashboard) .primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 15px;
+  min-height: 38px;
+  border-radius: 7px;
+  background: var(--solid);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px #7660e825;
+}
+:where(.wautech-dashboard) .primary:hover {
+  filter: brightness(1.12);
+}
+:where(.wautech-dashboard) select {
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 9px 10px;
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .demo-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--accent-soft);
+  padding: 9px 13px;
+  margin-bottom: 22px;
+  font-size: 10px;
+  color: var(--accent);
+}
+:where(.wautech-dashboard) .demo-dot {
+  background: var(--accent);
+  margin-right: 6px;
+}
+:where(.wautech-dashboard) .banner-detail {
+  color: var(--muted);
+}
+:where(.wautech-dashboard) .demo-banner label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+}
+:where(.wautech-dashboard) .demo-banner select {
+  padding: 3px 7px;
+  font-size: 10px;
+}
+:where(.wautech-dashboard) .metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+:where(.wautech-dashboard) .card {
+  background: linear-gradient(125deg, var(--surface), var(--surface));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 21px;
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+:where(.wautech-dashboard) .metric {
+  padding: 18px;
+}
+:where(.wautech-dashboard) .metric-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .metric-icon {
+  padding: 7px;
+  border-radius: 7px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+}
+:where(.wautech-dashboard) .tone-1 {
+  color: var(--cyan);
+}
+:where(.wautech-dashboard) .tone-2 {
+  color: var(--green);
+}
+:where(.wautech-dashboard) .tone-3 {
+  color: var(--accent);
+}
+:where(.wautech-dashboard) .metric-value {
+  font-size: 28px;
+  letter-spacing: -1px;
+  font-weight: 650;
+  margin: 12px 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+:where(.wautech-dashboard) .sparkline {
+  width: 66px;
+  height: 27px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+:where(.wautech-dashboard) .metric-foot {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  font-size: 9px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+:where(.wautech-dashboard) .positive {
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 550;
+}
+:where(.wautech-dashboard) .metric small {
+  font-size: 9px;
+}
+:where(.wautech-dashboard) .dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(290px, 1fr);
+  gap: 20px;
+}
+:where(.wautech-dashboard) .card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+:where(.wautech-dashboard) h2 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+:where(.wautech-dashboard) .card-heading p {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 4px;
+}
+:where(.wautech-dashboard) .badge {
+  border: 1px solid var(--border);
+  background: var(--raised);
+  border-radius: 5px;
+  padding: 4px 7px;
+  font-size: 9px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+:where(.wautech-dashboard) .text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 10px;
+  padding: 5px 0;
+  min-height: 30px;
+}
+:where(.wautech-dashboard) .text-button:hover {
+  text-decoration: underline;
+}
+:where(.wautech-dashboard) .chart-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+:where(.wautech-dashboard) .chart-summary > strong {
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+}
+:where(.wautech-dashboard) .legend {
+  display: flex;
+  gap: 13px;
+  margin-left: auto;
+  font-size: 9px;
+  color: var(--muted);
+}
+:where(.wautech-dashboard) .legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+:where(.wautech-dashboard) .legend i {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+:where(.wautech-dashboard) .legend span + span i {
+  background: var(--border);
+}
+:where(.wautech-dashboard) .chart {
+  display: flex;
+  height: 192px;
+  gap: 12px;
+}
+:where(.wautech-dashboard) .chart-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 23px;
+  font-size: 9px;
+  color: var(--muted);
+}
+:where(.wautech-dashboard) .plot {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+:where(.wautech-dashboard) .gridlines {
+  position: absolute;
+  inset: 0 0 23px;
+  background: repeating-linear-gradient(
+    to top,
+    transparent 0,
+    transparent calc(25% - 1px),
+    var(--border) calc(25% - 1px),
+    var(--border) 25%
+  );
+  border-bottom: 1px solid var(--border);
+}
+:where(.wautech-dashboard) .bars {
+  display: flex;
+  justify-content: space-around;
+  height: calc(100% - 23px);
+  align-items: flex-end;
+  padding: 0 10px;
+  position: relative;
+  gap: 7px;
+}
+:where(.wautech-dashboard) .bar-pair {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 100%;
+  flex: 1;
+  max-width: 32px;
+}
+:where(.wautech-dashboard) .bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  position: relative;
+  transition: height 0.3s;
+}
+:where(.wautech-dashboard) .bar.current {
+  background: linear-gradient(to top, var(--solid), var(--accent));
+}
+:where(.wautech-dashboard) .bar.previous {
+  background: var(--border);
+}
+:where(.wautech-dashboard) .tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 5px 8px;
+  white-space: nowrap;
+  font-size: 10px;
+  z-index: 5;
+  color: var(--text);
+}
+:where(.wautech-dashboard) .bar:hover .tooltip,
+:where(.wautech-dashboard) .bar:focus .tooltip {
+  display: block;
+}
+:where(.wautech-dashboard) .chart-labels {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+  font-size: 9px;
+  color: var(--muted);
+}
+:where(.wautech-dashboard) .pipeline-total {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+:where(.wautech-dashboard) .pipeline-total strong {
+  font-size: 30px;
+  font-weight: 600;
+}
+:where(.wautech-dashboard) .pipeline-total span {
+  color: var(--muted);
+  font-size: 10px;
+}
+:where(.wautech-dashboard) .pipeline-segments {
+  display: flex;
+  gap: 4px;
+  height: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 16px 0 17px;
+}
+:where(.wautech-dashboard) .segment-0 {
+  background: var(--accent);
+}
+:where(.wautech-dashboard) .segment-1 {
+  background: var(--cyan);
+}
+:where(.wautech-dashboard) .segment-2 {
+  background: var(--green);
+}
+:where(.wautech-dashboard) .segment-3 {
+  background: #7387b3;
+}
+:where(.wautech-dashboard) .pipeline-list button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+  background: transparent;
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .pipeline-list button:hover {
+  color: var(--accent);
+}
+:where(.wautech-dashboard) .stage-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+}
+:where(.wautech-dashboard) .pipeline-list small {
+  margin-left: auto;
+  font-size: 9px;
+}
+:where(.wautech-dashboard) .pipeline-list strong {
+  min-width: 65px;
+  text-align: right;
+  font-size: 11px;
+  font-weight: 500;
+}
+:where(.wautech-dashboard) .priority-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+:where(.wautech-dashboard) .priority-symbol {
+  padding: 9px;
+  display: flex;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+:where(.wautech-dashboard) .priority-item strong {
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .priority-item p {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+:where(.wautech-dashboard) .priority-item .text-button {
+  margin-left: auto;
+}
+:where(.wautech-dashboard) .task-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+}
+:where(.wautech-dashboard) .task-list input {
+  accent-color: var(--solid);
+  width: 15px;
+  height: 15px;
+}
+:where(.wautech-dashboard) .task-list strong {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+}
+:where(.wautech-dashboard) .task-list small {
+  display: block;
+  font-size: 9px;
+  margin-top: 4px;
+}
+:where(.wautech-dashboard) .task-avatar {
+  margin-left: auto;
+  width: 25px;
+  height: 25px;
+  font-size: 8px;
+  border-radius: 50%;
+}
+:where(.wautech-dashboard) .done strong {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+:where(.wautech-dashboard) .table-scroll {
+  overflow: auto;
+}
+:where(.wautech-dashboard) table {
+  border-collapse: collapse;
+  width: 100%;
+  white-space: nowrap;
+  text-align: left;
+  font-size: 10px;
+}
+:where(.wautech-dashboard) th {
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 500;
+  background: var(--raised);
+  padding: 10px 9px;
+}
+:where(.wautech-dashboard) td {
+  padding: 13px 9px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+}
+:where(.wautech-dashboard) tbody tr:last-child td {
+  border: 0;
+}
+:where(.wautech-dashboard) .company-cell {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--text);
+}
+:where(.wautech-dashboard) .company-avatar {
+  width: 27px;
+  height: 27px;
+  border-radius: 7px;
+  font-size: 9px;
+}
+:where(.wautech-dashboard) .company-cell strong {
+  font-weight: 500;
+}
+:where(.wautech-dashboard) .stage-badge {
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 9px;
+}
+:where(.wautech-dashboard) .negotiation {
+  color: var(--cyan);
+}
+:where(.wautech-dashboard) .qualified {
+  color: var(--green);
+}
+:where(.wautech-dashboard) .table-value {
+  color: var(--text);
+  font-weight: 500;
+}
+:where(.wautech-dashboard) .activity-list > div {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+:where(.wautech-dashboard) .activity-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  margin-top: 6px;
+  background: currentColor;
+  color: var(--accent);
+}
+:where(.wautech-dashboard) .activity-list p {
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .activity-list small {
+  font-size: 9px;
+  display: block;
+  margin-top: 5px;
+}
+:where(.wautech-dashboard) .notification-summary {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+:where(.wautech-dashboard) .notification-summary .card-heading {
+  margin: 0;
+}
+:where(.wautech-dashboard) .notification-summary > div:not(.card-heading) {
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .notification-summary p {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 4px;
+}
+:where(.wautech-dashboard) footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 27px;
+  color: var(--muted);
+  font-size: 9px;
+}
+:where(.wautech-dashboard) footer label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+:where(.wautech-dashboard) footer select {
+  font-size: 9px;
+  padding: 5px 8px;
+}
+:where(.wautech-dashboard) .panel {
+  margin: 0 0 0 auto;
+  position: fixed;
+  inset: 0;
+  width: min(460px, 100%);
+  max-width: none;
+  max-height: none;
+  height: 100dvh;
+  padding: 28px;
+  background: var(--surface);
+  color: var(--text);
+  border: 0;
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: auto;
+}
+:where(.wautech-dashboard) .panel::backdrop {
+  background: #050915a8;
+  backdrop-filter: blur(4px);
+}
+:where(.wautech-dashboard) .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 22px;
+  margin-bottom: 24px;
+}
+:where(.wautech-dashboard) .panel h2 {
+  font-size: 20px;
+}
+:where(.wautech-dashboard) .panel h3 {
+  font-size: 19px;
+  margin-bottom: 12px;
+}
+:where(.wautech-dashboard) .muted {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 16px 0;
+}
+:where(.wautech-dashboard) .assistant-orb {
+  width: 85px;
+  height: 85px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, var(--accent-soft), var(--surface));
+  border: 1px solid var(--border);
+  color: var(--accent);
+  margin: 45px 0 26px;
+}
+:where(.wautech-dashboard) .suggested-prompts {
+  display: grid;
+  gap: 10px;
+  margin: 25px 0;
+}
+:where(.wautech-dashboard) .suggested-prompts button {
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 13px;
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  gap: 12px;
+  font-size: 12px;
+}
+:where(.wautech-dashboard) .prompt-label {
+  display: grid;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  margin: 20px 0 12px;
+}
+:where(.wautech-dashboard) .prompt-label textarea {
+  resize: vertical;
+  min-height: 95px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--text);
+  background: var(--bg);
+}
+:where(.wautech-dashboard) .user-message {
+  background: var(--accent-soft);
+  border-radius: 10px;
+  padding: 13px;
+  font-size: 12px;
+}
+:where(.wautech-dashboard) .service-message {
+  padding: 12px;
+  color: var(--muted);
+  font-size: 11px;
+}
+:where(.wautech-dashboard) .profile-detail {
+  text-align: center;
+  margin: 35px 0;
+}
+:where(.wautech-dashboard) .profile-detail .avatar {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+:where(.wautech-dashboard) .profile-detail p {
+  margin-bottom: 16px;
+  color: var(--muted);
+}
+:where(.wautech-dashboard) .inbox > div {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border-top: 1px solid var(--border);
+  padding: 22px 0;
+  font-size: 12px;
+}
+:where(.wautech-dashboard) .inbox > div > span {
+  margin-top: 6px;
+}
+:where(.wautech-dashboard) .inbox p {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 6px;
+}
+:where(.wautech-dashboard) .read-dot {
+  background: var(--muted);
+}
+:where(.wautech-dashboard) .theme-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+:where(.wautech-dashboard) .theme-choice {
+  padding: 14px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--raised);
+  text-align: left;
+}
+:where(.wautech-dashboard) .theme-choice[aria-pressed='true'] {
+  outline: 2px solid var(--accent);
+}
+:where(.wautech-dashboard) .theme-choice strong,
+:where(.wautech-dashboard) .theme-choice small {
+  display: block;
+}
+:where(.wautech-dashboard) .theme-preview {
+  height: 110px;
+  background: #11182c;
+  display: flex;
+  gap: 7px;
+  padding: 16px;
+  border-radius: 7px;
+  margin-bottom: 15px;
+}
+:where(.wautech-dashboard) .theme-preview i {
+  background: #8976ee;
+  border-radius: 5px;
+  width: 30%;
+  align-self: flex-end;
+  height: 60%;
+}
+:where(.wautech-dashboard) .theme-preview i:nth-child(2) {
+  height: 85%;
+}
+:where(.wautech-dashboard) .theme-preview i:nth-child(3) {
+  height: 45%;
+  background: #63d7dd;
+}
+:where(.wautech-dashboard) .theme-1 .theme-preview {
+  background: #fafbfe;
+}
+:where(.wautech-dashboard) .theme-2 .theme-preview {
+  background: #0c2029;
+}
+:where(.wautech-dashboard) .theme-2 .theme-preview i {
+  background: #55c9bd;
+}
+:where(.wautech-dashboard) .theme-3 .theme-preview {
+  background: #25221c;
+}
+:where(.wautech-dashboard) .theme-3 .theme-preview i {
+  background: #c6a259;
+}
+:where(.wautech-dashboard) .data-state {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 18px;
+  color: var(--muted);
+}
+:where(.wautech-dashboard) .data-state h2 {
+  font-size: 22px;
+  color: var(--text);
+}
+.wautech-dashboard.is-collapsed .sidebar {
+  width: 76px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.wautech-dashboard.is-collapsed .main-shell {
+  margin-left: 76px;
+}
+.wautech-dashboard.is-collapsed .nav-copy,
+.wautech-dashboard.is-collapsed .brand-copy,
+.wautech-dashboard.is-collapsed .nav-label,
+.wautech-dashboard.is-collapsed .sidebar-profile .online-dot {
+  display: none;
+}
+.wautech-dashboard.is-collapsed .brand {
+  margin-left: 3px;
+}
+.wautech-dashboard.is-collapsed .workspace {
+  padding: 8px;
+  border: 0;
+}
+.wautech-dashboard.is-collapsed .assistant-nav {
+  padding: 14px;
+}
+:where(.wautech-dashboard) .skip-link {
+  position: fixed;
+  top: -100px;
+  left: 20px;
+  z-index: 100;
+  background: var(--solid);
+  color: white;
+  padding: 12px;
+}
+:where(.wautech-dashboard) .skip-link:focus {
+  top: 12px;
+}
+:where(.wautech-dashboard) .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+:where(.wautech-dashboard) .mobile-scrim {
+  display: none;
+}
+@media (min-width: 1600px) {
+  :where(.wautech-dashboard) main {
+    padding: 40px;
+  }
+  :where(.wautech-dashboard) .card {
+    padding: 26px;
+  }
+  :where(.wautech-dashboard) .chart {
+    height: 240px;
+  }
+}
+@media (max-width: 1200px) {
+  :where(.wautech-dashboard) .environment {
+    display: none;
+  }
+  :where(.wautech-dashboard) .topbar {
+    gap: 16px;
+    padding: 0 24px;
+  }
+  :where(.wautech-dashboard) main {
+    padding: 24px;
+  }
+  :where(.wautech-dashboard) .metrics {
+    gap: 10px;
+  }
+  :where(.wautech-dashboard) .metric-value {
+    font-size: 24px;
+  }
+  :where(.wautech-dashboard) .sparkline {
+    width: 45px;
+  }
+  :where(.wautech-dashboard) .metric-foot {
+    flex-wrap: wrap;
+  }
+  :where(.wautech-dashboard) .dashboard-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr);
+  }
+  :where(.wautech-dashboard) .legend {
+    flex-direction: column;
+    gap: 4px;
+  }
+  :where(.wautech-dashboard) .notification-summary {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  :where(.wautech-dashboard) .theme-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 1000px) {
+  :where(.wautech-dashboard) .sidebar {
+    width: 200px;
+  }
+  :where(.wautech-dashboard) .main-shell {
+    margin-left: 200px;
+  }
+  :where(.wautech-dashboard) .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  :where(.wautech-dashboard) .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  :where(.wautech-dashboard) .search-wrap kbd {
+    display: none;
+  }
+  :where(.wautech-dashboard) .breadcrumb {
+    display: none;
+  }
+  :where(.wautech-dashboard) .page-heading {
+    align-items: flex-start;
+  }
+  :where(.wautech-dashboard) .heading-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  :where(.wautech-dashboard) .notification-summary {
+    grid-column: auto;
+  }
+  :where(.wautech-dashboard) .legend {
+    flex-direction: row;
+  }
+  :where(.wautech-dashboard) .chart {
+    height: 220px;
+  }
+}
+@media (max-width: 700px) {
+  :where(.wautech-dashboard) .sidebar,
+  .wautech-dashboard.is-collapsed .sidebar {
+    visibility: hidden;
+    transform: translateX(-100%);
+    width: 238px;
+    transition: transform 0.2s;
+  }
+  :where(.wautech-dashboard) .sidebar.mobile-open {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  .wautech-dashboard.is-collapsed .sidebar .nav-copy,
+  .wautech-dashboard.is-collapsed .sidebar .brand-copy,
+  .wautech-dashboard.is-collapsed .sidebar .nav-label {
+    display: block;
+  }
+  .wautech-dashboard.is-collapsed .sidebar {
+    padding: 28px 16px 16px;
+  }
+  :where(.wautech-dashboard) .main-shell,
+  .wautech-dashboard.is-collapsed .main-shell {
+    margin-left: 0;
+  }
+  :where(.wautech-dashboard) .mobile-toggle {
+    display: flex;
+  }
+  :where(.wautech-dashboard) .mobile-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: #0008;
+    z-index: 25;
+  }
+  :where(.wautech-dashboard) .topbar {
+    height: 66px;
+    gap: 8px;
+    padding: 0 14px;
+  }
+  :where(.wautech-dashboard) .search-wrap {
+    margin-left: 0;
+    flex: 1;
+  }
+  :where(.wautech-dashboard) .search-wrap input {
+    width: 100%;
+    min-width: 0;
+  }
+  :where(.wautech-dashboard) .topbar-actions {
+    gap: 5px;
+  }
+  :where(.wautech-dashboard) .search-wrap > svg {
+    display: none;
+  }
+  :where(.wautech-dashboard) main {
+    padding: 24px 16px;
+  }
+  :where(.wautech-dashboard) .page-heading {
+    flex-direction: column;
+    gap: 17px;
+  }
+  :where(.wautech-dashboard) h1 {
+    font-size: 27px;
+  }
+  :where(.wautech-dashboard) .heading-actions {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+  }
+  :where(.wautech-dashboard) .demo-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+  }
+  :where(.wautech-dashboard) .banner-detail {
+    display: block;
+    margin-top: 4px;
+  }
+  :where(.wautech-dashboard) .metrics {
+    gap: 10px;
+  }
+  :where(.wautech-dashboard) .metric {
+    padding: 14px;
+  }
+  :where(.wautech-dashboard) .metric-value {
+    font-size: 23px;
+  }
+  :where(.wautech-dashboard) .sparkline {
+    display: none;
+  }
+  :where(.wautech-dashboard) .metric-foot {
+    font-size: 8px;
+  }
+  :where(.wautech-dashboard) .dashboard-grid {
+    gap: 14px;
+  }
+  :where(.wautech-dashboard) .card {
+    padding: 17px;
+  }
+  :where(.wautech-dashboard) .chart-summary {
+    flex-wrap: wrap;
+  }
+  :where(.wautech-dashboard) .legend {
+    margin-left: 0;
+    width: 100%;
+  }
+  :where(.wautech-dashboard) .chart {
+    height: 190px;
+  }
+  :where(.wautech-dashboard) .bars {
+    gap: 4px;
+    padding: 0 3px;
+  }
+  :where(.wautech-dashboard) .bar-pair {
+    gap: 2px;
+  }
+  :where(.wautech-dashboard) .priority-item {
+    flex-wrap: wrap;
+  }
+  :where(.wautech-dashboard) .priority-item > div {
+    flex: 1;
+  }
+  :where(.wautech-dashboard) .priority-item .text-button {
+    margin-left: 46px;
+  }
+  :where(.wautech-dashboard) .notification-summary {
+    display: block;
+  }
+  :where(.wautech-dashboard) .notification-summary > div {
+    margin-bottom: 12px;
+  }
+  :where(.wautech-dashboard) footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  :where(.wautech-dashboard) .theme-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  :where(.wautech-dashboard) .theme-choice {
+    padding: 10px;
+  }
+  :where(.wautech-dashboard) .theme-preview {
+    height: 80px;
+  }
+  :where(.wautech-dashboard) .theme-choice strong {
+    font-size: 11px;
+  }
+  :where(.wautech-dashboard) .table-scroll {
+    margin: 0 -5px;
+  }
+  :where(.wautech-dashboard) .panel {
+    padding: 22px;
+  }
+  :where(.wautech-dashboard) .search-results {
+    left: 0;
+    right: auto;
+    width: min(270px, 80vw);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :where(.wautech-dashboard) *,
+  :where(.wautech-dashboard) *:before,
+  :where(.wautech-dashboard) *:after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.wautech-dashboard.dashboard-scope {
+  min-height: 0;
+}
+:where(.wautech-dashboard) .pipeline-total {
+  flex-wrap: wrap;
+}
+:where(.wautech-dashboard) .pipeline-total strong {
+  overflow-wrap: anywhere;
+  font-size: 24px;
+}
+:where(.wautech-dashboard) .pipeline-list button {
+  flex-wrap: wrap;
+}
+:where(.wautech-dashboard) .chart-labels span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 16%;
+}
