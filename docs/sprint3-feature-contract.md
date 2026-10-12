@@ -1,6 +1,6 @@
 # Sprint 3 feature registration
 
-Baseline: frontend PR #8 (`c8398c4`) and backend PR #20 (`39e8421`) are **open**, not merged. Sprint 3 starts from these compatible local heads. Deploy/merge the backend dependency before the unified frontend. This branch does not prove other developers' Sprint 3 modules are integrated.
+Baseline: frontend PR #8 (`c8398c4`) and backend PR #20 (`39e8421`) were **open**, not merged, at task start. Frontend #8 subsequently merged during this work; backend #20 remains open. Sprint 3 starts from these compatible local heads. Deploy/merge the backend dependency before the unified frontend. This branch does not prove other developers' Sprint 3 modules are integrated.
 
 The stable interface is `apps/web/src/features/contract.ts`. Add a directory with `feature.ts` exporting a default `FeatureModule`. Vite discovers `features/*/feature.ts` automatically. Keep the manifest lightweight and use `load: () => import('./Page')` (or an existing workspace export) for the page. `example/` is a working, tenant-protected example at `/feature-example` with no navigation entry.
 
