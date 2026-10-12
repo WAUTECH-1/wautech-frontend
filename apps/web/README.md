@@ -1,16 +1,16 @@
 # WAUTECH Intelligence — unified application foundation
 
-Sprint 2 implementation is confined to `apps/web/` on `feature/sprint2-umer-web-foundation`. It uses the existing React 19.3.0, TypeScript 5.9.3, Vite 8.3.4 and Tailwind 4.3.3 versions. No root configuration, lockfile, shared contracts, sibling workspace or backend edits are included.
+The unified foundation uses the existing React 19.3.0, TypeScript 5.9.3, Vite 8.3.4 and Tailwind 4.3.3 versions. Checkpoint A enrolls `@wautech/web` in the root npm workspace and CI checks without changing application behavior or sibling implementations.
 
 ## Run independently
 
 Install the existing root lockfile dependencies once with `npm ci`, then:
 
 ```sh
-npm --prefix apps/web run dev
+npm run dev:web
 ```
 
-Open http://127.0.0.1:5176. No other workspace server is required. `apps/web` consumes read-only source modules from the merged workspaces; it does not embed their standalone applications or require them to run. React is deduplicated in Vite. Root npm workspace commands currently do not include this directory.
+Open http://127.0.0.1:5176. No other workspace server is required. `apps/web` consumes read-only source modules from the merged workspaces; it does not embed their standalone applications or require them to run. React is deduplicated in Vite. Root TypeScript, test and build commands now include this application through workspace execution.
 
 Fallback commands from inside `apps/web`, using the repository's installed tools:
 
@@ -22,7 +22,7 @@ node ../../node_modules/vitest/vitest.mjs run
 node ../../node_modules/vite/bin/vite.js build
 ```
 
-With npm available, `npm --prefix apps/web run check` runs local lint, typecheck, tests and production build. Preview uses strict port 4176; development uses strict port 5176. Do not install another set of framework versions into this app. Root workspace enrollment needs separate approval; see [ROOT-CONFIGURATION.md](./ROOT-CONFIGURATION.md).
+`npm run check` from the repository root runs lint, TypeScript, tests, formatting and production builds for the repository. `npm run check --workspace=@wautech/web` remains available for local app lint/typecheck/tests/build. Preview uses strict port 4176; development uses strict port 5176. Install dependencies only from the root lockfile; see [ROOT-CONFIGURATION.md](./ROOT-CONFIGURATION.md).
 
 ## Structure
 
