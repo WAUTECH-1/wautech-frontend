@@ -5,7 +5,7 @@ test.each([undefined, '', '/'])('same-origin configuration: %s', (value) => {
   expect(apiConfiguration(value)).toEqual({
     baseUrl: '',
     transport: 'session-cookie',
-    tenantDiscovery: 'unavailable',
+    tenantDiscovery: 'backend-membership',
   });
 });
 test('allows HTTPS and loopback dev origins', () => {

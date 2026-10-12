@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import type { CrmApi } from './api';
+import type { CrmOperations } from './api';
 import type { Company, Contact, RecordDto, Resource } from './contracts';
 import { fields, toRequest, validate } from './forms';
 import type { Values } from './forms';
@@ -20,7 +20,7 @@ export function RecordForm({
   onClose,
   onSaved,
 }: {
-  api: CrmApi;
+  api: CrmOperations;
   resource: Resource;
   record: RecordDto | null;
   companies: Company[];

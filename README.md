@@ -2,7 +2,7 @@
 
 Frontend application for WAUTECH Intelligence Platform
 
-The repository contains independent developer applications and the protected unified web application foundation.
+The repository contains independent developer applications and the integrated unified web application.
 
 ## Requirements and installation
 
@@ -17,7 +17,7 @@ Run npm from the repository root. Do not create per-workspace lockfiles. `npm ru
 ## Structure
 
 ```text
-apps/web/                 Unified application foundation (@wautech/web)
+apps/web/                 Unified production application (@wautech/web)
 workspaces/wajahat/       Wajahat's independent application
 workspaces/asad/          Asad's independent application
 workspaces/umer/          Umer's independent application
@@ -35,7 +35,7 @@ docs/                    Ownership and backend integration guidance
 | Umer      | `npm run dev:umer`    | 5175 | `npm start --workspace=@wautech/umer`    |
 | Web app   | `npm run dev:web`     | 5176 | `npm run dev --workspace=@wautech/web`   |
 
-Run each command in a separate terminal. All development servers use `strictPort: true` and fail if their assigned port is occupied. Applications also support `npm run build --workspace=@wautech/<name>` and `npm test --workspace=@wautech/<name>`. Commands can also be run inside the application directory. Preview ports are 4173, 4174, 4175 and 4176 respectively, also strict. The default `npm run dev` continues to start Wajahat's application.
+Run each command in a separate terminal. All development servers use `strictPort: true` and fail if their assigned port is occupied. Applications also support `npm run build --workspace=@wautech/<name>` and `npm test --workspace=@wautech/<name>`. Commands can also be run inside the application directory. Preview ports are 4173, 4174, 4175 and 4176 respectively, also strict. The default `npm run dev` starts the unified web application on port 5176.
 
 ## Validation
 

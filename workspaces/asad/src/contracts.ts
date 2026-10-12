@@ -84,6 +84,7 @@ export interface PerformanceSeries {
   description: string;
 }
 export type Provenance =
+  | { kind: 'unavailable'; label: string }
   | { kind: 'demo'; label: string }
   | { kind: 'verified'; label: string; asOf: string };
 export interface DashboardData {

@@ -16,7 +16,7 @@
   "scripts": {
     "verify:dev": "node scripts/verify-dev.mjs",
     "install:dependencies": "npm ci",
-    "dev": "npm run dev --workspace=@wautech/wajahat",
+    "dev": "npm run dev --workspace=@wautech/web",
     "dev:web": "npm run dev --workspace=@wautech/web",
     "dev:wajahat": "npm run dev --workspace=@wautech/wajahat",
     "dev:asad": "npm run dev --workspace=@wautech/asad",

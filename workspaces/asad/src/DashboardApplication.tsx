@@ -32,6 +32,13 @@ export interface DashboardApplicationProps extends DashboardActions {
   demoControls?: boolean;
   idPrefix?: string;
   navigationBadges?: Partial<Record<Page, string>>;
+  hostControls?: ReactNode;
+  onLogout?: () => void;
+  logoutBusy?: boolean;
+  logoutError?: string;
+  renderProfile?: () => ReactNode;
+  pageTitle?: string;
+  notificationState?: 'loading' | 'ready' | 'unavailable';
 }
 
 export function DashboardApplication({
@@ -53,6 +60,13 @@ export function DashboardApplication({
   demoControls = false,
   idPrefix,
   navigationBadges,
+  hostControls,
+  onLogout,
+  logoutBusy,
+  logoutError,
+  renderProfile,
+  pageTitle,
+  notificationState = 'ready',
 }: DashboardApplicationProps) {
   const demo = data.provenance.kind === 'demo';
   const unread =
@@ -194,8 +208,8 @@ export function DashboardApplication({
           {navigation.slice(0, 8).map((n) => (
             <button
               key={n}
-              className={`nav-item ${page === n ? 'active' : ''}`}
-              aria-current={page === n ? 'page' : undefined}
+              className={`nav-item ${!pageTitle && page === n ? 'active' : ''}`}
+              aria-current={!pageTitle && page === n ? 'page' : undefined}
               title={n}
               onClick={() => navigate(n)}
             >
@@ -266,7 +280,7 @@ export function DashboardApplication({
           </button>
           <div className="breadcrumb">
             Workspace <Icon name="chevron" size={14} />
-            <strong>{page}</strong>
+            <strong>{pageTitle || page}</strong>
           </div>
           <div className="search-wrap">
             <Icon name="search" size={18} />
@@ -294,16 +308,21 @@ export function DashboardApplication({
             )}
           </div>
           <div className="topbar-actions">
+            {hostControls}
             <span className="environment">
               <span /> {demo ? 'Demo workspace' : user.workspaceName}
             </span>
             <button
               className="icon-button notification-button"
-              aria-label={`Notifications, ${unread} unread ${demo ? 'demo updates' : 'updates'}`}
+              aria-label={
+                notificationState === 'ready'
+                  ? `Notifications, ${unread} unread ${demo ? 'demo updates' : data.unreadNotificationCount === undefined ? 'loaded updates' : 'updates'}`
+                  : `Notifications ${notificationState}`
+              }
               onClick={() => setPanel('notifications')}
             >
               <Icon name="bell" />
-              {unread > 0 && <i />}
+              {notificationState === 'ready' && unread > 0 && <i />}
             </button>
             <button
               className="avatar profile-button"
@@ -318,7 +337,10 @@ export function DashboardApplication({
           <div className="page-heading">
             <div>
               <p className="eyebrow">YOUR BUSINESS, IN FOCUS</p>
-              <h1>{page === 'Overview' ? 'Executive overview' : page}</h1>
+              <h1>
+                {pageTitle ||
+                  (page === 'Overview' ? 'Executive overview' : page)}
+              </h1>
               <p className="intro">
                 {page === 'Overview'
                   ? 'A clearer perspective. A smarter next move.'
@@ -343,7 +365,11 @@ export function DashboardApplication({
           <div className="demo-banner">
             <span>
               <span className="demo-dot" />{' '}
-              {demo ? 'Demonstration data' : 'Verified data'}{' '}
+              {demo
+                ? 'Demonstration data'
+                : data.provenance.kind === 'verified'
+                  ? 'Verified data'
+                  : 'Data unavailable'}{' '}
               <span className="banner-detail">
                 {data.provenance.label}
                 {data.provenance.kind === 'verified'
@@ -404,32 +430,33 @@ export function DashboardApplication({
               errorMessage={errorMessage}
               retry={demo && demoControls ? () => setState('ready') : onRetry}
             >
-              {page === 'Overview' ? (
-                <DashboardView
-                  showProvenance={false}
-                  data={data}
-                  period={period}
-                  onNavigate={navigate}
-                  onTaskToggle={onTaskToggle}
-                  onOpenNotifications={() => setPanel('notifications')}
-                />
-              ) : page === 'Tasks' ? (
-                <Card title="Your task list">
-                  <TaskList tasks={data.tasks} onToggle={onTaskToggle} />
-                </Card>
-              ) : page === 'Activities' ? (
-                <Card title="Workspace timeline">
-                  <ActivityFeed activities={data.activities} />
-                </Card>
-              ) : (
-                renderPage?.(page) || (
-                  <Card title={page}>
-                    <p className="muted">
-                      This destination is managed by the host application.
-                    </p>
+              {(!demo && renderPage?.(page)) ||
+                (page === 'Overview' ? (
+                  <DashboardView
+                    showProvenance={false}
+                    data={data}
+                    period={period}
+                    onNavigate={navigate}
+                    onTaskToggle={onTaskToggle}
+                    onOpenNotifications={() => setPanel('notifications')}
+                  />
+                ) : page === 'Tasks' ? (
+                  <Card title="Your task list">
+                    <TaskList tasks={data.tasks} onToggle={onTaskToggle} />
                   </Card>
-                )
-              )}
+                ) : page === 'Activities' ? (
+                  <Card title="Workspace timeline">
+                    <ActivityFeed activities={data.activities} />
+                  </Card>
+                ) : (
+                  renderPage?.(page) || (
+                    <Card title={page}>
+                      <p className="muted">
+                        This destination is managed by the host application.
+                      </p>
+                    </Card>
+                  )
+                ))}
             </DataBoundary>
           )}
           <footer>
@@ -523,6 +550,7 @@ export function DashboardApplication({
           </>
         ) : panel === 'profile' ? (
           <>
+            {renderProfile?.()}
             <div className="profile-detail">
               <span className="avatar">{user.initials}</span>
               <h3>{user.name}</h3>
@@ -544,20 +572,36 @@ export function DashboardApplication({
             >
               Appearance settings
             </button>
+            {onLogout && (
+              <button disabled={logoutBusy} onClick={onLogout}>
+                {logoutBusy ? 'Signing out…' : 'Sign out'}
+              </button>
+            )}
+            {logoutError && <p role="alert">{logoutError}</p>}
           </>
         ) : (
           <>
             <p className="muted">
-              {demo
-                ? 'Sample inbox · changes stay in this session.'
-                : 'Workspace notifications'}
+              {notificationState !== 'ready'
+                ? `Notifications ${notificationState}. Retry workspace data to refresh.`
+                : demo
+                  ? 'Sample inbox · changes stay in this session.'
+                  : 'Workspace notifications'}
             </p>
             <button
               className="text-button"
               onClick={onMarkNotificationsRead}
-              disabled={!unread || !onMarkNotificationsRead}
+              disabled={
+                notificationState !== 'ready' ||
+                !unread ||
+                !onMarkNotificationsRead
+              }
             >
-              {unread ? 'Mark all as read' : 'All marked as read'}
+              {unread
+                ? 'Mark all as read'
+                : demo || data.unreadNotificationCount === 0
+                  ? 'All marked as read'
+                  : 'No unread items in loaded page'}
             </button>
             <div className="inbox">
               {data.notifications.map((n) => (

@@ -1,6 +1,6 @@
 import type { ComponentType, ReactNode } from 'react';
-import { themes } from '../../../../workspaces/asad/src/data';
-import type { Theme } from '../../../../workspaces/asad/src/data';
+import { themes } from '@wautech/asad';
+import type { Theme } from '@wautech/asad';
 import type { AuthenticatedUser } from './auth';
 import type { AppPath } from '../routing/routes';
 export { themes };
@@ -48,7 +48,7 @@ export interface DashboardModule {
   Overview: ComponentType<{ services: DashboardServices }>;
 }
 export const dashboardCapability = {
-  status: 'unavailable',
+  status: 'integrated',
   message:
-    'Reusable dashboard shell and widgets are awaiting their integration export. Demonstration metrics are not mounted.',
+    'Reusable shell and widgets are connected through authorized backend adapters. Historical analytics remain unavailable.',
 } as const;

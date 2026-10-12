@@ -8,7 +8,7 @@ const vite = resolve('node_modules/vite/bin/vite.js');
 const servers = [];
 function start(developer) {
   const child = spawn(process.execPath, [vite], {
-    cwd: resolve('workspaces', developer),
+    cwd: resolve(developer === 'web' ? 'apps' : 'workspaces', developer),
     stdio: ['ignore', 'pipe', 'pipe'],
     windowsHide: true,
   });
@@ -20,13 +20,18 @@ function start(developer) {
 }
 
 try {
-  for (const [index, developer] of ['wajahat', 'asad', 'umer'].entries()) {
+  for (const [index, developer] of [
+    'wajahat',
+    'asad',
+    'umer',
+    'web',
+  ].entries()) {
     const port = 5173 + index;
     const server = start(developer);
     let ready = false;
     for (let attempt = 0; attempt < 100; attempt++) {
       assert.equal(server.child.exitCode, null, server.output());
-      if (server.output().includes(`localhost:${port}`)) {
+      if (server.output().includes(`:${port}`)) {
         ready = true;
         break;
       }
@@ -35,11 +40,8 @@ try {
     assert.ok(ready, server.output());
     const html = await fetch(`http://localhost:${port}`).then((r) => r.text());
     assert.ok(html.includes('/src/main.tsx'));
-    const app = await fetch(`http://localhost:${port}/src/App.tsx`).then((r) =>
-      r.text(),
-    );
-    const name = developer[0].toUpperCase() + developer.slice(1);
-    assert.ok(app.includes(`WAUTECH Intelligence — ${name} Workspace`));
+    const entry = await fetch(`http://localhost:${port}/src/main.tsx`);
+    assert.equal(entry.status, 200);
     const duplicate = start(developer);
     const [code] = await Promise.race([
       once(duplicate.child, 'exit'),

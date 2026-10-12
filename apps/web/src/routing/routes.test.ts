@@ -14,6 +14,9 @@ test('all requested routes exist, root maps to dashboard and unknown is not-foun
     '/activities',
     '/tasks',
     '/settings',
+    '/pipeline',
+    '/profile',
+    '/organizations',
     '/unauthorized',
     '/access-denied',
   ]);

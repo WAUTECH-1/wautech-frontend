@@ -8,6 +8,7 @@ export function RecordTable({
   onOpen,
   onEdit,
   onArchive,
+  readOnly = false,
 }: {
   resource: Resource;
   rows: RecordDto[];
@@ -17,6 +18,7 @@ export function RecordTable({
   onOpen: (r: RecordDto) => void;
   onEdit: (r: RecordDto) => void;
   onArchive: (r: RecordDto) => void;
+  readOnly?: boolean;
 }) {
   if (loading)
     return (
@@ -104,12 +106,14 @@ export function RecordTable({
                 <td>{new Date(row.updatedAt).toLocaleDateString()}</td>
                 <td className="row-actions">
                   <button
+                    disabled={readOnly}
                     onClick={() => onEdit(row)}
                     aria-label={`Edit ${name}`}
                   >
                     Edit
                   </button>
                   <button
+                    disabled={readOnly}
                     onClick={() => onArchive(row)}
                     aria-label={`Archive ${name}`}
                   >

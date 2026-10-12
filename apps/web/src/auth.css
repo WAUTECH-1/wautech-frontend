@@ -1,0 +1,782 @@
+.foundation-app {
+  --font-sans: 'Segoe UI', Inter, system-ui, sans-serif;
+  font-family: var(--font-sans);
+  color: #eef1f9;
+  background: #090d17;
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+.foundation-app * {
+  box-sizing: border-box;
+}
+.foundation-app {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse at 7% 35%, #18374255, transparent 40%),
+    radial-gradient(ellipse at 95% 65%, #34305b33, transparent 44%), #090d17;
+}
+.foundation-app a {
+  color: inherit;
+  text-decoration: none;
+}
+.foundation-app button,
+.foundation-app input {
+  font: inherit;
+}
+.foundation-app button,
+.foundation-app a,
+.foundation-app input {
+  -webkit-tap-highlight-color: transparent;
+}
+.foundation-app button {
+  cursor: pointer;
+}
+.foundation-app button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.foundation-app :focus-visible {
+  outline: 2px solid #8be5eb;
+  outline-offset: 5px;
+}
+.foundation-app h1,
+.foundation-app h2,
+.foundation-app p {
+  margin: 0;
+}
+.foundation-app .app-shell {
+  max-width: 1440px;
+  margin: auto;
+  min-height: 100dvh;
+  padding: 0 64px;
+  display: flex;
+  flex-direction: column;
+}
+.foundation-app .site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 124px;
+}
+.foundation-app .brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.foundation-app .brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, #192b3c, #141629);
+  border: 1px solid #64869455;
+  border-radius: 12px;
+  font-size: 23px;
+  font-weight: 750;
+  letter-spacing: -4px;
+  padding-right: 4px;
+}
+.foundation-app .brand-mark span,
+.foundation-app .orbit-core span {
+  color: #87e2ea;
+}
+.foundation-app .brand-name {
+  font-size: 17px;
+  letter-spacing: 3.2px;
+  font-weight: 650;
+}
+.foundation-app .brand-name > span {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 4.4px;
+  margin-top: 3px;
+  color: #9daabd;
+}
+.foundation-app .header-caption {
+  font-size: 9px;
+  letter-spacing: 2.1px;
+  color: #9ca9bb;
+}
+.foundation-app .header-caption span {
+  margin-left: 17px;
+  font-size: 19px;
+  color: #8be5eb;
+}
+.foundation-app main {
+  flex: 1;
+  display: grid;
+  align-items: center;
+  outline: none;
+}
+.foundation-app .login-layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 80px;
+  padding: 30px 32px 40px 18px;
+  align-items: center;
+}
+.foundation-app .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #91d7dd;
+}
+.foundation-app .tiny-line {
+  width: 22px;
+  height: 1px;
+  background: #8bdae1;
+}
+.foundation-app .introduction h1 {
+  font-size: clamp(42px, 4.5vw, 64px);
+  line-height: 1.12;
+  font-weight: 500;
+  letter-spacing: -2.6px;
+  margin-top: 27px;
+}
+.foundation-app .introduction h1 > span {
+  background: linear-gradient(100deg, #90e0df, #a7a3e7);
+  background-clip: text;
+  color: transparent;
+}
+.foundation-app .intro-copy {
+  max-width: 330px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #a2b0c1;
+  margin-top: 24px;
+}
+.foundation-app .orbital-scene {
+  position: relative;
+  width: 320px;
+  height: 238px;
+  margin: 28px 0 6px;
+}
+.foundation-app .orbit {
+  border: 1px solid #66b2c72b;
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%) rotate(-27deg);
+  border-radius: 50%;
+}
+.foundation-app .orbit-one {
+  width: 280px;
+  height: 145px;
+}
+.foundation-app .orbit-two {
+  width: 240px;
+  height: 125px;
+  transform: translate(-50%, -50%) rotate(38deg);
+  border-color: #b9a4ef2b;
+}
+.foundation-app .orbit-three {
+  width: 175px;
+  height: 175px;
+  border-style: dashed;
+  border-color: #788aaf22;
+}
+.foundation-app .orbit-core {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  display: grid;
+  place-content: center;
+  width: 72px;
+  height: 72px;
+  border: 1px solid #88adca55;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #254257, #172333);
+  box-shadow:
+    0 0 65px #70c2d326,
+    inset 0 1px 1px #ffffff22;
+  font-size: 34px;
+  font-weight: 650;
+  letter-spacing: -5px;
+}
+.foundation-app .orbit-core span {
+  position: absolute;
+  right: 10px;
+  bottom: 13px;
+}
+.foundation-app .orbit-node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #9bdae3;
+  box-shadow: 0 0 18px #a7dce3;
+}
+.foundation-app .node-one {
+  left: 21px;
+  top: 138px;
+}
+.foundation-app .node-two {
+  right: 54px;
+  top: 28px;
+  background: #b5aaee;
+}
+.foundation-app .node-three {
+  right: 21px;
+  bottom: 105px;
+}
+.foundation-app .orbit-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  text-align: center;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: #7d95a8;
+}
+.foundation-app .intro-footnote {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #9aabba;
+  font-size: 11px;
+}
+.foundation-app .small-diamond {
+  height: 5px;
+  width: 5px;
+  border: 1px solid #85c9d1;
+  transform: rotate(45deg);
+}
+.foundation-app .glass-panel {
+  background: linear-gradient(140deg, #1a2533aa, #151a2abb 65%);
+  border: 1px solid #adbcdc22;
+  box-shadow:
+    0 24px 90px #00000025,
+    inset 0 1px 0 #ffffff07;
+  border-radius: 24px;
+}
+.foundation-app .login-panel {
+  padding: 36px;
+}
+.foundation-app .panel-topline {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #a4b1c4;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  margin-bottom: 32px;
+}
+.foundation-app .panel-symbol {
+  width: 33px;
+  height: 33px;
+  border-radius: 10px;
+  background: #86dce50d;
+  border: 1px solid #83cdd22a;
+  display: grid;
+  place-content: center;
+  font-size: 18px;
+  color: #90d7dd;
+}
+.foundation-app .login-panel h2 {
+  font-size: 29px;
+  font-weight: 500;
+  letter-spacing: -0.8px;
+  margin-bottom: 9px;
+}
+.foundation-app .muted {
+  color: #a4b0c3;
+  font-size: 13px;
+  line-height: 1.75;
+}
+.foundation-app form {
+  margin-top: 31px;
+}
+.foundation-app label {
+  display: block;
+  font-size: 12px;
+  color: #ccd6e4;
+  margin: 23px 0 9px;
+  font-weight: 500;
+}
+.foundation-app input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  background: #090f1b66;
+  color: #f2f5ff;
+  border: 1px solid #a1b2d126;
+  border-radius: 9px;
+  padding: 12px 14px;
+  font-size: 13px;
+  transition: border-color 0.2s;
+}
+.foundation-app input::placeholder {
+  color: #8592a9;
+}
+.foundation-app input:hover {
+  border-color: #a1b2d155;
+}
+.foundation-app input:focus {
+  border-color: #8bd3d9;
+}
+.foundation-app input[aria-invalid='true'] {
+  border-color: #dba1ad;
+}
+.foundation-app .password-field {
+  position: relative;
+}
+.foundation-app .password-field input {
+  padding-right: 63px;
+}
+.foundation-app .password-toggle {
+  position: absolute;
+  right: 6px;
+  top: 4px;
+  min-width: 49px;
+  min-height: 40px;
+  background: transparent;
+  border: 0;
+  color: #b5c4d5;
+  font-size: 11px;
+  border-radius: 6px;
+}
+.foundation-app .password-toggle:hover {
+  background: #d6e1ff0c;
+}
+.foundation-app .primary-button {
+  margin-top: 27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #bceced77;
+  background: linear-gradient(110deg, #a0e1e4, #b0c4ea);
+  border-radius: 9px;
+  color: #122331;
+  font-size: 13px;
+  font-weight: 650;
+  box-shadow: 0 3px 20px #92d6e019;
+  transition:
+    filter 0.2s,
+    box-shadow 0.2s;
+}
+.foundation-app .primary-button span:last-child:not(.spinner) {
+  margin-left: auto;
+  margin-right: 17px;
+  font-size: 18px;
+}
+.foundation-app .primary-button:not(:disabled):hover {
+  filter: brightness(1.08);
+  box-shadow: 0 3px 24px #92d6e02c;
+}
+.foundation-app .primary-button:not(:disabled) {
+  padding-left: 40px;
+}
+.foundation-app .secure-note {
+  color: #adbad0;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  padding: 20px 0 24px;
+}
+.foundation-app .secure-note span {
+  color: #92d0d8;
+  font-size: 15px;
+}
+.foundation-app .help-note {
+  font-size: 10px;
+  line-height: 1.7;
+  color: #a1aec3;
+  border-top: 1px solid #b9c6dd13;
+  padding-top: 20px;
+  text-align: center;
+}
+.foundation-app .field-error {
+  color: #ffb9c4;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 6px;
+}
+.foundation-app .notice,
+.foundation-app .error-notice {
+  padding: 12px 14px;
+  border: 1px solid #8ed0dc33;
+  color: #c8e8ed;
+  background: #78ced609;
+  border-radius: 9px;
+  font-size: 12px;
+  line-height: 1.65;
+  margin-top: 20px;
+}
+.foundation-app .error-notice {
+  border-color: #f1a4b73b;
+  color: #ffd0d9;
+  background: #df799409;
+}
+.foundation-app .spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.foundation-app .site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 0;
+  border-top: 1px solid #a5b7d415;
+  font-size: 10px;
+  color: #99a6b9;
+  letter-spacing: 0.3px;
+}
+.foundation-app .skip-link {
+  position: fixed;
+  left: 20px;
+  top: -100px;
+  z-index: 10;
+  background: #b7e7eb;
+  color: #111c29;
+  padding: 12px 18px;
+  border-radius: 7px;
+}
+.foundation-app .skip-link:focus {
+  top: 20px;
+}
+.foundation-app .status-page {
+  max-width: 520px;
+  width: 100%;
+  margin: 50px auto 80px;
+  padding: 44px;
+  text-align: center;
+}
+.foundation-app .status-page .eyebrow {
+  justify-content: center;
+  margin: 22px 0;
+}
+.foundation-app .status-page h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.8px;
+}
+.foundation-app .status-symbol {
+  font-size: 30px;
+  color: #96d9e1;
+}
+.foundation-app .status-symbol .spinner {
+  height: 32px;
+  width: 32px;
+}
+.foundation-app .text-link {
+  display: inline-block;
+  color: #bbe3ed;
+  font-size: 12px;
+  margin-top: 27px;
+}
+.foundation-app .portal-layout {
+  width: 100%;
+  max-width: 1080px;
+  margin: 30px auto 70px;
+}
+.foundation-app .portal-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 35px;
+}
+.foundation-app .portal-heading h1 {
+  font-size: clamp(30px, 4vw, 45px);
+  font-weight: 500;
+  letter-spacing: -1px;
+  margin: 15px 0 8px;
+}
+.foundation-app .portal-heading h1 span {
+  color: #91d9e1;
+}
+.foundation-app .secondary-button {
+  border: 1px solid #97accd33;
+  background: #a7c5e009;
+  color: #d8e6f3;
+  border-radius: 9px;
+  padding: 12px 18px;
+  font-size: 12px;
+  min-height: 44px;
+}
+.foundation-app .secondary-button span {
+  margin-left: 15px;
+  color: #a3e0e6;
+}
+.foundation-app .secondary-button:hover {
+  background: #a7c5e016;
+}
+.foundation-app .portal-tabs {
+  display: flex;
+  gap: 28px;
+  border-bottom: 1px solid #8a9cba33;
+  margin-bottom: 28px;
+}
+.foundation-app .portal-tabs a {
+  color: #aab8cd;
+  padding: 15px 1px;
+  font-size: 13px;
+}
+.foundation-app .portal-tabs a[aria-current='page'] {
+  color: #b8e9ee;
+  border-bottom: 2px solid #99dfe7;
+}
+.foundation-app .portal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 24px;
+}
+.foundation-app .profile-card,
+.foundation-app .organization-card {
+  padding: 30px;
+  min-width: 0;
+}
+.foundation-app .card-label {
+  color: #c5d1e0;
+  font-size: 9px;
+  letter-spacing: 1.7px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.foundation-app .card-label > span {
+  color: #93d1df;
+  font-size: 16px;
+}
+.foundation-app .avatar {
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-content: center;
+  border: 1px solid #9fe0eb33;
+  background: linear-gradient(130deg, #284451, #31334c);
+  border-radius: 18px;
+  color: #beecf2;
+  font-size: 20px;
+  margin: 27px 0 22px;
+}
+.foundation-app .profile-card h2,
+.foundation-app .organization-card h2 {
+  font-size: 22px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.foundation-app .profile-card .muted {
+  overflow-wrap: anywhere;
+}
+.foundation-app dl {
+  margin: 26px 0 0;
+  border-top: 1px solid #8a9cba22;
+}
+.foundation-app dl > div {
+  margin-top: 20px;
+}
+.foundation-app dt {
+  font-size: 10px;
+  color: #9fadc0;
+  margin-bottom: 8px;
+}
+.foundation-app dd {
+  font-size: 12px;
+  color: #d3dceb;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.foundation-app .session-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.foundation-app .session-label > span {
+  height: 5px;
+  width: 5px;
+  background: #99dfc7;
+  border-radius: 50%;
+}
+.foundation-app .organization-illustration {
+  position: relative;
+  height: 82px;
+  width: 140px;
+  margin: 8px 0 20px;
+}
+.foundation-app .organization-illustration span {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #91bdcf55;
+  border-radius: 9px;
+  background: #79a8c312;
+  top: 45px;
+  left: 0;
+}
+.foundation-app .organization-illustration span:nth-child(2) {
+  top: 0;
+  left: 54px;
+  border-color: #c3abef55;
+  background: #b0a1da12;
+}
+.foundation-app .organization-illustration span:nth-child(3) {
+  left: 108px;
+}
+.foundation-app .organization-illustration i {
+  position: absolute;
+  left: 15px;
+  top: 31px;
+  width: 110px;
+  height: 15px;
+  border: 1px solid #98adc944;
+  border-bottom: 0;
+}
+.foundation-app .subtle-badge {
+  display: inline-block;
+  color: #c7c2df;
+  background: #b5a5eb10;
+  border: 1px solid #b5a5eb22;
+  border-radius: 20px;
+  font-size: 9px;
+  padding: 5px 10px;
+  margin-bottom: 12px;
+}
+.foundation-app .organization-facts {
+  border-top: 1px solid #8a9cba22;
+  margin-top: 24px;
+  padding-top: 15px;
+}
+.foundation-app .organization-facts > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 10px 0;
+  font-size: 11px;
+  color: #9eacc1;
+}
+.foundation-app .organization-facts strong {
+  font-weight: 400;
+  color: #cdd4e2;
+}
+.foundation-app .organization-card .help-note {
+  margin-top: 20px;
+}
+@media (max-width: 1050px) {
+  .foundation-app .app-shell {
+    padding: 0 36px;
+  }
+  .foundation-app .login-layout {
+    gap: 40px;
+    grid-template-columns: 1fr 410px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .foundation-app .introduction h1 {
+    font-size: 48px;
+  }
+}
+@media (max-width: 800px) {
+  .foundation-app .app-shell {
+    padding: 0 24px;
+  }
+  .foundation-app .site-header {
+    min-height: 95px;
+  }
+  .foundation-app .header-caption {
+    display: none;
+  }
+  .foundation-app .login-layout {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin: auto;
+    padding-top: 15px;
+    gap: 30px;
+  }
+  .foundation-app .introduction {
+    text-align: center;
+  }
+  .foundation-app .introduction .eyebrow {
+    justify-content: center;
+  }
+  .foundation-app .introduction h1 {
+    font-size: 42px;
+    letter-spacing: -1.6px;
+    margin-top: 20px;
+  }
+  .foundation-app .introduction h1 br {
+    display: none;
+  }
+  .foundation-app .intro-copy {
+    margin: 16px auto 0;
+    font-size: 13px;
+  }
+  .foundation-app .orbital-scene,
+  .foundation-app .intro-footnote {
+    display: none;
+  }
+  .foundation-app .portal-layout {
+    margin-top: 15px;
+  }
+  .foundation-app .portal-heading {
+    align-items: flex-start;
+  }
+  .foundation-app .secondary-button {
+    flex-shrink: 0;
+  }
+  .foundation-app .site-footer {
+    font-size: 9px;
+  }
+}
+@media (max-width: 420px) {
+  .foundation-app .app-shell {
+    padding: 0 18px;
+  }
+  .foundation-app .login-panel {
+    padding: 27px 23px;
+    border-radius: 18px;
+  }
+  .foundation-app .introduction h1 {
+    font-size: 34px;
+  }
+  .foundation-app .profile-card,
+  .foundation-app .organization-card {
+    padding: 24px;
+  }
+  .foundation-app .status-page {
+    padding: 35px 24px;
+  }
+  .foundation-app .portal-heading {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .foundation-app .site-footer {
+    flex-wrap: wrap;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .foundation-app *,
+  .foundation-app *::before,
+  .foundation-app *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

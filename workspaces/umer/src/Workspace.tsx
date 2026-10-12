@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { CrmApi, ListQuery } from './api';
+import type { CrmOperations, ListQuery } from './api';
 import {
   leadStatuses,
   leadTransitions,
@@ -48,15 +48,23 @@ export function Workspace({
   onDisconnect,
   disconnectBusy,
   accessError,
+  controlledResource,
+  contentOnly = false,
+  readOnly = false,
 }: {
-  api: CrmApi;
+  api: CrmOperations;
   user: User;
   organization: string;
   onDisconnect: () => Promise<void>;
   disconnectBusy: boolean;
   accessError: string;
+  controlledResource?: Resource;
+  contentOnly?: boolean;
+  readOnly?: boolean;
 }) {
-  const [resource, setResource] = useState<Resource>('companies');
+  const [localResource, setResource] = useState<Resource>('companies');
+  const resource = controlledResource || localResource;
+  const Content = contentOnly ? 'div' : 'main';
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('createdAt');
   const [direction, setDirection] = useState<'asc' | 'desc'>('desc');
@@ -217,61 +225,65 @@ export function Workspace({
         ? stageTransitions[(selected as Opportunity).stage]
         : [];
   return (
-    <div className="shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <span className="brand-mark">W</span>
-          <div>
-            WAUTECH<small>INTELLIGENCE</small>
+    <div className={contentOnly ? 'wautech-crm' : 'shell'}>
+      {!contentOnly && (
+        <aside className="sidebar">
+          <div className="brand">
+            <span className="brand-mark">W</span>
+            <div>
+              WAUTECH<small>INTELLIGENCE</small>
+            </div>
           </div>
-        </div>
-        <p className="eyebrow">WORKSPACE</p>
-        <p className="workspace-label">
-          CRM Operations <span className="dot" />
-        </p>
-        <nav aria-label="CRM navigation">
-          {resources.map((key, index) => (
+          <p className="eyebrow">WORKSPACE</p>
+          <p className="workspace-label">
+            CRM Operations <span className="dot" />
+          </p>
+          <nav aria-label="CRM navigation">
+            {resources.map((key, index) => (
+              <button
+                key={key}
+                disabled={busy}
+                className={resource === key ? 'nav-link active' : 'nav-link'}
+                onClick={() => navigate(key)}
+              >
+                <span>{['▦', '◎', '↗', '◇'][index]}</span>
+                {titles[key]}
+              </button>
+            ))}
+          </nav>
+          <div className="sidebar-bottom">
+            <span className="avatar">
+              {user.firstName?.slice(0, 1)}
+              {user.lastName?.slice(0, 1)}
+            </span>
+            <div>
+              <strong>
+                {user.firstName} {user.lastName}
+              </strong>
+              <small>{user.email}</small>
+            </div>
             <button
-              key={key}
-              disabled={busy}
-              className={resource === key ? 'nav-link active' : 'nav-link'}
-              onClick={() => navigate(key)}
+              disabled={disconnectBusy || busy}
+              onClick={() => void onDisconnect()}
+              aria-label="Sign out"
             >
-              <span>{['▦', '◎', '↗', '◇'][index]}</span>
-              {titles[key]}
+              ↪
             </button>
-          ))}
-        </nav>
-        <div className="sidebar-bottom">
-          <span className="avatar">
-            {user.firstName?.slice(0, 1)}
-            {user.lastName?.slice(0, 1)}
-          </span>
-          <div>
-            <strong>
-              {user.firstName} {user.lastName}
-            </strong>
-            <small>{user.email}</small>
           </div>
-          <button
-            disabled={disconnectBusy || busy}
-            onClick={() => void onDisconnect()}
-            aria-label="Sign out"
-          >
-            ↪
-          </button>
-        </div>
-      </aside>
-      <main className="content">
-        <header className="topbar">
-          <span>
-            Workspace <span className="muted"> / </span> CRM Operations{' '}
-            <span className="muted"> / </span> {titles[resource]}
-          </span>
-          <span className="connection">
-            <span className="dot" /> Backend session
-          </span>
-        </header>
+        </aside>
+      )}
+      <Content className="content">
+        {!contentOnly && (
+          <header className="topbar">
+            <span>
+              Workspace <span className="muted"> / </span> CRM Operations{' '}
+              <span className="muted"> / </span> {titles[resource]}
+            </span>
+            <span className="connection">
+              <span className="dot" /> Backend session
+            </span>
+          </header>
+        )}
         <section className="page">
           <div className="page-heading">
             <div>
@@ -289,7 +301,7 @@ export function Workspace({
             </div>
             <button
               className="primary"
-              disabled={loading || busy}
+              disabled={loading || busy || readOnly}
               onClick={() => {
                 setError('');
                 setEditor({ record: null });
@@ -441,6 +453,7 @@ export function Workspace({
               </button>
             </div>
             <RecordTable
+              readOnly={readOnly}
               resource={resource}
               rows={result.items}
               companies={companies}
@@ -502,7 +515,7 @@ export function Workspace({
             WAUTECH Intelligence <span>CRM Operations · Umer</span>
           </p>
         </section>
-      </main>
+      </Content>
       {(selected || detailLoading) && (
         <Dialog
           titleId="detail-title"
@@ -543,7 +556,7 @@ export function Workspace({
                 <label>
                   Move to
                   <select
-                    disabled={busy}
+                    disabled={busy || readOnly}
                     value=""
                     onChange={(e) => void transition(e.target.value)}
                   >
@@ -562,7 +575,7 @@ export function Workspace({
                 </p>
               )}
               <button
-                disabled={busy}
+                disabled={busy || readOnly}
                 className="primary"
                 onClick={() => {
                   setEditor({ record: selected });

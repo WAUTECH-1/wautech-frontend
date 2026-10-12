@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  min-width: 320px;
+}
+.production-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+.wautech-dashboard .production-controls button {
+  border: 1px solid var(--border);
+  background: var(--raised);
+  color: var(--text);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.production-notice {
+  position: fixed;
+  z-index: 50;
+  bottom: 1rem;
+  right: 1rem;
+  max-width: min(32rem, 90vw);
+  padding: 1rem;
+  color: #fff;
+  background: #3b2430;
+  border: 1px solid #d48494;
+  border-radius: 0.75rem;
+}
+.production-notice button {
+  margin-left: 1rem;
+}
+.wautech-dashboard .wautech-crm {
+  color: var(--text);
+  background: transparent;
+  font-size: 14px;
+}
+.wautech-dashboard .wautech-crm .content {
+  position: static;
+  inset: auto;
+  height: auto;
+  min-width: 0;
+  background: transparent;
+  overflow: visible;
+  margin-left: 0;
+  width: 100%;
+  padding: 0;
+}
+.wautech-dashboard .wautech-crm .page {
+  padding: 0;
+}
+.wautech-dashboard .wautech-crm .page-heading > div,
+.wautech-dashboard .wautech-crm .page-note {
+  display: none;
+}
+.wautech-dashboard .wautech-crm .data-card {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+.wautech-dashboard .wautech-crm .table-toolbar {
+  flex-wrap: wrap;
+}
+.wautech-dashboard .wautech-crm .table-scroll {
+  position: relative;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.wautech-dashboard .wautech-crm .muted,
+.wautech-dashboard .wautech-crm small {
+  color: var(--muted);
+}
+.wautech-dashboard .wautech-crm input,
+.wautech-dashboard .wautech-crm select,
+.wautech-dashboard .wautech-crm textarea,
+.wautech-dashboard .wautech-crm button {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+.wautech-dashboard .wautech-crm .dialog {
+  color: var(--text);
+  background: var(--surface);
+}
+.wautech-dashboard .wautech-crm table {
+  color: var(--text);
+}
+.wautech-dashboard .wautech-crm th {
+  background: var(--raised);
+  color: var(--muted);
+}
+.wautech-dashboard .wautech-crm .primary {
+  background: var(--accent);
+  color: #fff;
+}
+@media (max-width: 700px) {
+  .wautech-dashboard .topbar-actions {
+    flex-wrap: wrap;
+  }
+  .wautech-dashboard .wautech-crm .table-toolbar {
+    flex-wrap: wrap;
+  }
+}

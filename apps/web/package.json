@@ -14,6 +14,9 @@
   },
   "dependencies": {
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "@wautech/asad": "0.1.0",
+    "@wautech/umer": "0.1.0",
+    "@wautech/wajahat": "0.1.0"
   }
 }

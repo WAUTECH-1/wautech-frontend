@@ -1,69 +1,35 @@
-# WAUTECH Intelligence — unified application foundation
+# WAUTECH Intelligence — unified application
 
-The unified foundation uses the existing React 19.3.0, TypeScript 5.9.3, Vite 8.3.4 and Tailwind 4.3.3 versions. Checkpoint A enrolls `@wautech/web` in the root npm workspace and CI checks without changing application behavior or sibling implementations.
+`apps/web` is the production React/TypeScript/Vite application. It reuses Wajahat's authentication, Asad's dashboard/theme exports and Umer's CRM operations through declared npm workspace dependencies. The three developer applications remain independently runnable.
 
-## Run independently
+## Startup
 
-Install the existing root lockfile dependencies once with `npm ci`, then:
-
-```sh
-npm run dev:web
-```
-
-Open http://127.0.0.1:5176. No other workspace server is required. `apps/web` consumes read-only source modules from the merged workspaces; it does not embed their standalone applications or require them to run. React is deduplicated in Vite. Root TypeScript, test and build commands now include this application through workspace execution.
-
-Fallback commands from inside `apps/web`, using the repository's installed tools:
+From the frontend root, with Node 24.19.0 and npm 11.6.2:
 
 ```sh
-node ../../node_modules/vite/bin/vite.js
-node ../../node_modules/typescript/bin/tsc --noEmit
-node ../../node_modules/eslint/bin/eslint.js . --max-warnings=0
-node ../../node_modules/vitest/vitest.mjs run
-node ../../node_modules/vite/bin/vite.js build
+npm ci
+npm run dev
 ```
 
-`npm run check` from the repository root runs lint, TypeScript, tests, formatting and production builds for the repository. `npm run check --workspace=@wautech/web` remains available for local app lint/typecheck/tests/build. Preview uses strict port 4176; development uses strict port 5176. Install dependencies only from the root lockfile; see [ROOT-CONFIGURATION.md](./ROOT-CONFIGURATION.md).
+`npm run dev` and `npm run dev:web` start http://127.0.0.1:5176. No sibling application server is needed. Backend startup is documented in its repository: `docker compose up -d --wait postgres`, then `backend/mvnw.cmd spring-boot:run` from backend/. Existing admin@wautech.local credentials must be entered by their owner; no password or tenant UUID is hardcoded.
 
-## Structure
+## Configuration
 
-`index.html` and `src/main.tsx` mount the root error boundary and application provider. `src/providers/` owns one auth store per mounted app and exposes current session, API configuration and unavailable organization capability. `src/routing/` contains the typed route manifest, History API subscription, accessible links and pure access-policy function. `src/components/` contains loading/error/not-found/permission panels and inert integration placeholders. `src/integrations/` contains auth, tenant, CRM and dashboard interfaces/adapters. `vite.config.ts`, `dev-proxy.ts`, `vitest.config.ts` and `tsconfig.json` provide local configuration without root edits.
+Public frontend variables: VITE_API_BASE_URL and WAUTECH_DEV_API_TARGET. Defaults use same-origin /api via the development proxy to localhost:8080. Copy this directory's .env.example only if overrides are needed. Never include passwords, tokens or organization IDs in VITE_* variables.
 
-## Routes and protection
+Production serves apps/web/dist and must reverse-proxy /api to Spring, preserve cookies/CSRF/tenant headers and no-store behavior, and serve index.html for frontend deep links. Vite's proxy is development-only. HTTPS, secure session cookies and actual deployment configuration require acceptance checks.
 
-| Route                                                 | Current behavior                                                                              |
-| ----------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `/`                                                   | Resolves to protected dashboard; never defaults to an authenticated view                      |
-| `/login`                                              | Reuses Wajahat's login screen, validation, CSRF and session verification                      |
-| `/dashboard`                                          | Session + organization boundary; no demonstration dashboard mounted                           |
-| `/companies`, `/contacts`, `/leads`, `/opportunities` | Session + organization boundary; route adapters prepared, operational screens not yet mounted |
-| `/activities`, `/tasks`                               | Session + organization boundary; future module placeholders                                   |
-| `/settings`                                           | Verified session required; nonfunctional future settings placeholder                          |
-| `/unauthorized`                                       | Public sign-in-required explanation                                                           |
-| `/access-denied`                                      | Public permission-denied explanation                                                          |
-| Unknown                                               | Public not-found page                                                                         |
+## Integrated behavior
 
-Protected components are selected only after the access policy allows them. Initial checking, anonymous, server-denied and connection-unavailable states show no private page data or profile. Tenant-dependent routes additionally require membership matching the verified current user. The production provider has no ready organization setter, manual UUID input, local-storage tenant, environment tenant or mock-user mode. Because discovery is unavailable, business modules remain closed even for a verified user. A login response alone never unlocks routes: the reused client verifies the cookie with `/api/auth/me`.
+- One auth provider/store and refresh lifecycle, cookie session restoration, verified login, CSRF and logout.
+- Authenticated membership discovery/selection; tenant context is cleared on account/organization changes. This requires the separate backend codex/current-user-organizations branch.
+- Dashboard/current counts, pipeline, opportunities, tasks, activities, priorities from overdue tasks and notifications from authorized backend APIs.
+- Companies, contacts, leads and opportunities: existing list/detail/create/edit/archive/forms/search/sorting/filtering/local pagination and transitions.
+- Four persisted themes, responsive navigation, profile and logout.
+- Historical charts remain empty/unavailable; AI stays explicitly disconnected. No demo fixtures enter the production build.
 
-## Integration boundaries
+## Verification
 
-Authentication reuses `AuthSession`, `createAuthApi`, `LoginPage`, `Brand` and types from Wajahat's merged source. The `SessionAdapter` interface delegates subscription, restore, login and logout instead of cloning the implementation. Provider wiring restores on startup and revalidates on visible-page focus/visibility and every 60 seconds while authenticated. The server remains the authority on session validity. Login/logout fetch fresh CSRF and use cookies; failed logout retains the verified profile unless the server returns 401. No credentials are stored or logged.
+Run npm run check and npm run verify:dev from root (stop existing servers first for verify:dev). Root checks cover all four apps. See ../../docs/unified-integration.md for detailed evidence and limitations.
 
-The CRM adapter imports Umer's `CrmApi` and DTOs read-only, exports only CRM operations, and adds guarded transport with cookies, no-store, rejected redirects and cancellation. It checks account/tenant identity before requests and after full response parsing; disposal aborts old reads. It is **prepared, not connected**: the host does not construct it while organization discovery is missing. A future membership adapter must produce backend-confirmed `VerifiedOrganization` for the current user, recreate/dispose the adapter when context changes, and mount extracted route-level Umer views. The current Sprint 1 `Workspace` includes its own navigation and internal resource state, so mounting it directly would create competing route/shell ownership. Its manual development UUID access screen is not suitable for production tenant selection.
-
-The dashboard boundary imports only Asad's existing theme identifiers/types; it does not mount `App`, fixtures, charts, demo profile, notification actions or metrics. `DashboardModule` defines shell/overview components; `DashboardShellProps` supplies verified profile, navigation callbacks, themes, logout, children and notifications; `DashboardServices` defines cancellable overview/notification loading. These are frontend interfaces, not invented HTTP endpoints. Money totals remain grouped by currency. Asad's widgets that embed fixtures need separate reusable data-prop exports before mounting. No four-theme dashboard implementation is copied into this foundation.
-
-Wajahat's existing stylesheet is imported read-only to style the reused login component; host foundation styles use prefixed classes. This is a temporary source-level bridge. Shared stylesheet/global-token namespacing and stable package exports need team review before mounting all three modules together. No shared package migration is attempted here.
-
-## API and deployment
-
-Copy `.env.example` to `.env.local` for local configuration. `VITE_API_BASE_URL=/` or empty uses same-origin `/api`. A nonempty value must be an HTTPS origin, or HTTP loopback for development; credentials, paths, queries and fragments are rejected by the reused auth validator. Do not append `/api`. `WAUTECH_DEV_API_TARGET` is a development-only backend origin (default http://localhost:8080); the Vite proxy forwards cookies and strips backend cookie domain attributes without disabling authorization or CSRF.
-
-Production must provide HTTPS, secure backend-managed session cookies, a same-origin `/api` reverse proxy and SPA fallback to `index.html` for application routes. `/api` must be routed to Spring Boot before the SPA fallback. Vite preview does not provide the development proxy. Cross-origin use additionally requires verified credentialed CORS and appropriate cookie settings; the inspected backend has no configured browser CORS. No network/security settings are changed by this app.
-
-## Contracts and remaining blockers
-
-Backend remote main and local source matched `74467a4e68b480387ca1ff16516feca4afb1d095` on 2026-10-12. Inspected authentication controller/service/DTOs, security/tenant filters and role policy, and company/contact/lead/opportunity controllers and request DTO validation. See [INTEGRATION.md](./INTEGRATION.md) for source details and integration handoffs.
-
-There are no organization/membership HTTP controllers in the inspected backend; `/me` returns identity only, not tenant or role. Do not invent discovery endpoints or select an organization using an unverified UUID. Backend localhost:8080 refused connections; no valid provisioned account was supplied, so live login/cookies/CRM/RBAC were not verified. Tests use mocked responses and static component rendering; they are not evidence of live backend integration. Dashboard services, activities/tasks/settings functionality and full route-level CRM mounting remain future work.
-
-Delivery results and PR readiness are recorded in [SPRINT-REPORT.md](./SPRINT-REPORT.md).
+The optional /tests/preview.html is an explicitly labeled mocked browser fixture served only by the development server, not the production HTML/build entry. It is not proof of live backend integration.

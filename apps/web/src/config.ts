@@ -1,13 +1,13 @@
-import { apiOrigin } from '../../../workspaces/wajahat/src/api/auth-api';
+import { apiOrigin } from '@wautech/wajahat';
 export interface ApiConfiguration {
   baseUrl: string;
   transport: 'session-cookie';
-  tenantDiscovery: 'unavailable';
+  tenantDiscovery: 'backend-membership';
 }
 export function apiConfiguration(value?: string): ApiConfiguration {
   return {
     baseUrl: apiOrigin(value),
     transport: 'session-cookie',
-    tenantDiscovery: 'unavailable',
+    tenantDiscovery: 'backend-membership',
   };
 }

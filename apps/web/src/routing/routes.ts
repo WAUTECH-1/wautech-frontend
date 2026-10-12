@@ -24,6 +24,19 @@ export const routes = [
   { path: '/tasks', title: 'Tasks', access: 'tenant', module: 'future' },
   { path: '/settings', title: 'Settings', access: 'session', module: 'future' },
   {
+    path: '/pipeline',
+    title: 'Sales pipeline',
+    access: 'tenant',
+    module: 'dashboard',
+  },
+  { path: '/profile', title: 'Profile', access: 'session', module: 'auth' },
+  {
+    path: '/organizations',
+    title: 'Organizations',
+    access: 'session',
+    module: 'auth',
+  },
+  {
     path: '/unauthorized',
     title: 'Sign-in required',
     access: 'public',

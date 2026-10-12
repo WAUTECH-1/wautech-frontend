@@ -14,5 +14,11 @@
   "dependencies": {
     "react": "19.3.0",
     "react-dom": "19.3.0"
+  },
+  "exports": {
+    ".": "./src/integration.tsx",
+    "./api": "./src/api.ts",
+    "./contracts": "./src/contracts.ts",
+    "./content.css": "./src/content.css"
   }
 }
