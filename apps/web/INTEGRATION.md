@@ -1,3 +1,5 @@
+Current integration behavior supersedes this historical foundation handoff. See [engineering record](../../docs/unified-integration.md).
+
 # Integration handoffs and confirmed contracts
 
 Inspected frontend origin/main `3c1177f1c49d32224fc87cac67645726990dfd3b` (all three Sprint 1 implementations merged) and backend main `74467a4e68b480387ca1ff16516feca4afb1d095`; the latter matches the remote reference queried on 2026-10-12. Backend was inspected read-only at `D:/Development/wautech-crm/backend/src/main/java/com/wautech/crm/`.

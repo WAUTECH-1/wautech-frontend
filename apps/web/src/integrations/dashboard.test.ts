@@ -7,5 +7,5 @@ test('dashboard boundary accepts four existing themes without mounting fixtures'
     'Cyber Command',
     'Executive Gold',
   ]);
-  expect(dashboardCapability.status).toBe('unavailable');
+  expect(dashboardCapability.status).toBe('integrated');
 });

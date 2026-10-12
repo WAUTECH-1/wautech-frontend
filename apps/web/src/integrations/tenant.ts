@@ -1,9 +1,12 @@
-import { organizationCapability } from '../../../../workspaces/wajahat/src/auth/session';
+import { organizationCapability } from '@wautech/wajahat';
 export interface VerifiedOrganization {
   id: string;
   memberUserId: string;
   source: 'backend-membership';
   name?: string;
+  role?: 'OWNER' | 'ADMIN' | 'SALES_USER' | 'VIEWER';
+  membershipId?: string;
+  generation?: number;
 }
 export type TenantState =
   | { status: 'unavailable'; message: string }

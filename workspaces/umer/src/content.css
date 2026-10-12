@@ -1,0 +1,723 @@
+/* Scoped operational content; standalone styles stay unchanged. */
+.wautech-crm {
+  font-family:
+    Inter,
+    Segoe UI,
+    system-ui,
+    sans-serif;
+  color: #22332f;
+  background: #f5f7f6;
+  font-synthesis: none;
+  font-size: 14px;
+}
+.wautech-crm * {
+  box-sizing: border-box;
+}
+.wautech-crm {
+  margin: 0;
+}
+.wautech-crm button,
+.wautech-crm input,
+.wautech-crm select,
+.wautech-crm textarea {
+  font: inherit;
+}
+.wautech-crm button {
+  cursor: pointer;
+  border: 1px solid #dce4df;
+  background: white;
+  color: #31463e;
+  border-radius: 7px;
+  padding: 9px 13px;
+  font-weight: 550;
+  transition: background 0.15s;
+}
+.wautech-crm button:hover {
+  background: #eef3ef;
+}
+.wautech-crm button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.wautech-crm button:focus-visible,
+.wautech-crm input:focus-visible,
+.wautech-crm select:focus-visible,
+.wautech-crm textarea:focus-visible {
+  outline: 3px solid #82bca2;
+  outline-offset: 2px;
+}
+.wautech-crm input,
+.wautech-crm select,
+.wautech-crm textarea {
+  border: 1px solid #dce4df;
+  border-radius: 7px;
+  background: #fff;
+  padding: 11px 12px;
+  color: #22332f;
+  max-width: 100%;
+}
+.wautech-crm input::placeholder {
+  color: #929e98;
+}
+.wautech-crm label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 550;
+}
+.wautech-crm h1,
+.wautech-crm h2,
+.wautech-crm h3,
+.wautech-crm p {
+  margin-top: 0;
+}
+.wautech-crm h1 {
+  font-size: 34px;
+  letter-spacing: -1.2px;
+  margin-bottom: 10px;
+  font-weight: 650;
+}
+.wautech-crm h2 {
+  font-size: 25px;
+  letter-spacing: -0.6px;
+  font-weight: 650;
+  margin-bottom: 20px;
+}
+.wautech-crm h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.wautech-crm p {
+  line-height: 1.65;
+}
+.wautech-crm .muted {
+  color: #7b8881;
+}
+.wautech-crm .small,
+.wautech-crm small {
+  font-size: 12px;
+}
+.wautech-crm .eyebrow {
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  font-weight: 650;
+  color: #8c9d94;
+  margin-bottom: 15px;
+}
+.wautech-crm .primary {
+  background: #245c45;
+  color: white;
+  border-color: #245c45;
+}
+.wautech-crm .primary:hover {
+  background: #184631;
+}
+.wautech-crm .danger {
+  background: #a33f36;
+  color: white;
+  border-color: #a33f36;
+}
+.wautech-crm .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.wautech-crm .brand small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 2.7px;
+  margin-top: 4px;
+  color: #91a299;
+}
+.wautech-crm .brand-mark {
+  width: 35px;
+  height: 37px;
+  background: #d5e8d8;
+  color: #264e39;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  font-size: 22px;
+}
+.wautech-crm .dot {
+  width: 6px;
+  height: 6px;
+  background: #7ec898;
+  display: inline-block;
+  border-radius: 50%;
+}
+.wautech-crm .shell {
+  min-height: 100vh;
+}
+.wautech-crm .sidebar {
+  width: 236px;
+  position: fixed;
+  inset: 0 auto 0 0;
+  background: #142d24;
+  color: #dbe6dd;
+  padding: 32px 22px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+.wautech-crm .sidebar > .eyebrow {
+  margin-top: 49px;
+}
+.wautech-crm .workspace-label {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #2a4037;
+}
+.wautech-crm nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 16px;
+}
+.wautech-crm .nav-link {
+  background: transparent;
+  border: 0;
+  color: #98b0a3;
+  text-align: left;
+  padding: 13px;
+  display: flex;
+  gap: 15px;
+  font-weight: 500;
+}
+.wautech-crm .nav-link:hover,
+.wautech-crm .nav-link.active {
+  background: #28483a;
+  color: #eef6ed;
+}
+.wautech-crm .nav-link span {
+  font-size: 18px;
+  width: 20px;
+}
+.wautech-crm .sidebar-bottom {
+  margin-top: auto;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid #2a4037;
+}
+.wautech-crm .sidebar-bottom strong {
+  font-size: 12px;
+}
+.wautech-crm .sidebar-bottom small {
+  display: block;
+  font-size: 9px;
+  max-width: 102px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #90a699;
+  margin-top: 4px;
+}
+.wautech-crm .sidebar-bottom button {
+  background: transparent;
+  color: #94b09f;
+  border: 0;
+  padding: 5px;
+}
+.wautech-crm .avatar {
+  background: #3b594a;
+  border-radius: 50%;
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+}
+.wautech-crm .content {
+  position: fixed;
+  left: 236px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+  background: #f5f7f6;
+}
+.wautech-crm .topbar {
+  height: 74px;
+  border-bottom: 1px solid #e2e8e3;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 38px;
+  font-size: 12px;
+}
+.wautech-crm .connection {
+  font-size: 11px;
+  color: #718078;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.wautech-crm .page {
+  padding: 38px;
+  max-width: 1600px;
+  margin: auto;
+}
+.wautech-crm .page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+.wautech-crm .page-heading p:last-child {
+  margin-bottom: 0;
+  font-size: 13px;
+}
+.wautech-crm .context-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 21px;
+  font-size: 11px;
+  color: #7e8c83;
+}
+.wautech-crm .context-strip code {
+  font-size: 10px;
+  margin-left: 8px;
+  color: #586f60;
+}
+.wautech-crm .data-card {
+  background: white;
+  border: 1px solid #e1e7e2;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px #142d2403;
+  overflow: hidden;
+}
+.wautech-crm .table-toolbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.wautech-crm .table-toolbar input,
+.wautech-crm .table-toolbar select {
+  font-size: 12px;
+  padding: 9px;
+}
+.wautech-crm .search {
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #dce4df;
+  border-radius: 7px;
+  min-width: 220px;
+  margin-right: auto;
+  padding-left: 12px;
+}
+.wautech-crm .search input {
+  border: 0;
+  flex: 1;
+  min-width: 0;
+}
+.wautech-crm .search span {
+  font-size: 21px;
+  color: #819188;
+}
+.wautech-crm .table-scroll {
+  overflow: auto;
+}
+.wautech-crm table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+.wautech-crm th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: #f8faf8;
+  color: #7c8b81;
+  font-weight: 550;
+  padding: 14px 20px;
+  border-block: 1px solid #e9ede9;
+}
+.wautech-crm td {
+  padding: 19px 20px;
+  font-size: 12px;
+  border-bottom: 1px solid #edf0ed;
+}
+.wautech-crm tbody tr:last-child td {
+  border-bottom: 0;
+}
+.wautech-crm tbody tr:hover {
+  background: #fafcf9;
+}
+.wautech-crm .record-link {
+  border: 0;
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+}
+.wautech-crm .record-link small {
+  display: block;
+  font-weight: 400;
+  color: #87958b;
+  font-size: 10px;
+  margin-top: 6px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wautech-crm .record-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #edf3ec;
+  color: #67886b;
+  display: grid;
+  place-items: center;
+}
+.wautech-crm .badge {
+  font-size: 9px;
+  letter-spacing: 0.4px;
+  background: #edf4ed;
+  color: #558061;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+.wautech-crm .row-actions button {
+  border: 0;
+  padding: 5px 8px;
+  color: #738276;
+  background: transparent;
+  font-size: 11px;
+}
+.wautech-crm .pagination {
+  padding: 19px 20px;
+  border-top: 1px solid #e9ede9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 11px;
+  color: #7d8c82;
+}
+.wautech-crm .pagination small {
+  display: block;
+  font-size: 10px;
+  margin-top: 5px;
+}
+.wautech-crm .pagination > div {
+  display: flex;
+  gap: 6px;
+}
+.wautech-crm .pagination button,
+.wautech-crm .pagination select {
+  font-size: 11px;
+  padding: 7px 10px;
+}
+.wautech-crm .page-note {
+  font-size: 10px;
+  color: #98a49b;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+.wautech-crm .empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: #85948a;
+}
+.wautech-crm .empty > span {
+  font-size: 32px;
+  color: #a6bdae;
+  display: block;
+  margin-bottom: 14px;
+}
+.wautech-crm .empty h3 {
+  color: #435c4b;
+  margin-bottom: 8px;
+}
+.wautech-crm .empty p {
+  font-size: 12px;
+}
+.wautech-crm .skeletons {
+  padding: 25px;
+}
+.wautech-crm .skeleton {
+  height: 45px;
+  background: linear-gradient(90deg, #f1f5f0, #fafcf9, #f1f5f0);
+  margin-bottom: 15px;
+  border-radius: 7px;
+  animation: pulse 1.3s infinite;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+.wautech-crm .banner {
+  padding: 13px 17px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-radius: 7px;
+}
+.wautech-crm .error {
+  color: #a33f36;
+  background: #fff0ed;
+  padding: 12px;
+  border-radius: 7px;
+  font-size: 12px;
+}
+.wautech-crm .success {
+  color: #245c45;
+  background: #e8f3e8;
+}
+.wautech-crm .banner button {
+  font-size: 11px;
+  background: transparent;
+}
+.wautech-crm .overlay {
+  position: fixed;
+  inset: 0;
+  background: #10271c70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  z-index: 10;
+  backdrop-filter: blur(3px);
+}
+.wautech-crm .dialog {
+  position: relative;
+  background: white;
+  border-radius: 13px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  padding: 32px;
+  color: #22332f;
+  box-shadow: 0 20px 80px #10271c30;
+}
+.wautech-crm .dialog.compact {
+  max-width: 460px;
+}
+.wautech-crm .close {
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  border: 0;
+  font-size: 23px;
+  padding: 0 8px;
+  color: #8c9c90;
+}
+.wautech-crm .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px 18px;
+}
+.wautech-crm .field-error {
+  min-height: 12px;
+  color: #a33f36;
+  font-weight: 400;
+  font-size: 10px;
+}
+.wautech-crm .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+.wautech-crm dl {
+  margin-bottom: 25px;
+}
+.wautech-crm dl > div {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  border-bottom: 1px solid #edf0ed;
+  padding: 10px 0;
+  font-size: 12px;
+}
+.wautech-crm dt {
+  text-transform: capitalize;
+  color: #839186;
+}
+.wautech-crm dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.wautech-crm .dialog > label {
+  margin-bottom: 20px;
+}
+.wautech-crm .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+.wautech-crm .access-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  background: #fff;
+}
+.wautech-crm .access-story {
+  background: #142d24;
+  color: #eff6ed;
+  padding: 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.wautech-crm .access-story h1 {
+  font-size: 48px;
+  line-height: 1.12;
+  margin-bottom: 24px;
+}
+.wautech-crm .access-story p {
+  color: #9eb2a4;
+}
+.wautech-crm .access-card {
+  width: 100%;
+  max-width: 430px;
+  align-self: center;
+  justify-self: center;
+  padding: 38px;
+}
+.wautech-crm .access-card > p {
+  font-size: 12px;
+  color: #8a968d;
+}
+.wautech-crm .access-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  margin: 28px 0;
+}
+.wautech-crm .access-card form button {
+  padding: 12px;
+}
+.wautech-crm .access-card h2 {
+  margin-bottom: 12px;
+}
+@media (max-width: 1100px) {
+  .wautech-crm .sidebar {
+    width: 200px;
+    padding: 28px 16px;
+  }
+  .wautech-crm .content {
+    left: 200px;
+  }
+  .wautech-crm .page {
+    padding: 25px;
+  }
+  .wautech-crm .topbar {
+    padding: 0 25px;
+  }
+  .wautech-crm .context-strip {
+    flex-direction: column;
+  }
+  .wautech-crm .access-story {
+    padding: 35px;
+  }
+  .wautech-crm .access-story h1 {
+    font-size: 38px;
+  }
+}
+@media (max-width: 760px) {
+  .wautech-crm .sidebar {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+  }
+  .wautech-crm .sidebar > .eyebrow,
+  .wautech-crm .workspace-label {
+    display: none;
+  }
+  .wautech-crm .sidebar-bottom {
+    margin-top: 20px;
+  }
+  .wautech-crm nav {
+    flex-direction: row;
+    overflow: auto;
+  }
+  .wautech-crm .nav-link {
+    padding: 10px;
+    font-size: 12px;
+  }
+  .wautech-crm .nav-link span {
+    display: none;
+  }
+  .wautech-crm .content {
+    position: relative;
+    left: 0;
+  }
+  .wautech-crm .topbar {
+    padding: 0 20px;
+    height: 55px;
+  }
+  .wautech-crm .connection {
+    display: none;
+  }
+  .wautech-crm .page {
+    padding: 25px 16px;
+  }
+  .wautech-crm .page-heading {
+    align-items: flex-start;
+  }
+  .wautech-crm h1 {
+    font-size: 29px;
+  }
+  .wautech-crm .page-heading .primary {
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .wautech-crm .pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .wautech-crm .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .wautech-crm .access-page {
+    grid-template-columns: 1fr;
+  }
+  .wautech-crm .access-story {
+    min-height: 310px;
+    gap: 30px;
+    padding: 28px;
+  }
+  .wautech-crm .access-story h1 {
+    font-size: 35px;
+  }
+  .wautech-crm .access-story > .muted {
+    display: none;
+  }
+  .wautech-crm .access-card {
+    padding: 30px;
+  }
+  .wautech-crm .context-strip code {
+    display: block;
+    margin-left: 0;
+  }
+  .wautech-crm .dialog {
+    padding: 25px;
+  }
+  .wautech-crm .table-toolbar {
+    padding: 14px;
+  }
+}

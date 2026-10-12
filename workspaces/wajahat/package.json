@@ -14,5 +14,10 @@
   "dependencies": {
     "react": "19.3.0",
     "react-dom": "19.3.0"
+  },
+  "exports": {
+    ".": "./src/auth/index.ts",
+    "./LoginPage": "./src/components/LoginPage.tsx",
+    "./Brand": "./src/components/Brand.tsx"
   }
 }

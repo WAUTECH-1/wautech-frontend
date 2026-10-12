@@ -1,9 +1,6 @@
-import { CrmApi } from '../../../../workspaces/umer/src/api';
-import type {
-  Resource,
-  Requests,
-} from '../../../../workspaces/umer/src/contracts';
-import type { ListQuery } from '../../../../workspaces/umer/src/api';
+import { CrmApi } from '@wautech/umer/api';
+import type { Resource, Requests } from '@wautech/umer/contracts';
+import type { ListQuery } from '@wautech/umer/api';
 import type { AuthState } from './auth';
 import type { TenantState } from './tenant';
 import type { ApiConfiguration } from '../config';
@@ -13,8 +10,8 @@ export type {
   Resource,
   LeadStatus,
   OpportunityStage,
-} from '../../../../workspaces/umer/src/contracts';
-export type { ListQuery } from '../../../../workspaces/umer/src/api';
+} from '@wautech/umer/contracts';
+export type { ListQuery } from '@wautech/umer/api';
 export const crmRoutes = {
   companies: '/companies',
   contacts: '/contacts',
@@ -24,6 +21,7 @@ export const crmRoutes = {
 export interface CrmContext {
   auth: AuthState;
   tenant: TenantState;
+  sessionEpoch?: number;
 }
 export type CrmOperations = Pick<
   CrmApi,
@@ -62,6 +60,8 @@ export function createCrmAdapter(
     throw new IntegrationBlocked('organization');
   const userId = context.auth.user.id,
     organizationId = context.tenant.organization.id;
+  const tenantGeneration = context.tenant.organization.generation;
+  const sessionEpoch = context.sessionEpoch;
   const lifecycle = new AbortController();
   function verify() {
     const value = current();
@@ -72,7 +72,9 @@ export function createCrmAdapter(
       value.tenant.status !== 'ready' ||
       value.tenant.organization.id !== organizationId ||
       value.tenant.organization.memberUserId !== userId ||
-      value.tenant.organization.source !== 'backend-membership'
+      value.tenant.organization.source !== 'backend-membership' ||
+      value.tenant.organization.generation !== tenantGeneration ||
+      value.sessionEpoch !== sessionEpoch
     )
       throw new IntegrationBlocked('changed');
   }
@@ -111,16 +113,32 @@ export function createCrmAdapter(
       return scoped(() => client.get(resource, id, signal));
     },
     create<K extends Resource>(resource: K, body: Requests[K]) {
-      return scoped(() => client.create(resource, body));
+      return scoped(async () => {
+        await client.refreshCsrf();
+        return client.create(resource, body);
+      });
     },
     update<K extends Resource>(resource: K, id: string, body: Requests[K]) {
-      return scoped(() => client.update(resource, id, body));
+      return scoped(async () => {
+        await client.refreshCsrf();
+        return client.update(resource, id, body);
+      });
     },
-    archive: (resource, id) => scoped(() => client.archive(resource, id)),
+    archive: (resource, id) =>
+      scoped(async () => {
+        await client.refreshCsrf();
+        return client.archive(resource, id);
+      }),
     changeLeadStatus: (id, status) =>
-      scoped(() => client.changeLeadStatus(id, status)),
+      scoped(async () => {
+        await client.refreshCsrf();
+        return client.changeLeadStatus(id, status);
+      }),
     changeOpportunityStage: (id, stage) =>
-      scoped(() => client.changeOpportunityStage(id, stage)),
+      scoped(async () => {
+        await client.refreshCsrf();
+        return client.changeOpportunityStage(id, stage);
+      }),
   };
   return { operations, dispose: () => lifecycle.abort() };
 }

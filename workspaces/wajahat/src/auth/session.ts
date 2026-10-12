@@ -6,6 +6,8 @@ export class AuthSession {
   private listeners = new Set<() => void>();
   private generation = 0;
   private mutating = false;
+  private epoch = 0;
+  getEpoch = () => this.epoch;
   constructor(private readonly api: AuthApi) {}
   getSnapshot = () => this.state;
   subscribe = (listener: () => void) => {
@@ -15,8 +17,23 @@ export class AuthSession {
     };
   };
   private set(state: AuthState) {
+    if (
+      state.status !== this.state.status ||
+      (state.status === 'authenticated' &&
+        this.state.status === 'authenticated' &&
+        state.user.id !== this.state.user.id)
+    )
+      ++this.epoch;
     this.state = state;
     this.listeners.forEach((listener) => listener());
+  }
+  /** Call for protected API failures; tenant 403 must not become a global logout. */
+  handleApiError(error: unknown): boolean {
+    if (!(error instanceof ApiError) || error.kind !== 'unauthorized')
+      return false;
+    ++this.generation;
+    this.set({ status: 'anonymous', reason: 'expired' });
+    return true;
   }
   async restore() {
     if (this.mutating) return;
@@ -44,8 +61,10 @@ export class AuthSession {
     const generation = ++this.generation;
     try {
       const user = await this.api.login(input);
-      if (generation === this.generation)
+      if (generation === this.generation) {
+        ++this.epoch;
         this.set({ status: 'authenticated', user });
+      }
     } finally {
       this.mutating = false;
     }

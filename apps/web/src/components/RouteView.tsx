@@ -1,22 +1,24 @@
-import LoginPage from '../../../../workspaces/wajahat/src/components/LoginPage';
+import LoginPage from '@wautech/wajahat/LoginPage';
 import type { AuthState, LoginInput } from '../integrations/auth';
 import type { TenantState } from '../integrations/tenant';
 import type { Route } from '../routing/routes';
 import { routeAccess } from '../routing/access';
 import { StatusPanel } from './StatusPanel';
-import { IntegrationPlaceholder } from './IntegrationPlaceholder';
+import type { ReactNode } from 'react';
 export function RouteView({
   route,
   auth,
   tenant,
   onLogin,
   onRetry,
+  renderProtected,
 }: {
   route: Route | undefined;
   auth: AuthState;
   tenant: TenantState;
   onLogin: (input: LoginInput) => Promise<void>;
   onRetry: () => void;
+  renderProtected?: () => ReactNode;
 }) {
   if (!route) return <StatusPanel kind="not-found" />;
   if (route.path === '/unauthorized')
@@ -49,6 +51,17 @@ export function RouteView({
   if (access === 'unauthorized') return <StatusPanel kind="unauthorized" />;
   if (access === 'denied') return <StatusPanel kind="denied" />;
   if (access === 'organization-unavailable')
-    return <StatusPanel kind="organization" />;
-  return <IntegrationPlaceholder route={route} />;
+    return renderProtected ? (
+      renderProtected()
+    ) : (
+      <StatusPanel kind="organization" />
+    );
+  return renderProtected ? (
+    renderProtected()
+  ) : (
+    <section role="status">
+      <h1>{route.title}</h1>
+      <p>Integration unavailable</p>
+    </section>
+  );
 }

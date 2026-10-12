@@ -7,6 +7,10 @@ export interface ApplicationContextValue {
   auth: AuthState;
   tenant: TenantState;
   config: ApiConfiguration;
+  organizations: import('../integrations/membership').Membership[];
+  selectOrganization: (id: string) => Promise<void>;
+  reloadOrganizations: () => void;
+  current: () => import('../integrations/crm').CrmContext;
 }
 export const ApplicationContext = createContext<ApplicationContextValue | null>(
   null,

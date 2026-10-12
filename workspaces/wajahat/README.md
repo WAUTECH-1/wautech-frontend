@@ -1,5 +1,7 @@
 # Wajahat — Sprint 1 authentication workspace
 
+Sprint 2 prepares headless authentication exports in `src/auth/index.ts` while preserving this runnable application. See [INTEGRATION.md](./INTEGRATION.md) for provider/guard/session integration and [ORGANIZATION-API-PROPOSAL.md](./ORGANIZATION-API-PROPOSAL.md) for the source-verified gap and unimplemented backend proposal. Sprint 1 delivery records below describe the original baseline.
+
 Changes are confined to `workspaces/wajahat/` on `feature/wajahat-auth`. No new dependencies or root configuration changes are required. The original `App.tsx` and its foundation test are retained unchanged as the foundation fixture; `main.tsx` now mounts `AuthApplication`.
 
 ## Run

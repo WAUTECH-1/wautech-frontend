@@ -24,6 +24,16 @@ export interface ListQuery {
   status?: LeadStatus;
   stage?: OpportunityStage;
 }
+export type CrmOperations = Pick<
+  CrmApi,
+  | 'list'
+  | 'get'
+  | 'create'
+  | 'update'
+  | 'archive'
+  | 'changeLeadStatus'
+  | 'changeOpportunityStage'
+>;
 export class CrmApi {
   private csrf: { headerName: string; token: string } | null = null;
   constructor(

@@ -35,8 +35,12 @@ export function DashboardView({
       {showProvenance && (
         <div className="demo-banner">
           <span>
-            {demo ? 'Demonstration data' : 'Verified data'} ·{' '}
-            {data.provenance.label}
+            {demo
+              ? 'Demonstration data'
+              : data.provenance.kind === 'verified'
+                ? 'Verified data'
+                : 'Data unavailable'}{' '}
+            · {data.provenance.label}
           </span>
         </div>
       )}
