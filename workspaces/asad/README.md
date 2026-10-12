@@ -62,3 +62,9 @@ Vitest covers server rendering/provenance, accessible shell controls, loading/em
 ## Scope and delivery
 
 Changed files: `src/App.tsx`, `src/App.test.tsx`, `src/styles.css`; added `src/components.tsx`, `src/data.ts` and this README. Shared configuration, sibling workspaces and backend code are unchanged. Branch: `feature/asad-dashboard`. No push, pull request or merge is authorized.
+
+## Sprint 2 integration preparation
+
+The current branch prepares this existing dashboard for host integration without rebuilding it. See [INTEGRATION.md](./INTEGRATION.md) for exports, typed props, scoped themes, callbacks and mounting guidance; [BACKEND-BOUNDARIES.md](./BACKEND-BOUNDARIES.md) records current source verification and data replacement requirements.
+
+Use `src/integration.ts` in a future host. `App.tsx`, `demo.ts` and compatibility adapters remain standalone-only. Standalone startup is unchanged: `npm run dev:asad`. Format only this workspace with `npm run format --workspace=@wautech/asad`.

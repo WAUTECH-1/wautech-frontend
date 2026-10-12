@@ -9,10 +9,17 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "format": "prettier --write . --ignore-path ../../.prettierignore"
   },
   "dependencies": {
     "react": "19.3.0",
     "react-dom": "19.3.0"
-  }
+  },
+  "exports": {
+    ".": "./src/integration.ts",
+    "./themes.css": "./src/themes.css",
+    "./dashboard.css": "./src/dashboard.css"
+  },
+  "types": "./src/integration.ts"
 }

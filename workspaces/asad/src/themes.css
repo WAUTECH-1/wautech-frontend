@@ -1,0 +1,62 @@
+.wautech-dashboard {
+  color-scheme: dark;
+}
+.wautech-dashboard {
+  --bg: #0c101d;
+  --surface: #131a2b;
+  --raised: #1a2237;
+  --sidebar: #101625;
+  --border: #283149;
+  --text: #eff2fb;
+  --muted: #9aa7c0;
+  --accent: #a394ff;
+  --solid: #7660e8;
+  --cyan: #69d9d8;
+  --green: #75dec0;
+  --accent-soft: #292447;
+  --shadow: 0 10px 35px #00000018;
+}
+.wautech-dashboard[data-theme='Arctic Light'] {
+  color-scheme: light;
+  --bg: #f3f5fa;
+  --surface: #fff;
+  --raised: #eef1f8;
+  --sidebar: #fff;
+  --border: #dce2ed;
+  --text: #1d2942;
+  --muted: #596880;
+  --accent: #6246c1;
+  --solid: #684cca;
+  --cyan: #147c86;
+  --green: #187553;
+  --accent-soft: #eee9fb;
+  --shadow: 0 8px 30px #253b5710;
+}
+.wautech-dashboard[data-theme='Cyber Command'] {
+  --bg: #080f15;
+  --surface: #101e27;
+  --raised: #172c35;
+  --sidebar: #0c171f;
+  --border: #28434c;
+  --text: #e9ffff;
+  --muted: #9ab8c0;
+  --accent: #71e5dc;
+  --solid: #147f82;
+  --cyan: #85e4fd;
+  --green: #8ee5b2;
+  --accent-soft: #193b3f;
+}
+.wautech-dashboard[data-theme='Executive Gold'] {
+  --bg: #151414;
+  --surface: #201f1d;
+  --raised: #2d2b26;
+  --sidebar: #1b1a18;
+  --border: #403a2d;
+  --text: #faf5e8;
+  --muted: #b8ae99;
+  --accent: #e4c583;
+  --solid: #806326;
+  --cyan: #d6bf91;
+  --green: #b3d397;
+  --accent-soft: #3b3220;
+}
