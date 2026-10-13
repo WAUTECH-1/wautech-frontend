@@ -67,7 +67,13 @@ export async function jsonRequest<T>(
       kind,
       response.status === 403
         ? 'You do not have access to this operation.'
-        : 'The service could not complete this request. Please retry.',
+        : response.status === 400
+          ? 'Check the entered values and try again.'
+          : response.status === 404
+            ? 'This record is unavailable in the current organization.'
+            : response.status === 409
+              ? 'This change conflicts with the current record state or organization ownership rules. Refresh and review before retrying.'
+              : 'The service could not complete this request. Please retry.',
     );
   }
   if (response.status === 204) return undefined as T;
@@ -80,6 +86,7 @@ export async function mutation<T>(
   path: string,
   transport: typeof fetch,
   body?: unknown,
+  method: 'PATCH' | 'POST' = 'PATCH',
 ) {
   const csrf = await jsonRequest<{ headerName: string; token: string }>(
     baseUrl,
@@ -93,7 +100,7 @@ export async function mutation<T>(
   )
     throw new ApiError('contract', 'Unable to verify request security.');
   return jsonRequest<T>(baseUrl, path, transport, {
-    method: 'PATCH',
+    method,
     headers: {
       'X-CSRF-TOKEN': csrf.token,
       'Content-Type': 'application/json',

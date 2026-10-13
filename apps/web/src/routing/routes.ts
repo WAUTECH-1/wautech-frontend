@@ -1,4 +1,6 @@
-export const routes = [
+import { featureRoutes } from '../features/registry';
+import type { FeatureRoute } from '../features/contract';
+const coreRoutes = [
   { path: '/login', title: 'Sign in', access: 'public', module: 'auth' },
   {
     path: '/dashboard',
@@ -49,7 +51,17 @@ export const routes = [
     module: 'status',
   },
 ] as const;
-export type Route = (typeof routes)[number];
+export type Route =
+  (typeof coreRoutes)[number] | (FeatureRoute & { module: string });
+export const routes: readonly Route[] = [
+  ...coreRoutes.map(
+    (route) =>
+      featureRoutes.find((feature) => feature.path === route.path) ?? route,
+  ),
+  ...featureRoutes.filter(
+    (feature) => !coreRoutes.some((route) => route.path === feature.path),
+  ),
+];
 export type AppPath = Route['path'];
 export function resolveRoute(pathname: string): Route | undefined {
   const path = pathname === '/' ? '/dashboard' : pathname;

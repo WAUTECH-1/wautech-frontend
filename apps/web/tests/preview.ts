@@ -7,6 +7,31 @@ const contactId = '55555555-5555-4555-8555-555555555555';
 const now = new Date().toISOString();
 const metadata = { createdAt: now, updatedAt: now, archived: false };
 let authenticated = true;
+const fixtureOptions = new URLSearchParams(window.location.search);
+const fixtureStart = fixtureOptions.get('route') || '/dashboard';
+const expireProfile = fixtureOptions.get('expireProfile') === '1';
+const profile = {
+  id: userId,
+  email: 'fixture@example.test',
+  firstName: 'Integration',
+  lastName: 'Fixture',
+};
+const adminMembers = [
+  {
+    id: companyId,
+    organizationId: orgId,
+    userId,
+    role: 'ADMIN',
+    status: 'ACTIVE',
+  },
+  {
+    id: contactId,
+    organizationId: orgId,
+    userId: otherId,
+    role: 'VIEWER',
+    status: 'ACTIVE',
+  },
+];
 const records: Record<string, Record<string, unknown>[]> = {
   companies: [
     {
@@ -113,6 +138,44 @@ window.fetch = async (input, init) => {
     });
   }
   if (!authenticated) return result({}, 401);
+  if (path === '/api/auth/profile') {
+    if (expireProfile) {
+      authenticated = false;
+      return result({}, 401);
+    }
+    if (method === 'PATCH') {
+      profile.firstName = body.firstName;
+      profile.lastName = body.lastName;
+    }
+    return result(profile);
+  }
+  if (path.startsWith('/api/organization')) {
+    if (new Headers(init?.headers).get('X-Organization-ID') !== orgId)
+      return result({}, 403);
+    if (path === '/api/organization') {
+      if (method === 'PATCH') memberships[0].organizationName = body.name;
+      return result({ id: orgId, name: memberships[0].organizationName });
+    }
+    if (path === '/api/organization/memberships') {
+      if (method === 'POST') {
+        const created = {
+          id: crypto.randomUUID(),
+          organizationId: orgId,
+          userId: body.userId,
+          role: 'VIEWER',
+          status: 'INVITED',
+        };
+        adminMembers.push(created);
+        return result(created, 201);
+      }
+      return result(adminMembers);
+    }
+    const member = adminMembers.find((item) => path.includes(item.id));
+    if (!member) return result({}, 404);
+    if (path.endsWith('/role')) member.role = body.role;
+    if (path.endsWith('/status')) member.status = body.status;
+    return result(member);
+  }
   if (path === '/api/auth/logout') {
     authenticated = false;
     return result(null, 204);
@@ -199,7 +262,7 @@ window.fetch = async (input, init) => {
   else Object.assign(row, body);
   return result(row);
 };
-window.history.replaceState(null, '', '/dashboard');
+window.history.replaceState(null, '', fixtureStart);
 await import('../src/main');
 const banner = document.createElement('div');
 banner.textContent = 'MOCK BROWSER TEST — not live backend data';

@@ -103,6 +103,12 @@ function TenantProvider({
             },
           };
           runtime.setTenant(verified);
+          setDiscovery((previous) => ({
+            ...previous,
+            organizations: previous.organizations.map((item) =>
+              item.organizationId === value.organizationId ? value : item,
+            ),
+          }));
           setSelection({
             userId: currentUser,
             epoch: accountEpoch,

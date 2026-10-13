@@ -22,5 +22,12 @@ export function routeAccess(
   if (route.access === 'session') return 'allowed';
   if (tenant.status !== 'ready') return 'organization-unavailable';
   if (tenant.organization.memberUserId !== state.user.id) return 'denied';
+  if (
+    'roles' in route &&
+    route.roles &&
+    (!tenant.organization.role ||
+      !route.roles.includes(tenant.organization.role))
+  )
+    return 'denied';
   return 'allowed';
 }

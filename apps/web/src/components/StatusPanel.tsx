@@ -3,6 +3,7 @@ export type StatusKind =
   | 'checking'
   | 'unavailable'
   | 'unauthorized'
+  | 'expired'
   | 'denied'
   | 'organization'
   | 'not-found';
@@ -28,6 +29,12 @@ const content: Record<
       'A verified session is required to open this part of your workspace.',
     label: 'SESSION REQUIRED',
   },
+  expired: {
+    title: 'Your session expired',
+    description:
+      'Sign in again to continue. Your active organization and private content have been cleared.',
+    label: 'SESSION EXPIRED',
+  },
   denied: {
     title: 'Access denied',
     description:
@@ -37,7 +44,7 @@ const content: Record<
   organization: {
     title: 'Organization access unavailable',
     description:
-      'The backend does not expose membership discovery or organization selection. Business data remains unavailable until a trusted organization can be established.',
+      'Choose an active organization or refresh organization access. Business data remains unavailable until your membership is verified.',
     label: 'ORGANIZATION REQUIRED',
   },
   'not-found': {

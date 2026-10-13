@@ -8,6 +8,9 @@ import { RouteView } from './components/RouteView';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ProductionApplication } from './components/ProductionApplication';
 import { Organizations } from './components/Organizations';
+import { routeAccess } from './routing/access';
+import { featureAt } from './features/registry';
+import { FeatureView } from './features/FeatureView';
 export default function App() {
   const { auth, tenant, session } = useApplication();
   const path = usePath();
@@ -41,7 +44,9 @@ export default function App() {
     route &&
     auth.status === 'authenticated' &&
     tenant.status === 'ready' &&
-    route.access !== 'public'
+    tenant.organization.memberUserId === auth.user.id &&
+    route.access !== 'public' &&
+    routeAccess(route, auth, tenant) === 'allowed'
   )
     return (
       <ErrorBoundary key={path}>
@@ -78,7 +83,11 @@ export default function App() {
             onRetry={() => void session.restore()}
             renderProtected={() =>
               auth.status === 'authenticated' ? (
-                route?.path === '/profile' ? (
+                route &&
+                featureAt(route.path) &&
+                routeAccess(route, auth, tenant) === 'allowed' ? (
+                  <FeatureView route={featureAt(route.path)!} />
+                ) : route?.path === '/profile' ? (
                   <section className="foundation-status">
                     <h1>Your profile</h1>
                     <p>
