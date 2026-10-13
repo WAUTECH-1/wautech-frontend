@@ -1,0 +1,135 @@
+.intelligence-feature {
+  color: var(--text, #1d2942);
+  min-width: 0;
+}
+.intelligence-feature .intelligence-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+.intelligence-feature button,
+.intelligence-dialog button {
+  border: 1px solid var(--border, #64748b);
+  background: var(--raised, #eef1f8);
+  color: var(--text, #1d2942);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+}
+.intelligence-feature button:disabled,
+.intelligence-feature select:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.intelligence-feature button:focus-visible,
+.intelligence-feature input:focus-visible,
+.intelligence-feature select:focus-visible,
+.intelligence-dialog button:focus-visible {
+  outline: 3px solid var(--accent, #6246c1);
+  outline-offset: 3px;
+}
+.intelligence-feature .intelligence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.intelligence-feature .intelligence-number {
+  font-size: 2rem;
+}
+.intelligence-feature p {
+  margin: 0.65rem 0;
+  line-height: 1.6;
+}
+.intelligence-feature ul,
+.intelligence-feature ol {
+  padding-left: 1.25rem;
+  line-height: 1.8;
+}
+.intelligence-feature .intelligence-provenance {
+  color: var(--muted, #596880);
+}
+.intelligence-feature .intelligence-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+.intelligence-feature label {
+  display: grid;
+  gap: 0.5rem;
+}
+.intelligence-feature input,
+.intelligence-feature select {
+  min-width: 0;
+  max-width: 100%;
+  border-radius: 0.5rem;
+  padding: 0.65rem;
+  color: inherit;
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #64748b);
+}
+.intelligence-feature .intelligence-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 1rem;
+}
+.intelligence-feature .intelligence-stage,
+.intelligence-feature .intelligence-detail {
+  border: 1px solid var(--border, #dce2ed);
+  border-radius: 0.75rem;
+  background: var(--surface, #fff);
+  padding: 1rem;
+  overflow-wrap: anywhere;
+}
+.intelligence-feature .intelligence-stage ul {
+  list-style: none;
+  padding: 0;
+}
+.intelligence-feature .intelligence-stage li {
+  border-top: 1px solid var(--border, #dce2ed);
+  padding: 1rem 0;
+}
+.intelligence-feature .intelligence-actions,
+.intelligence-dialog .intelligence-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem 0;
+  flex-wrap: wrap;
+}
+.intelligence-feature .intelligence-detail {
+  margin-top: 1rem;
+}
+.intelligence-feature .intelligence-money {
+  list-style: none;
+  padding-left: 0;
+  font-variant-numeric: tabular-nums;
+}
+.intelligence-feature .intelligence-table {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.intelligence-feature table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+}
+.intelligence-feature th,
+.intelligence-feature td {
+  border-bottom: 1px solid var(--border, #dce2ed);
+  padding: 0.75rem;
+}
+.intelligence-dialog {
+  max-width: min(32rem, calc(100vw - 2rem));
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  color: var(--text, #1d2942);
+  background: var(--surface, #fff);
+}
+.intelligence-dialog::backdrop {
+  background: #0009;
+}
