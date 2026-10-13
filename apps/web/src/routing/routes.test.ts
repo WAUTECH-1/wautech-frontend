@@ -23,6 +23,7 @@ test('all requested routes exist, root maps to dashboard and unknown is not-foun
     '/reports',
     '/administration',
     '/account',
+    '/notifications',
   ]);
   expect(resolveRoute('/')?.path).toBe('/dashboard');
   expect(resolveRoute('/missing')).toBeUndefined();
