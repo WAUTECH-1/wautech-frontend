@@ -1,0 +1,108 @@
+.workflow-feature {
+  color: var(--text, #1d2942);
+  min-width: 0;
+}
+.workflow-feature .workflow-heading {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.workflow-feature button,
+.workflow-dialog button {
+  border: 1px solid var(--border, #64748b);
+  background: var(--raised, #eef1f8);
+  color: var(--text, #1d2942);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+}
+.workflow-feature button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.workflow-feature button:focus-visible,
+.workflow-feature input:focus-visible,
+.workflow-feature select:focus-visible,
+.workflow-feature textarea:focus-visible,
+.workflow-dialog button:focus-visible {
+  outline: 3px solid var(--accent, #6246c1);
+  outline-offset: 3px;
+}
+.workflow-feature label {
+  display: grid;
+  gap: 0.5rem;
+}
+.workflow-feature input,
+.workflow-feature select,
+.workflow-feature textarea {
+  min-width: 0;
+  max-width: 100%;
+  background: var(--surface, #fff);
+  color: inherit;
+  border: 1px solid var(--border, #64748b);
+  border-radius: 0.5rem;
+  padding: 0.65rem;
+}
+.workflow-feature .workflow-form {
+  padding: 1rem;
+  border: 1px solid var(--border, #dce2ed);
+  border-radius: 0.75rem;
+  max-width: 48rem;
+}
+.workflow-feature fieldset {
+  display: grid;
+  gap: 1rem;
+  border: 0;
+  padding: 0;
+}
+.workflow-feature .workflow-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 0;
+  align-items: end;
+}
+.workflow-feature .workflow-actions,
+.workflow-dialog .workflow-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 0;
+}
+.workflow-feature .workflow-records {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.workflow-feature .workflow-records li,
+.workflow-feature .workflow-details {
+  padding: 1rem;
+  border: 1px solid var(--border, #dce2ed);
+  background: var(--surface, #fff);
+  border-radius: 0.75rem;
+  overflow-wrap: anywhere;
+}
+.workflow-feature p {
+  line-height: 1.6;
+  margin: 0.7rem 0;
+}
+.workflow-feature .workflow-checkbox {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 1rem 0;
+}
+.workflow-dialog {
+  max-width: min(32rem, calc(100vw - 2rem));
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  color: var(--text, #1d2942);
+  background: var(--surface, #fff);
+}
+.workflow-dialog::backdrop {
+  background: #0009;
+}
