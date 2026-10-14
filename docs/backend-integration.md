@@ -1,9 +1,9 @@
-# Future Spring Boot connection
+# Integrated backend connection
 
-The existing backend is maintained separately at https://github.com/WAUTECH-1/wautech-crm. This foundation does not change it or define its API endpoints.
+The production frontend is apps/web; its backend is the separate wautech-crm repository. Phase 2–5 contracts are integrated and tested over real HTTP with disposable PostgreSQL. Use [release acceptance](./release-acceptance.md) for current evidence and limitations.
 
-Copy your workspace's `.env.example` to `.env.local` inside that same workspace. Vite loads environment files from the application directory, so the root example is documentation rather than shared runtime configuration. Set `VITE_API_BASE_URL` to the backend origin verified with the backend team. `http://localhost:8080` is an illustrative local value, not a confirmed backend address.
+Set public VITE_API_BASE_URL=/ for same-origin /api calls. During local development, WAUTECH_DEV_API_TARGET configures the apps/web Vite proxy; never point fixture acceptance at a customer database. Production requires the separately validated reverse proxy in [deployment](./deployment.md). Vite preview is not that production proxy.
 
-Future frontend code can read `import.meta.env.VITE_API_BASE_URL`. Validate the configured value when a real API client is introduced. Vite substitutes these variables at build time; deployment configuration changes require rebuilding. Every `VITE_*` value is public browser data. Never put passwords, tokens, credentials, or secrets in these variables.
+One host session and AuthProvider serve all feature modules. Session-cookie authentication, X-CSRF-TOKEN on writes, verified active organization selection and fresh server roles remain authoritative. Actual roles are OWNER, ADMIN, SALES_USER and VIEWER, with no MEMBER alias. Do not introduce duplicate auth providers or standalone workspace production roots. Provider keys stay server-side; all VITE values are public.
 
-Confirm the backend's actual endpoint paths, request/response schemas, authentication requirements, and local port before implementing calls. Confirm CORS with the backend team for localhost ports 5173, 5174, and 5175 and the eventual deployment origin. No proxy, API paths, auth behavior, DTOs, or network calls are assumed in this foundation.
+Read [business contracts](./business-data-contracts.md) and phase delivery documents for actual DTOs, bounds, date/currency semantics, optimistic revisions and task-confirmation behavior. Endpoints or mocked UI do not establish full release acceptance. Follow backend-first compatible promotion after review/checks; do not force-merge or bypass protection.

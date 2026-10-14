@@ -1,0 +1,9 @@
+{
+  "endpoint": "/api/health",
+  "requests": 10,
+  "allStatus": 200,
+  "minMs": 7.1937,
+  "medianMs": 9.0857,
+  "p95Ms": 222.6035,
+  "scope": "Local Vite proxy and disposable test backend; not a production SLO"
+}

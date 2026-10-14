@@ -1,0 +1,74 @@
+[
+  {
+    "repo": "wautech-frontend",
+    "pr": 13,
+    "merged": true,
+    "base": "main",
+    "head_sha": "4cc61c6faf3a9d3254f642537d280917a5b159a4",
+    "merge_commit_sha": "b5abf4edf03737270fff4d26a8903663a97c7e9f",
+    "merged_at": "2026-10-14T09:59:43Z"
+  },
+  {
+    "repo": "wautech-frontend",
+    "pr": 14,
+    "merged": true,
+    "base": "main",
+    "head_sha": "eb8a2cdf6843ac8a522b68d089bf33b72d97ff87",
+    "merge_commit_sha": "593ba8018eefbd3c6d21b8cb45096a4fb26dc228",
+    "merged_at": "2026-10-14T11:44:52Z"
+  },
+  {
+    "repo": "wautech-frontend",
+    "pr": 15,
+    "merged": true,
+    "base": "main",
+    "head_sha": "a90889a61ba216ab3be8d8ca58933846152c713f",
+    "merge_commit_sha": "a90889a61ba216ab3be8d8ca58933846152c713f",
+    "merged_at": "2026-10-14T14:33:35Z"
+  },
+  {
+    "repo": "wautech-frontend",
+    "pr": 16,
+    "merged": true,
+    "base": "main",
+    "head_sha": "9fa41574756ac130458f3fc9b0b0f3496373620f",
+    "merge_commit_sha": "4ad05928cdad1f7bded23b4e530922bf98d77f1e",
+    "merged_at": "2026-10-14T14:33:33Z"
+  },
+  {
+    "repo": "wautech-crm",
+    "pr": 22,
+    "merged": true,
+    "base": "main",
+    "head_sha": "765ceb676ab397ee83c7e222cdd2c929139786a4",
+    "merge_commit_sha": "766fd3130a25402ed721447f3840712ad01f8c43",
+    "merged_at": "2026-10-14T09:58:58Z"
+  },
+  {
+    "repo": "wautech-crm",
+    "pr": 23,
+    "merged": true,
+    "base": "main",
+    "head_sha": "af831d9fbc9d82b1f3e4821172f6a6307607001a",
+    "merge_commit_sha": "5c1bf2f9e7676c3b08bff8c03302f3c065fd24ec",
+    "merged_at": "2026-10-14T11:45:04Z"
+  },
+  {
+    "repo": "wautech-crm",
+    "pr": 24,
+    "merged": true,
+    "base": "main",
+    "head_sha": "4d32bebfc6d14f953ec46acb266120ada94ce67f",
+    "merge_commit_sha": "5d2ef00eb4521a962ca28a045cc5292ba0e2b4c8",
+    "merged_at": "2026-10-14T13:16:06Z"
+  },
+  {
+    "repo": "wautech-crm",
+    "pr": 25,
+    "merged": true,
+    "base": "main",
+    "head_sha": "bc236407e00f885d7717932caa07237c4a93a876",
+    "merge_commit_sha": "fcb963a3ec8a36f83c891ccc9a316bcd435b667e",
+    "merged_at": "2026-10-14T14:37:54Z"
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-14T14:58:42.738Z",
+  "source": "https://api.osv.dev/v1/querybatch",
+  "dependencies": 97,
+  "findings": [
+    {
+      "package": {
+        "ecosystem": "Maven",
+        "name": "org.springframework:spring-webmvc"
+      },
+      "version": "6.2.19",
+      "id": "GHSA-j9f9-w8pj-32f8",
+      "modified": "2026-10-07T13:30:04.802772Z"
+    },
+    {
+      "package": {
+        "ecosystem": "Maven",
+        "name": "org.springframework:spring-webmvc"
+      },
+      "version": "6.2.19",
+      "id": "GHSA-pc63-qcmh-9cmg",
+      "modified": "2026-10-05T23:30:04.884745Z"
+    }
+  ]
+}

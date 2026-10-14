@@ -52,3 +52,7 @@ Retrieved CRM text is untrusted data: instruction-like record text must not redi
 ## Recommended sequencing
 
 Complete and validate the CRM operational foundation first. Make an explicit owner choice between a reliable internal-alpha extension and an external-pilot release; the latter requires recovery/onboarding, secure staging, backup restore and isolation gates. After P0–P2 evidence, run a bounded P3 discovery/evaluation slice. P4 voice/multimodal/spatial work is research only in the 48-hour plan; D/G remain longer-term product hypotheses. No part of this audit commits the sole developer to every vision category or marks a concept as completed.
+
+# Phase 6 release boundary — 2026-10-14
+
+Business onboarding/profile/preferences/goals/milestones, consented advisor context, grounded read-only copilot and explicit goal task preview/confirmation are integrated implementation. Real provider behavior is still unverified; AI must remain disabled until configured, approved and evaluated. Voice/speech provider and retention, spatial/WebXR/headsets, forecasts, financial projections, autonomous outreach and external actions remain design/experimental/roadmap scope. They are not completed original SRS requirements or release blockers for text CRM unless separately approved. The CRM release itself remains **NOT READY — BLOCKERS REMAIN**; see [release acceptance](./release-acceptance.md) for operational gates and estimates.
