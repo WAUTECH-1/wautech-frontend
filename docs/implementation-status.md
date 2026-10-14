@@ -1,5 +1,17 @@
 # Implementation status — evidence audit
 
+## Phase 5 implementation — 2026-10-14
+
+Unified business onboarding, shared business profile and persisted goals/milestones/task confirmation are implemented in `apps/web`, with tenant/role/CSRF checks and real CRM persistence. The advisor now has organization, private and per-question sharing gates; self-reported facts remain separate from CRM facts and model hypotheses. See [Phase 5 delivery](./phase5-delivery.md) for final test evidence, retention and supported scope.
+
+Actual live model behavior remains UNVERIFIED without configured credentials/model. Voice and spatial functionality are design/roadmap-only; no microphone capture or 3D engine is enabled. [Voice/spatial foundation](./voice-spatial-foundation.md) and [data contracts](./business-data-contracts.md) define testable future milestones. Earlier phase sections below remain historical evidence.
+
+## Phase 4 implementation — 2026-10-14
+
+A secure read-only copilot is now integrated at `/assistant` in `apps/web`, with server-side provider configuration, tenant-bound SQL evidence, validated source references, session-only history, durable token/rate reservations and explicit setup/error states. The first adapter is OpenAI Responses; there are no browser API keys, autonomous writes or production mock responses. See [Phase 4 delivery](./phase4-delivery.md) for supported questions, exact bounds, privacy and test evidence.
+
+**Live AI remains BLOCKED by missing configured provider credentials/model and live-smoke approval.** Passing mocked integration tests is not live provider verification. Current facts and model interpretation are separate; historical conversion/revenue, validated predictions and other future vision categories remain unavailable. Earlier audit sections below are dated evidence, superseded for this delivered slice only.
+
 ## Current Phase 3 status — 2026-10-14
 
 Phase 3 supersedes the dashboard/reporting implementation findings below. Production `/dashboard`, `/reports` and `/pipeline` now use PostgreSQL aggregates and bounded detail pages; `/search` uses verified tenant-scoped record APIs. The shell no longer obtains totals by downloading entire CRM collections. Exact currency values, UTC creation/occurrence/completion semantics, current status shares, owner/assignee grouping, report CSV, pipeline transitions, deep links and loading/error/empty states are integrated. Original applications and tests remain.

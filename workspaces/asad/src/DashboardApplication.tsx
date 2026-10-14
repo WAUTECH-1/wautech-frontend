@@ -39,6 +39,7 @@ export interface DashboardApplicationProps extends DashboardActions {
   renderProfile?: () => ReactNode;
   pageTitle?: string;
   notificationState?: 'loading' | 'ready' | 'unavailable';
+  onAssistant?: () => void;
 }
 
 export function DashboardApplication({
@@ -67,6 +68,7 @@ export function DashboardApplication({
   renderProfile,
   pageTitle,
   notificationState = 'ready',
+  onAssistant,
 }: DashboardApplicationProps) {
   const demo = data.provenance.kind === 'demo';
   const unread =
@@ -230,13 +232,14 @@ export function DashboardApplication({
             className="assistant-nav"
             onClick={() => {
               setMobile(false);
-              setPanel('assistant');
+              if (onAssistant) onAssistant();
+              else setPanel('assistant');
             }}
             title="Intelligence assistant"
           >
             <Icon name="spark" />
             <span className="nav-copy">
-              Intelligence assistant <small>PREVIEW</small>
+              Intelligence assistant {!onAssistant && <small>PREVIEW</small>}
             </span>
           </button>
           <button
@@ -357,7 +360,12 @@ export function DashboardApplication({
                   <option key={p}>{p}</option>
                 ))}
               </select>
-              <button className="primary" onClick={() => setPanel('assistant')}>
+              <button
+                className="primary"
+                onClick={() =>
+                  onAssistant ? onAssistant() : setPanel('assistant')
+                }
+              >
                 <Icon name="spark" size={17} /> Ask Intelligence
               </button>
             </div>

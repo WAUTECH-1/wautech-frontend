@@ -26,6 +26,7 @@ export function sessionTransport(
   session: SessionAdapter,
   active: () => boolean,
   transport: typeof fetch = fetch,
+  timeoutMs = 15000,
 ): typeof fetch {
   return async (input, init) => {
     if (!active()) throw new DOMException('Context changed', 'AbortError');
@@ -35,8 +36,8 @@ export function sessionTransport(
       cache: 'no-store',
       redirect: 'error',
       signal: init?.signal
-        ? AbortSignal.any([init.signal, AbortSignal.timeout(15000)])
-        : AbortSignal.timeout(15000),
+        ? AbortSignal.any([init.signal, AbortSignal.timeout(timeoutMs)])
+        : AbortSignal.timeout(timeoutMs),
     });
     if (!active()) throw new DOMException('Context changed', 'AbortError');
     if (response.status === 401)

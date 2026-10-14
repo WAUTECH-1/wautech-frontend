@@ -168,6 +168,7 @@ function TenantApplication({
   return (
     <>
       <DashboardApplication
+        onAssistant={() => navigate('/assistant')}
         data={data}
         user={{
           name: `${auth.user.firstName} ${auth.user.lastName}`,
