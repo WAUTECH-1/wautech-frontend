@@ -1,5 +1,9 @@
 # WAUTECH Intelligence vision roadmap
 
+## Phase 5 vision foundation — 2026-10-14
+
+The user's Phase 5 mission explicitly approves entrepreneur/company/employee onboarding, structured editable business context, goal-to-action persistence and a respectful read-only advisory foundation. Category D now has implemented adaptive journeys and planning; category B/C include consent-gated business advisory integration, while live model behavior remains UNVERIFIED. Category E is a voice design/testing gate with complete text fallback, and F is a documented spatial contract/privacy/device/prototype design only. Category G remains unimplemented autonomous operations; this phase does not authorize automatic destructive actions, scraping or external commitments. See [Phase 5 delivery](./phase5-delivery.md) and [voice/spatial foundation](./voice-spatial-foundation.md). Historical inventory rows below are superseded only for the documented implemented slice.
+
 ## Phase 4 approved read-only AI slice — 2026-10-14
 
 The user's Phase 4 mission explicitly approves bounded CRM Intelligence implementation inside `apps/web`. Category B now has a server-side provider interface/OpenAI adapter and grounded tenant read tools; category C has the integrated conversation experience with facts, source links, rules and model recommendations separated. Implementation is PARTIAL: mocked tests verify contracts and authorization, while actual model behavior/live provider verification is BLOCKED by missing configuration. No voice, founder advisory, immersive or autonomous scope is approved/completed by this slice. See [Phase 4 delivery](./phase4-delivery.md). Original audit provenance and historical classifications below remain dated evidence.

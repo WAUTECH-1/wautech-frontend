@@ -9,12 +9,19 @@ import {
 } from '../../integrations/http';
 
 export type Scope =
-  'briefing' | 'leads' | 'opportunities' | 'tasks' | 'activities' | 'record';
+  | 'briefing'
+  | 'leads'
+  | 'opportunities'
+  | 'tasks'
+  | 'activities'
+  | 'record'
+  | 'advisor';
 export interface Selection {
   scope: Scope;
   stage?: string;
   resource?: string;
   recordId?: string;
+  shareBusinessContext?: boolean;
 }
 export interface Source {
   id: string;
@@ -81,9 +88,11 @@ export function parseTurn(value: unknown): Turn {
     const match =
       /^(leads|opportunities|tasks|activities):([a-f0-9-]{36})$/i.exec(id);
     if (
-      id === 'summary'
-        ? path !== '/reports'
-        : !match || !uuid(match[2]) || path !== `/${match[1]}/${match[2]}`
+      id === 'business-context'
+        ? path !== '/business-profile'
+        : id === 'summary'
+          ? path !== '/reports'
+          : !match || !uuid(match[2]) || path !== `/${match[1]}/${match[2]}`
     )
       throw Error('Invalid CRM reference.');
     return {
@@ -186,6 +195,13 @@ export function parseHistory(value: unknown): History {
     expiresAt: string(h.expiresAt),
     turns: h.turns.map(parseTurn),
   };
+}
+export function referencePath(source: Source): `/${string}` {
+  const match =
+    /^(leads|opportunities|tasks|activities):([a-f0-9-]{36})$/i.exec(source.id);
+  return match
+    ? `/record-context?resource=${match[1]}&id=${match[2]}`
+    : source.path;
 }
 export function createAssistantApi(
   app: FeatureApplication,

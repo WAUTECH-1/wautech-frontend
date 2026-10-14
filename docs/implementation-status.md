@@ -1,5 +1,11 @@
 # Implementation status — evidence audit
 
+## Phase 5 implementation — 2026-10-14
+
+Unified business onboarding, shared business profile and persisted goals/milestones/task confirmation are implemented in `apps/web`, with tenant/role/CSRF checks and real CRM persistence. The advisor now has organization, private and per-question sharing gates; self-reported facts remain separate from CRM facts and model hypotheses. See [Phase 5 delivery](./phase5-delivery.md) for final test evidence, retention and supported scope.
+
+Actual live model behavior remains UNVERIFIED without configured credentials/model. Voice and spatial functionality are design/roadmap-only; no microphone capture or 3D engine is enabled. [Voice/spatial foundation](./voice-spatial-foundation.md) and [data contracts](./business-data-contracts.md) define testable future milestones. Earlier phase sections below remain historical evidence.
+
 ## Phase 4 implementation — 2026-10-14
 
 A secure read-only copilot is now integrated at `/assistant` in `apps/web`, with server-side provider configuration, tenant-bound SQL evidence, validated source references, session-only history, durable token/rate reservations and explicit setup/error states. The first adapter is OpenAI Responses; there are no browser API keys, autonomous writes or production mock responses. See [Phase 4 delivery](./phase4-delivery.md) for supported questions, exact bounds, privacy and test evidence.

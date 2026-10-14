@@ -37,6 +37,9 @@
 .copilot button:disabled {
   opacity: 0.55;
 }
+.copilot input[type='checkbox'] {
+  width: auto;
+}
 .copilot-suggestions {
   display: flex;
   flex-wrap: wrap;

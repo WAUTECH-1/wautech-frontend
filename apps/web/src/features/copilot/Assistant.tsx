@@ -4,7 +4,7 @@ import { RequestLease } from '../../integrations/lifecycle';
 import { useLoad } from '../workflows/hooks';
 import { WorkflowFrame, LoadState } from '../workflows/ui';
 import { navigate } from '../../routing/history';
-import { createAssistantApi } from './api';
+import { createAssistantApi, referencePath } from './api';
 import type { History, Scope, Turn, Source } from './api';
 import { moneyLabel } from '../intelligence/money';
 import './assistant.css';
@@ -18,6 +18,60 @@ const suggestedQuestions = [
   'What activities occurred recently?',
 ];
 function Fact({ source }: { source: Source }) {
+  if (source.id === 'business-context')
+    return (
+      <section>
+        <h4>User-provided business context — not independently verified</h4>
+        {['organizationProfile', 'privatePreferences'].map((key) => {
+          const doc = source.facts[key] as
+            { data?: Record<string, unknown> | null } | undefined;
+          return (
+            <details key={key}>
+              <summary>
+                {key === 'organizationProfile'
+                  ? 'Shared business profile'
+                  : 'Your private preferences'}
+              </summary>
+              {doc?.data ? (
+                <dl className="copilot-facts">
+                  {Object.entries(doc.data)
+                    .filter(
+                      ([field]) =>
+                        ![
+                          'version',
+                          'storageConsent',
+                          'advisorConsent',
+                        ].includes(field),
+                    )
+                    .map(([field, value]) => (
+                      <div key={field}>
+                        <dt>{field.replace(/([A-Z])/g, ' $1')}</dt>
+                        <dd>{String(value ?? 'Not provided')}</dd>
+                      </div>
+                    ))}
+                </dl>
+              ) : (
+                <p>No optional profile answers saved.</p>
+              )}
+            </details>
+          );
+        })}
+        <p>
+          Goal context contains up to five recent planning records; declarations
+          of progress are not proof of business outcomes.
+        </p>
+        <button onClick={() => navigate('/business-profile')}>
+          Correct business profile
+        </button>
+        <button onClick={() => navigate('/business-onboarding')}>
+          Correct or delete my preferences
+        </button>
+        <button onClick={() => navigate('/business-goals')}>
+          Review goal plans
+        </button>
+      </section>
+    );
+
   if (source.id === 'summary') {
     const counts = source.facts.counts as Record<string, unknown> | undefined;
     const currencies = source.facts.currencyStageTotals;
@@ -60,7 +114,7 @@ function Fact({ source }: { source: Source }) {
             })}
           </ul>
         )}
-        <button onClick={() => navigate(source.path)}>
+        <button onClick={() => navigate(referencePath(source))}>
           View verified reports
         </button>
       </section>
@@ -77,7 +131,9 @@ function Fact({ source }: { source: Source }) {
           </div>
         ))}
       </dl>
-      <button onClick={() => navigate(source.path)}>Open CRM record</button>
+      <button onClick={() => navigate(referencePath(source))}>
+        Open CRM record
+      </button>
     </details>
   );
 }
@@ -115,7 +171,10 @@ export function Answer({ turn }: { turn: Turn }) {
               {rec.sourceIds.map((id) => {
                 const source = turn.evidence.sources.find((s) => s.id === id)!;
                 return (
-                  <button key={id} onClick={() => navigate(source.path)}>
+                  <button
+                    key={id}
+                    onClick={() => navigate(referencePath(source))}
+                  >
                     {source.label}
                   </button>
                 );
@@ -154,6 +213,7 @@ export default function Assistant() {
     [api],
   );
   const loaded = useLoad(String(revision), loader);
+  const [shareBusinessContext, setShareBusinessContext] = useState(false);
   const [question, setQuestion] = useState(''),
     [scope, setScope] = useState<Scope>('briefing');
   const [stage, setStage] = useState(''),
@@ -187,10 +247,12 @@ export default function Assistant() {
         scope,
         ...(scope === 'opportunities' && stage ? { stage } : {}),
         ...(scope === 'record' ? { resource, recordId } : {}),
+        ...(scope === 'advisor' ? { shareBusinessContext } : {}),
       });
       if (api.active()) {
         setHistory({ ...current, turns: [...current.turns, turn] });
         setQuestion('');
+        setShareBusinessContext(false);
       }
     } catch (e) {
       if (api.active())
@@ -272,6 +334,7 @@ export default function Assistant() {
                   value={scope}
                   onChange={(e) => {
                     setScope(e.target.value as Scope);
+                    setShareBusinessContext(false);
                     setStage('');
                   }}
                   disabled={busy}
@@ -282,8 +345,52 @@ export default function Assistant() {
                   <option value="tasks">Overdue tasks</option>
                   <option value="activities">Recent activities</option>
                   <option value="record">Specific CRM record</option>
+                  <option value="advisor">
+                    Business discovery and planning advisor
+                  </option>
                 </select>
               </label>
+              {scope === 'advisor' && (
+                <section>
+                  <p>
+                    Explore business discovery, goal clarification, sales
+                    improvement, founder guidance, employee productivity, weekly
+                    planning or progress reflection. Suggestions are hypotheses
+                    to review, not guarantees.
+                  </p>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={shareBusinessContext}
+                      onChange={(e) =>
+                        setShareBusinessContext(e.target.checked)
+                      }
+                      disabled={busy}
+                    />
+                    For this question, send my saved private preferences, the
+                    organization business profile and up to five goal records to
+                    the configured AI provider. I have separately enabled
+                    advisor sharing in onboarding; provider retention applies.
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => navigate('/business-onboarding')}
+                  >
+                    Manage advisor consent
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setQuestion(
+                        'Help me clarify one achievable goal for this week, propose reviewable small steps, and explain which assumptions need validation.',
+                      )
+                    }
+                  >
+                    Prepare weekly planning question
+                  </button>
+                </section>
+              )}
+
               {scope === 'opportunities' && (
                 <label>
                   Opportunity stage
@@ -355,7 +462,8 @@ export default function Assistant() {
                   !question.trim() ||
                   !loaded.data.status.available ||
                   !current ||
-                  current.turns.length >= 10
+                  current.turns.length >= 10 ||
+                  (scope === 'advisor' && !shareBusinessContext)
                 }
               >
                 Ask Intelligence
