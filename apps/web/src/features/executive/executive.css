@@ -1,0 +1,41 @@
+.executive-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.executive-stage {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.executive-stage article {
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+.executive-stage button {
+  margin: 4px;
+  max-width: 100%;
+  white-space: normal;
+  text-align: start;
+}
+.intelligence-feature select,
+.intelligence-feature input {
+  max-width: 100%;
+  min-width: 0;
+}
+.intelligence-feature li,
+.intelligence-feature p {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  .intelligence-filters {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .intelligence-grid {
+    grid-template-columns: 1fr;
+  }
+}

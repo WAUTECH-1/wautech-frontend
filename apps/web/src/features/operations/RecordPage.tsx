@@ -15,6 +15,11 @@ export default function RecordPage() {
     [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [pending, setPending] = useState<string | null | undefined>();
+  const [pendingStage, setPendingStage] = useState<{
+    pipelineId: string;
+    stageKey: string;
+    label: string;
+  }>();
   const loader = useCallback(
     async (s: AbortSignal) => {
       if (
@@ -74,16 +79,42 @@ export default function RecordPage() {
           </h3>
           <dl>
             {Object.entries(state.data.record)
-              .filter(([k]) => !['id', 'archived'].includes(k))
+              .filter(
+                ([k]) =>
+                  ![
+                    'id',
+                    'archived',
+                    'assigneeUserId',
+                    'ownerUserId',
+                    'companyId',
+                    'contactId',
+                    'leadId',
+                    'opportunityId',
+                    'pipelineId',
+                    'pipelineStageKey',
+                  ].includes(k),
+              )
               .map(([k, v]) => (
                 <div key={k}>
-                  <dt>{k}</dt>
+                  <dt>
+                    {k
+                      .replace(/([a-z])([A-Z])/g, '$1 $2')
+                      .replace(/^./, (s) => s.toUpperCase())}
+                  </dt>
                   <dd>
                     {v === null
                       ? 'None'
                       : typeof v === 'object'
                         ? JSON.stringify(v)
-                        : String(v)}
+                        : typeof v === 'boolean'
+                          ? v
+                            ? 'Yes'
+                            : 'No'
+                          : k.endsWith('At') &&
+                              typeof v === 'string' &&
+                              Number.isFinite(Date.parse(v))
+                            ? new Date(v).toLocaleString()
+                            : String(v).replaceAll('_', ' ')}
                   </dd>
                 </div>
               ))}
@@ -91,6 +122,28 @@ export default function RecordPage() {
           <button onClick={() => navigate(`/${resource}`)}>
             Open {resource} workspace
           </button>
+          {resource === 'opportunities' &&
+            typeof state.data.record.pipelineId === 'string' && (
+              <p>
+                Configured pipeline:{' '}
+                {String(
+                  state.data.pipelines.find(
+                    (p) => p.id === state.data!.record.pipelineId,
+                  )?.name || 'Unavailable',
+                )}{' '}
+                ·{' '}
+                {String(
+                  (
+                    state.data.pipelines.find(
+                      (p) => p.id === state.data!.record.pipelineId,
+                    )?.stages as { key: string; name: string }[] | undefined
+                  )?.find((s) => s.key === state.data!.record.pipelineStageKey)
+                    ?.name ||
+                    state.data.record.pipelineStageKey ||
+                    'Unavailable',
+                )}
+              </p>
+            )}
           {resource === 'opportunities' && api.canWrite && (
             <section aria-label="Assign deal pipeline">
               <form
@@ -100,23 +153,16 @@ export default function RecordPage() {
                   const [pipelineId, stageKey] = String(
                     f.get('pipelineStage'),
                   ).split(':');
-                  setBusy(true);
-                  setError('');
-                  void api
-                    .write(
-                      '/opportunities/' + id + '/pipeline-stage',
-                      'PATCH',
-                      { pipelineId, stageKey },
-                    )
-                    .then(() => {
-                      if (api.active()) setRevision((v) => v + 1);
-                    })
-                    .catch((e) => {
-                      if (api.active()) setError(e.message);
-                    })
-                    .finally(() => {
-                      if (api.active()) setBusy(false);
-                    });
+                  const selected =
+                    e.currentTarget.querySelector<HTMLSelectElement>(
+                      '[name=pipelineStage]',
+                    );
+                  setPendingStage({
+                    pipelineId,
+                    stageKey,
+                    label:
+                      selected?.selectedOptions[0]?.textContent || stageKey,
+                  });
                 }}
               >
                 <label>
@@ -257,6 +303,41 @@ export default function RecordPage() {
             void api
               .assign(resource as 'tasks' | 'opportunities', id, userId)
               .then(() => {
+                if (api.active()) setRevision((v) => v + 1);
+              })
+              .catch((e) => {
+                if (api.active()) setError(e.message);
+              })
+              .finally(() => {
+                if (api.active()) setBusy(false);
+              });
+          }}
+        />
+      )}
+      {pendingStage && (
+        <Confirmation
+          message={`Move this opportunity to ${pendingStage.label}? Closed stages are terminal.`}
+          onCancel={() => setPendingStage(undefined)}
+          onConfirm={() => {
+            const move = pendingStage;
+            setPendingStage(undefined);
+            setBusy(true);
+            setError('');
+            void api
+              .write('/opportunities/' + id + '/pipeline-stage', 'PATCH', {
+                pipelineId: move.pipelineId,
+                stageKey: move.stageKey,
+              })
+              .then((value) => {
+                const result = object(value);
+                if (
+                  result.id !== id ||
+                  result.pipelineId !== move.pipelineId ||
+                  result.pipelineStageKey !== move.stageKey
+                )
+                  throw Error(
+                    'Stage change was not confirmed. Refresh the record before retrying.',
+                  );
                 if (api.active()) setRevision((v) => v + 1);
               })
               .catch((e) => {
