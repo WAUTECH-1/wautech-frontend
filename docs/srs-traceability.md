@@ -12,6 +12,12 @@ Source/test keys E01–E15 resolve in [implementation-status](./implementation-s
 
 ## Current Phase 2 matrix — 2026-10-14
 
+### Phase 3 evidence update — 2026-10-14
+
+The original SRS identifiers/scopes and whole-requirement statuses remain intact. Current evidence advances **FR-007/008/011/012/013/015**, SCOPE-01 and the B10/B17 reporting/productivity subset: PostgreSQL aggregate executive/reporting API, exact currency totals, documented current-status shares and UTC cohorts, completion-date metric, owner/assignee reports, safe report export, complete stage counts with paged cards, configured/legacy authorized transitions, bounded global search, shared confirmation and readable details. See [Phase 3 delivery](./phase3-delivery.md) for endpoint/source/test paths and limits.
+
+**NFR-002/008** gain real HTTP reporting isolation, VIEWER/export, >5,000-record correctness and error tests. **NFR-003 remains UNVERIFIED** for agreed expected-pilot latency/load targets; large-fixture correctness is not a production SLO. **NFR-009 remains PARTIAL** pending full WCAG acceptance despite theme/responsive/keyboard checks. **FR-016 remains PARTIAL** for exhaustive API drift/schema gates; this phase documents its new contracts. Historical conversion/revenue definitions are not fabricated or claimed COMPLETE. Deployment/recovery/scanning/onboarding blockers and separately approved AI/voice/VR vision remain unchanged.
+
 This table supersedes Phase 1 implementation classifications below. Original IDs and verbatim scope remain unchanged in the historical requirement sections. Required backend/frontend behavior and original proposed acceptance criteria continue to apply. Current implementation/test/security details are in [Phase 2 delivery](./phase2-delivery.md); the historical E01–E15 links remain pinned baseline evidence, not proof of Phase 2 implementation.
 
 | ID      | Current classification | Phase 2 evidence / remaining work                                                                                                                                                                            | Priority / dependency / remaining effort                              |

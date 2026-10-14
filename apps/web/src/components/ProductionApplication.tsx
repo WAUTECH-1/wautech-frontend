@@ -13,7 +13,8 @@ import {
   organizationTransport,
   mutation,
 } from '../integrations/http';
-import { emptyOverview, loadOverview } from '../integrations/overview';
+import { emptyOverview } from '../integrations/overview';
+import { loadAggregateOverview } from '../integrations/aggregate-overview';
 import type { AppPath } from '../routing/routes';
 import { navigate } from '../routing/history';
 import { featureAt, featureRoutes } from '../features/registry';
@@ -109,12 +110,16 @@ function TenantApplication({
   }, [scope, crm, mounts]);
   useEffect(() => {
     const controller = new AbortController();
-    void loadOverview(config.baseUrl, scope.transport, controller.signal)
+    void loadAggregateOverview(
+      config.baseUrl,
+      scope.transport,
+      controller.signal,
+    )
       .then((result) => {
         if (!controller.signal.aborted && scope.active()) {
           setData(result.data);
           setFailures(result.failures);
-          setState(result.failures.length === 9 ? 'error' : 'ready');
+          setState(result.failures.length === 3 ? 'error' : 'ready');
         }
       })
       .catch((e) => {

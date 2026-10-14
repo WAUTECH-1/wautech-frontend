@@ -4,20 +4,20 @@ export const intelligenceRoutes = [
     path: '/dashboard',
     title: 'Executive intelligence',
     access: 'tenant',
-    load: () => import('./DashboardPage'),
+    load: () => import('../executive/Dashboard'),
   },
   {
     path: '/pipeline',
     title: 'Sales pipeline',
     access: 'tenant',
-    load: () => import('./PipelinePage'),
+    load: () => import('../executive/Pipeline'),
   },
   {
     path: '/reports',
     title: 'Sales reports',
     access: 'tenant',
     navigation: { label: 'Reports', order: 10 },
-    load: () => import('./ReportsPage'),
+    load: () => import('../executive/Reports'),
   },
 ] as const satisfies FeatureModule['routes'];
 export const intelligenceNavigation = [

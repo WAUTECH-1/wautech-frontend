@@ -1,5 +1,11 @@
 # Implementation status — evidence audit
 
+## Current Phase 3 status — 2026-10-14
+
+Phase 3 supersedes the dashboard/reporting implementation findings below. Production `/dashboard`, `/reports` and `/pipeline` now use PostgreSQL aggregates and bounded detail pages; `/search` uses verified tenant-scoped record APIs. The shell no longer obtains totals by downloading entire CRM collections. Exact currency values, UTC creation/occurrence/completion semantics, current status shares, owner/assignee grouping, report CSV, pipeline transitions, deep links and loading/error/empty states are integrated. Original applications and tests remain.
+
+See [Phase 3 delivery](./phase3-delivery.md) for definitions, limits, security/source evidence and actual test results. Real HTTP verifies aggregates above 5,000 records and tenant-safe date/member/currency/export behavior. True conversion/history/revenue metrics remain unavailable because their contracts do not exist; staging/accessibility/performance/recovery release obligations remain explicit. No AI work begun.
+
 ## Current Phase 2 status — 2026-10-14
 
 The Phase 2 delta and current validation supersede the historical Phase 1 findings below. Both repositories use `codex/phase2-operational-mvp`, based on verified latest main: frontend `6afacad1a277fdcdb080f7731e53047dabb38086`, backend `9173373f29ac1d3840ed95b81c8d1c1ddb506703`.
