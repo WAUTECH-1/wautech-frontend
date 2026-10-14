@@ -1,5 +1,9 @@
 # SRS traceability — current source audit
 
+## Phase 4 extension evidence — 2026-10-14
+
+The approved Phase 4 copilot is a versioned extension to the SRS's cautiously scoped initial AI direction, not a fabricated new original FR identifier. It reuses FR-011/FR-013 current reporting evidence and existing tenant/session/role requirements. Provider configuration, bounded read tools, source validation, durable budget/rate controls and unified assistant UI are implemented and tested with mocks. Live model performance remains UNVERIFIED/BLOCKED; FR-016/release controls and unsupported historical/conversion metrics retain their prior limits. See [Phase 4 delivery](./phase4-delivery.md); no original requirement is marked COMPLETE solely because a fluent mocked answer renders.
+
 Audit date: 2026-10-13. [Authoritative located source: WAU TECH CRM SRS v0.1](https://docs.google.com/document/d/1t6GuXbof6uZLHirEPNnSyZAKIK7UPHQYR6qnCY37F4k/edit), document date 3 October 2026, fetched from connected Drive. Drive metadata last modified 2 October 2026; the document's approval/sign-off is not evidenced. No later approved revision was found. This is an actual SRS comparison, not a fabricated provisional inventory.
 
 All 18 FR and 12 NFR identifiers and exact requirement sentences below are copied from sections 7–8. The SRS does **not** provide individual executable acceptance tests. “Acceptance” below is the architect's proposed test derived from the original scope, to be accepted by the sole product owner. SRS §3.2 success criteria and §16 Definition of Done additionally require local/CI tests, tenant checks, human review and staging validation. No requirement is fully release-accepted merely because a code row is COMPLETE.

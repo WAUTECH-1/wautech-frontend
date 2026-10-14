@@ -1,5 +1,9 @@
 # WAUTECH Intelligence vision roadmap
 
+## Phase 4 approved read-only AI slice — 2026-10-14
+
+The user's Phase 4 mission explicitly approves bounded CRM Intelligence implementation inside `apps/web`. Category B now has a server-side provider interface/OpenAI adapter and grounded tenant read tools; category C has the integrated conversation experience with facts, source links, rules and model recommendations separated. Implementation is PARTIAL: mocked tests verify contracts and authorization, while actual model behavior/live provider verification is BLOCKED by missing configuration. No voice, founder advisory, immersive or autonomous scope is approved/completed by this slice. See [Phase 4 delivery](./phase4-delivery.md). Original audit provenance and historical classifications below remain dated evidence.
+
 Audit date: 2026-10-13. This document separates current CRM obligations from possible product evolution. It approves no new feature scope, vendor, security architecture or data disclosure.
 
 ## Source provenance
