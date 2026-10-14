@@ -64,7 +64,7 @@ test('DTO serialization excludes response metadata and lead status', () => {
       currency: 'USD',
       companyId: 'id',
     }).amount,
-  ).toBe(0);
+  ).toBe('0');
 });
 test('pagination handles empty, final and stale pages', () => {
   expect(paginate([], 9, 10)).toEqual({

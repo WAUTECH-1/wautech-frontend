@@ -1,5 +1,17 @@
 # Implementation status — evidence audit
 
+## Current Phase 2 status — 2026-10-14
+
+The Phase 2 delta and current validation supersede the historical Phase 1 findings below. Both repositories use `codex/phase2-operational-mvp`, based on verified latest main: frontend `6afacad1a277fdcdb080f7731e53047dabb38086`, backend `9173373f29ac1d3840ed95b81c8d1c1ddb506703`.
+
+Operational CRM now includes exact opportunity money, working audited profile persistence, server pagination, task/deal assignments, configurable ordered tenant pipelines, notes CRUD, CSV preview/import/export, saved-view application, due reminders, read/unread notifications and contextual navigation. Existing organization/profile/settings, CRUD, relationships, tasks/activity lifecycle and session controls remain integrated in `apps/web`. Approved ownership transfer is implemented around the existing protected service, with mocked security coverage; real HTTP acceptance is still pending.
+
+Validation: backend **360 passed / 11 opt-in skipped / 0 failed** in complete `clean verify`; separate disposable HTTP **10 passed / 1 browser bridge skipped / 0 failed**; browser bridge **1 passed**, confirming real company/pipeline creation and viewer tenant isolation. Frontend **255 tests passed**, four type checks and four production builds; no workspace applications removed. CI now contains a real PostgreSQL HTTP gate. See [Phase 2 delivery](./phase2-delivery.md) for source/test paths, API contracts, migration compatibility, warnings and limits; [current SRS matrix](./srs-traceability.md#current-phase-2-matrix--2026-10-14) retains all original requirements.
+
+Recovery/new-user email onboarding, approved staging/TLS/deployment, scans/branch rules and backup/restore remain blocked by essential decisions/access. Audit-history UI, full accessibility/performance acceptance and exhaustive API drift coverage remain P2. This is not a production/SRS-complete claim. Earlier Docker-blocked and four-skipped-test statements below describe Phase 1, not the current baseline.
+
+## Historical Phase 1 audit
+
 Audit date: 2026-10-13 (America/Los_Angeles). Phase 1 is documentation only. The user is the sole developer and decision-maker for the next 48 hours. Historical developer names denote reusable source ownership, not staffing or dependencies.
 
 ## Executive finding

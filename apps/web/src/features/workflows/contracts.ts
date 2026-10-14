@@ -27,6 +27,7 @@ export interface WorkRecord {
   createdAt: string;
   updatedAt: string;
   task?: {
+    assigneeUserId?: string | null;
     status: Status;
     priority: Priority;
     dueAt: string | null;

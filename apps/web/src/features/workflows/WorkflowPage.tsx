@@ -48,22 +48,18 @@ export default function WorkflowPage({ kind }: { kind: Kind }) {
         query.dueAfter = new Date().toISOString();
         query.dueBefore = new Date(Date.now() + 7 * 86400000).toISOString();
       }
-      const rows = await api.list(kind, query, signal);
-      return {
-        rows:
-          kind === 'tasks' && view === 'upcoming'
-            ? rows.filter(
-                (row) =>
-                  row.task?.status === 'OPEN' ||
-                  row.task?.status === 'IN_PROGRESS',
-              )
-            : rows,
-      };
+      return await api.listPage(
+        kind,
+        query,
+        signal,
+        page - 1,
+        kind === 'tasks' && view === 'upcoming',
+      );
     },
-    [api, kind, filters, view, target, search],
+    [api, kind, filters, view, target, search, page],
   );
   const data = useLoad(
-    JSON.stringify([kind, filters, view, target, search, revision]),
+    JSON.stringify([kind, filters, view, target, search, revision, page]),
     loader,
   );
   const refresh = () => {
@@ -103,7 +99,8 @@ export default function WorkflowPage({ kind }: { kind: Kind }) {
       if (api.active()) setBusy(false);
     }
   }
-  const detail = data.data?.detail;
+  const detail =
+    data.data && 'detail' in data.data ? data.data.detail : undefined;
   return (
     <WorkflowFrame
       title={kind === 'tasks' ? 'Task management' : 'Activity management'}
@@ -128,6 +125,11 @@ export default function WorkflowPage({ kind }: { kind: Kind }) {
           key={form.record?.id || 'new'}
           kind={kind}
           record={form.record}
+          initialLinks={
+            Object.fromEntries(
+              relationshipFields.map((field) => [field, params.get(field)]),
+            ) as import('./contracts').Links
+          }
           api={api}
           busy={busy}
           onSave={save}
@@ -303,33 +305,33 @@ export default function WorkflowPage({ kind }: { kind: Kind }) {
                   (data.data.rows.length ? (
                     <>
                       <p>
-                        {data.data.rows.length} matching {kind} · Page {page}
+                        {'total' in data.data
+                          ? data.data.total
+                          : data.data.rows.length}{' '}
+                        matching {kind} · Page {page}
                       </p>
                       <ul className="workflow-records">
-                        {data.data.rows
-                          .slice((page - 1) * 25, page * 25)
-                          .map((row) => (
-                            <li key={row.id}>
-                              <button
-                                onClick={() =>
-                                  navigate(workflowLink(kind, {}, row.id))
-                                }
-                              >
-                                {row.label}
-                              </button>
+                        {data.data.rows.map((row) => (
+                          <li key={row.id}>
+                            <button
+                              onClick={() =>
+                                navigate(workflowLink(kind, {}, row.id))
+                              }
+                            >
+                              {row.label}
+                            </button>
+                            <p>
+                              {row.task
+                                ? `${row.task.status} · ${row.task.priority}${row.task.overdue ? ' · Overdue' : ''}`
+                                : `${row.activity!.type} · ${new Date(row.activity!.occurredAt).toLocaleString()}`}
+                            </p>
+                            {row.task?.dueAt && (
                               <p>
-                                {row.task
-                                  ? `${row.task.status} · ${row.task.priority}${row.task.overdue ? ' · Overdue' : ''}`
-                                  : `${row.activity!.type} · ${new Date(row.activity!.occurredAt).toLocaleString()}`}
+                                Due {new Date(row.task.dueAt).toLocaleString()}
                               </p>
-                              {row.task?.dueAt && (
-                                <p>
-                                  Due{' '}
-                                  {new Date(row.task.dueAt).toLocaleString()}
-                                </p>
-                              )}
-                            </li>
-                          ))}
+                            )}
+                          </li>
+                        ))}
                       </ul>
                       <div className="workflow-actions">
                         <button
@@ -339,7 +341,10 @@ export default function WorkflowPage({ kind }: { kind: Kind }) {
                           Previous workflows
                         </button>
                         <button
-                          disabled={page * 25 >= data.data.rows.length}
+                          disabled={
+                            !('pages' in data.data) ||
+                            page >= Number(data.data.pages)
+                          }
                           onClick={() => setPage((v) => v + 1)}
                         >
                           Next workflows

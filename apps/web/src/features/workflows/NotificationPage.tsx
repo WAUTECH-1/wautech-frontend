@@ -47,9 +47,21 @@ export default function NotificationPage() {
   );
   return (
     <WorkflowFrame title="Notifications" busy={busy} onRefresh={refresh}>
+      <button
+        disabled={busy}
+        onClick={() =>
+          void action(
+            () => api.checkReminders(),
+            'Due-task reminders checked. Refresh shows confirmed notifications.',
+          )
+        }
+      >
+        Check my due task reminders
+      </button>
       <p>
-        Notifications are loaded on demand. Refresh to see new events. Real-time
-        delivery and marking notifications unread are unavailable.
+        Notifications are loaded on demand. Refresh to see new events. Due
+        checks generate reminders for your assigned pending tasks. Real-time
+        streaming is unavailable.
       </p>
       {error && <p role="alert">{error}</p>}
       {notice && <p role="status">{notice}</p>}
@@ -98,6 +110,19 @@ export default function NotificationPage() {
                       Mark as read
                     </button>
                   )}
+                  {row.readAt && (
+                    <button
+                      disabled={busy}
+                      onClick={() =>
+                        void action(
+                          () => api.markUnread(row.id),
+                          'Notification marked unread.',
+                        )
+                      }
+                    >
+                      Mark as unread
+                    </button>
+                  )}
                   {row.targetType === 'ORGANIZATION_MEMBERSHIP' &&
                   row.targetId ? (
                     <>
@@ -123,6 +148,22 @@ export default function NotificationPage() {
                         </p>
                       )}
                     </>
+                  ) : row.targetId &&
+                    ['TASK', 'OPPORTUNITY'].includes(row.targetType) ? (
+                    <button
+                      disabled={busy}
+                      onClick={() =>
+                        void action(async () => {
+                          const path = await api.notificationTarget(
+                            row.targetType,
+                            row.targetId!,
+                          );
+                          if (api.active()) navigate(path);
+                        }, 'Target access verified.')
+                      }
+                    >
+                      Open related {row.targetType.toLowerCase()}
+                    </button>
                   ) : (
                     <p>
                       Related record navigation is unavailable for this

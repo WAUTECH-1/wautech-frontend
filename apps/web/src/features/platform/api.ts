@@ -107,6 +107,26 @@ export function createPlatformApi(
           'POST',
         ),
       ),
+    transferOwnership: async (targetMembershipId: string) => {
+      if (!uuid.test(targetMembershipId))
+        throw new ApiError('contract', 'Choose an active member.');
+      const value = verifyMember(
+        await mutation<Member>(
+          baseUrl,
+          '/organization/ownership-transfer',
+          transport,
+          { targetMembershipId },
+          'POST',
+        ),
+      );
+      if (
+        value.id !== targetMembershipId ||
+        value.role !== 'OWNER' ||
+        value.status !== 'ACTIVE'
+      )
+        throw new ApiError('contract', 'Ownership transfer was not confirmed.');
+      return value;
+    },
     setRole: async (id: string, role: Role) =>
       verifyMember(
         await mutation<Member>(

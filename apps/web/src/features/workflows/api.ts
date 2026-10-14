@@ -1,4 +1,5 @@
 import type { FeatureApplication } from '../contract';
+import { recordsChanged } from '../../integrations/refresh';
 import {
   jsonRequest,
   sessionTransport,
@@ -77,6 +78,10 @@ export function parseRecord(kind: Kind, value: unknown): WorkRecord {
     return {
       ...common,
       task: {
+        assigneeUserId:
+          row.assigneeUserId === undefined || row.assigneeUserId === null
+            ? null
+            : id(row.assigneeUserId),
         status: row.status as Status,
         priority: row.priority as (typeof priorities)[number],
         dueAt: nullableDate(row.dueAt),
@@ -210,6 +215,7 @@ export function createWorkflowApi(
       },
     );
     if (!active()) throw new Error('Account or organization changed.');
+    recordsChanged();
     return value;
   }
   async function related(
@@ -238,6 +244,9 @@ export function createWorkflowApi(
   }
   return {
     active,
+    read,
+    write,
+    transport,
     canWrite: canWrite(tenant.role),
     role: tenant.role,
     dispose: () => controller.abort(),
@@ -260,6 +269,34 @@ export function createWorkflowApi(
           'Workflow response does not match the requested record.',
         );
       return row;
+    },
+    async listPage(
+      kind: Kind,
+      filters: Filters,
+      signal: AbortSignal,
+      page: number,
+      pendingOnly = false,
+    ) {
+      const query = new URLSearchParams(queryString(kind, filters));
+      query.set('page', String(page));
+      query.set('size', '25');
+      if (pendingOnly) query.set('pendingOnly', 'true');
+      const raw = object(await read('/records/' + kind + '?' + query, signal));
+      if (
+        !Array.isArray(raw.content) ||
+        raw.content.length > 25 ||
+        raw.page !== page ||
+        !Number.isSafeInteger(raw.totalElements) ||
+        Number(raw.totalElements) < 0 ||
+        !Number.isSafeInteger(raw.totalPages) ||
+        Number(raw.totalPages) < 0
+      )
+        throw Error('Invalid workflow page.');
+      return {
+        rows: raw.content.map((row) => parseRecord(kind, row)),
+        total: Number(raw.totalElements),
+        pages: Number(raw.totalPages),
+      };
     },
     async save(kind: Kind, input: Input, target?: string) {
       validateInput(kind, input);
@@ -361,6 +398,48 @@ export function createWorkflowApi(
       )
         throw new Error('Read-all action was not confirmed.');
       return value.updatedCount as number;
+    },
+    async markUnread(target: string) {
+      if (!uuid(target)) throw Error('Invalid notification ID.');
+      const result = parseNotification(
+        await write(
+          '/notifications/' + target + '/unread',
+          'PATCH',
+          undefined,
+          false,
+        ),
+      );
+      if (result.id !== target || result.readAt !== null)
+        throw Error('Unread action was not confirmed.');
+      return result;
+    },
+    async checkReminders() {
+      const value = object(
+        await write('/tasks/reminders/check', 'POST', undefined, false),
+      );
+      if (
+        !Number.isSafeInteger(value.checkedCount) ||
+        Number(value.checkedCount) < 0
+      )
+        throw Error('Reminder check was not confirmed.');
+      return Number(value.checkedCount);
+    },
+    async notificationTarget(
+      type: string,
+      target: string,
+    ): Promise<`/${string}`> {
+      if (!uuid(target) || !['TASK', 'OPPORTUNITY'].includes(type))
+        throw Error('Unsupported notification target.');
+      const value = object(
+        await read(
+          '/' + (type === 'TASK' ? 'tasks' : 'opportunities') + '/' + target,
+        ),
+      );
+      if (value.id !== target || value.archived !== false)
+        throw Error('Related record unavailable.');
+      return type === 'TASK'
+        ? `/tasks?id=${target}`
+        : `/record-context?resource=opportunities&id=${target}`;
     },
     async membershipTarget(target: string) {
       if (!['OWNER', 'ADMIN'].includes(String(tenant.role)))

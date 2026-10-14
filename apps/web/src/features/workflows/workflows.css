@@ -2,6 +2,15 @@
   color: var(--text, #1d2942);
   min-width: 0;
 }
+.workflow-feature dl {
+  overflow-wrap: anywhere;
+}
+.workflow-feature dd {
+  margin-inline-start: 1rem;
+}
+.workflow-feature fieldset {
+  min-inline-size: 0;
+}
 .workflow-feature .workflow-heading {
   display: flex;
   gap: 1rem;

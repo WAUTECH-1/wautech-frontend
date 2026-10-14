@@ -42,7 +42,7 @@ export interface LeadRequest {
 export interface OpportunityRequest {
   name: string;
   description: string | null;
-  amount: number | null;
+  amount: string | number | null;
   currency: string | null;
   stage?: OpportunityStage;
   expectedCloseDate: string | null;

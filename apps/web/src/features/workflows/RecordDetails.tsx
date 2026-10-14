@@ -33,7 +33,14 @@ export function RecordDetails({
                 new Date(record.task.completedAt).toLocaleString()
               : ''}
           </p>
-          <p>Assignee and reminders are unavailable.</p>
+          <p>Assignee: {record.task.assigneeUserId || 'Unassigned'}</p>
+          <button
+            onClick={() =>
+              navigate(`/record-context?resource=tasks&id=${record.id}`)
+            }
+          >
+            Manage task assignment
+          </button>
         </>
       ) : (
         <p>
@@ -51,6 +58,17 @@ export function RecordDetails({
         {related.data?.map((item, index) => (
           <li key={item.field + index}>
             {item.field.replace('Id', '')}: {item.name}
+            {item.id && (
+              <button
+                onClick={() =>
+                  navigate(
+                    `/record-context?resource=${item.field === 'companyId' ? 'companies' : item.field === 'contactId' ? 'contacts' : item.field === 'leadId' ? 'leads' : 'opportunities'}&id=${item.id}`,
+                  )
+                }
+              >
+                Open related record
+              </button>
+            )}
           </li>
         ))}
       </ul>

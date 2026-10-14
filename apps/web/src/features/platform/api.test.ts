@@ -7,6 +7,29 @@ const response = (data: unknown, status = 200) =>
     status,
     headers: { 'Content-Type': 'application/json' },
   });
+test('ownership transfer uses CSRF and verifies the new owner response', async () => {
+  const transport = vi.fn<typeof fetch>(async (input) =>
+    String(input).endsWith('/csrf')
+      ? response({ headerName: 'X-CSRF-TOKEN', token: 'fixture' })
+      : response({
+          id: user,
+          organizationId: org,
+          userId: user,
+          role: 'OWNER',
+          status: 'ACTIVE',
+        }),
+  );
+  const api = createPlatformApi('', transport, org, org);
+  await api.transferOwnership(user);
+  expect(transport.mock.calls[1][1]).toMatchObject({
+    method: 'POST',
+    body: JSON.stringify({ targetMembershipId: user }),
+    headers: { 'X-CSRF-TOKEN': 'fixture' },
+  });
+  await expect(api.transferOwnership('invalid')).rejects.toMatchObject({
+    kind: 'contract',
+  });
+});
 test('rejects foreign organization, member and profile payloads', async () => {
   const api = createPlatformApi(
     '',
