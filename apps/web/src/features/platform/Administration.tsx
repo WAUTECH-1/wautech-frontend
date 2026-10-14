@@ -210,6 +210,24 @@ export default function AdministrationPage() {
                         </td>
                         <td>{member.status}</td>
                         <td>
+                          {role === 'OWNER' &&
+                            !own &&
+                            member.status === 'ACTIVE' && (
+                              <button
+                                disabled={busy}
+                                onClick={() =>
+                                  setPending({
+                                    message: `Transfer ownership to ${member.userId}? They will become OWNER and your membership will become ADMIN.`,
+                                    run: async () => {
+                                      await api.transferOwnership(member.id);
+                                      if (active()) app.reloadOrganizations();
+                                    },
+                                  })
+                                }
+                              >
+                                Transfer ownership
+                              </button>
+                            )}
                           {member.status === 'ACTIVE' ? (
                             <button
                               disabled={busy || own || protectedOwner}

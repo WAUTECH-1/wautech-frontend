@@ -21,6 +21,7 @@ function localDate(value: string | null) {
 export function RecordForm({
   kind,
   record,
+  initialLinks,
   api,
   busy,
   onSave,
@@ -28,6 +29,7 @@ export function RecordForm({
 }: {
   kind: Kind;
   record?: WorkRecord;
+  initialLinks?: Links;
   api: WorkflowApi;
   busy: boolean;
   onSave: (input: Input) => Promise<void>;
@@ -56,7 +58,7 @@ export function RecordForm({
       window.removeEventListener('beforeunload', unload);
     };
   }, [dirty]);
-  const links = record?.links || emptyLinks();
+  const links = record?.links || initialLinks || emptyLinks();
   return (
     <form
       className="workflow-form"
@@ -193,8 +195,9 @@ export function RecordForm({
           </label>
         ))}
         <p>
-          Suggestions show up to 500 records per resource. Assignment and
-          reminders are unavailable.
+          Suggestions show up to 500 records per resource. Save a task, then use
+          Manage task assignment. Check your due-task reminders from
+          Notifications.
         </p>
         <div className="workflow-actions">
           <button

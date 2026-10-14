@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import type { CrmOperations, ListQuery } from './api';
 import {
   leadStatuses,
@@ -51,6 +52,7 @@ export function Workspace({
   controlledResource,
   contentOnly = false,
   readOnly = false,
+  renderRecordActions,
 }: {
   api: CrmOperations;
   user: User;
@@ -61,6 +63,7 @@ export function Workspace({
   controlledResource?: Resource;
   contentOnly?: boolean;
   readOnly?: boolean;
+  renderRecordActions?: (record: RecordDto) => ReactNode;
 }) {
   const [localResource, setResource] = useState<Resource>('companies');
   const resource = controlledResource || localResource;
@@ -74,6 +77,7 @@ export function Workspace({
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [rows, setRows] = useState<RecordDto[]>([]);
+  const [serverTotal, setServerTotal] = useState<number>();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
@@ -101,16 +105,26 @@ export function Workspace({
         query.contactId = contactFilter;
       if (resource === 'leads' && stateFilter)
         query.status = stateFilter as Lead['status'];
+      if ((resource === 'companies' || resource === 'contacts') && stateFilter)
+        query.status = stateFilter;
       if (resource === 'opportunities' && stateFilter)
         query.stage = stateFilter as Opportunity['stage'];
       Promise.all([
-        api.list(resource, query, controller.signal),
+        api.listPage
+          ? api.listPage(resource, query, page - 1, size, controller.signal)
+          : api.list(resource, query, controller.signal),
         api.list('companies', {}, controller.signal),
         api.list('contacts', {}, controller.signal),
       ])
         .then(([records, companyRows, contactRows]) => {
           if (!controller.signal.aborted) {
-            setRows(records);
+            if (Array.isArray(records)) {
+              setRows(records);
+              setServerTotal(undefined);
+            } else {
+              setRows(records.content);
+              setServerTotal(records.totalElements);
+            }
             setCompanies(companyRows);
             setContacts(contactRows);
           }
@@ -136,6 +150,8 @@ export function Workspace({
     contactFilter,
     stateFilter,
     revision,
+    page,
+    size,
   ]);
   useEffect(() => {
     if (!detailId) return;
@@ -217,7 +233,15 @@ export function Workspace({
       setBusy(false);
     }
   }
-  const result = paginate(rows, page, size);
+  const result =
+    serverTotal === undefined
+      ? paginate(rows, page, size)
+      : {
+          items: rows,
+          page,
+          pages: Math.max(1, Math.ceil(serverTotal / size)),
+          total: serverTotal,
+        };
   const transitions =
     selected && resource === 'leads'
       ? leadTransitions[(selected as Lead).status]
@@ -415,6 +439,23 @@ export function Workspace({
                   ))}
                 </select>
               )}
+              {(resource === 'companies' || resource === 'contacts') && (
+                <label>
+                  Status filter
+                  <input
+                    aria-label="Status filter"
+                    maxLength={40}
+                    placeholder="Any status"
+                    value={stateFilter}
+                    onChange={(e) => {
+                      setStateFilter(e.target.value);
+                      setPage(1);
+                      setRows([]);
+                      setLoading(true);
+                    }}
+                  />
+                </label>
+              )}
               <select
                 aria-label="Sort field"
                 value={sortBy}
@@ -479,7 +520,11 @@ export function Workspace({
                 {loading
                   ? 'Loading records…'
                   : `${result.total} records · Page ${result.page} of ${result.pages}`}
-                <small>Pagination is local to the returned backend list.</small>
+                <small>
+                  {api.listPage
+                    ? 'Records are paginated by the server.'
+                    : 'Pagination is local to the returned backend list.'}
+                </small>
               </span>
               <div>
                 <select
@@ -552,6 +597,7 @@ export function Workspace({
                   </div>
                 ))}
               </dl>
+              {renderRecordActions?.(selected)}
               {transitions.length > 0 && (
                 <label>
                   Move to

@@ -1,4 +1,5 @@
 import type { Contact, Requests, Resource } from './contracts';
+import { validAmount } from './decimal';
 export interface Field {
   key: string;
   label: string;
@@ -71,11 +72,9 @@ export function validate(
       errors.amount = 'Provide amount and currency together.';
       errors.currency = errors.amount;
     }
-    if (
-      values.amount &&
-      (!Number.isFinite(Number(values.amount)) || Number(values.amount) < 0)
-    )
-      errors.amount = 'Amount must be zero or greater.';
+    if (values.amount && !validAmount(values.amount))
+      errors.amount =
+        'Enter a nonnegative decimal with at most 15 whole and 4 fractional digits.';
     if (values.currency && !/^[A-Z]{3}$/.test(values.currency))
       errors.currency = 'Use a three-letter uppercase currency code.';
     if (
@@ -96,11 +95,7 @@ export function toRequest<K extends Resource>(
   for (const field of fields[resource]) {
     const value = values[field.key] || '';
     body[field.key] =
-      field.key === 'amount'
-        ? value
-          ? Number(value)
-          : null
-        : value.trim() || null;
+      field.key === 'amount' ? (value ? value : null) : value.trim() || null;
   }
   return body as unknown as Requests[K];
 }

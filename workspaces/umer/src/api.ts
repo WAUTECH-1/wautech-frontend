@@ -1,3 +1,4 @@
+import { parseMoneyJson } from './decimal';
 import type {
   LeadStatus,
   OpportunityStage,
@@ -21,7 +22,7 @@ export interface ListQuery {
   sortDirection?: 'asc' | 'desc';
   companyId?: string;
   contactId?: string;
-  status?: LeadStatus;
+  status?: string;
   stage?: OpportunityStage;
 }
 export type CrmOperations = Pick<
@@ -33,7 +34,7 @@ export type CrmOperations = Pick<
   | 'archive'
   | 'changeLeadStatus'
   | 'changeOpportunityStage'
->;
+> & { listPage?: CrmApi['listPage'] };
 export class CrmApi {
   private csrf: { headerName: string; token: string } | null = null;
   constructor(
@@ -95,7 +96,7 @@ export class CrmApi {
     }
     if (response.status === 204) return undefined as T;
     try {
-      return (await response.json()) as T;
+      return parseMoneyJson(await response.text()) as T;
     } catch {
       throw new ApiError(
         response.status,
@@ -151,6 +152,44 @@ export class CrmApi {
       undefined,
       signal,
     );
+  }
+  async listPage<K extends Resource>(
+    resource: K,
+    query: ListQuery,
+    page: number,
+    size: number,
+    signal?: AbortSignal,
+  ): Promise<{
+    content: Resources[K][];
+    page: number;
+    size: number;
+    totalElements: number;
+    totalPages: number;
+  }> {
+    const params = new URLSearchParams({
+      page: String(page),
+      size: String(size),
+    });
+    for (const [key, value] of Object.entries(query))
+      if (value) params.set(key, value);
+    const result = await this.request<{
+      content: Resources[K][];
+      page: number;
+      size: number;
+      totalElements: number;
+      totalPages: number;
+    }>(`/records/${resource}?${params}`, 'GET', undefined, signal);
+    if (
+      !Array.isArray(result.content) ||
+      result.content.length > size ||
+      result.page !== page ||
+      !Number.isSafeInteger(result.totalElements) ||
+      result.totalElements < 0 ||
+      !Number.isSafeInteger(result.totalPages) ||
+      result.totalPages < 0
+    )
+      throw new ApiError(200, 'Invalid paginated record response.');
+    return result;
   }
   create<K extends Resource>(resource: K, body: Requests[K]) {
     return this.request<Resources[K]>(`/${resource}`, 'POST', body);

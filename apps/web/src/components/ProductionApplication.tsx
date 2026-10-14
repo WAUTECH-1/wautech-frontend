@@ -60,6 +60,11 @@ function TenantApplication({
   const [error, setError] = useState('');
   const [failures, setFailures] = useState<string[]>([]);
   const [revision, setRevision] = useState(0);
+  useEffect(() => {
+    const refresh = () => setRevision((v) => v + 1);
+    window.addEventListener('wautech:records-changed', refresh);
+    return () => window.removeEventListener('wautech:records-changed', refresh);
+  }, []);
   const [busy, setBusy] = useState(false);
   const [logoutBusy, setLogoutBusy] = useState(false);
   const [logoutError, setLogoutError] = useState('');
@@ -253,6 +258,17 @@ function TenantApplication({
               user={auth.user}
               organization={tenant.organization.id}
               readOnly={tenant.organization.role === 'VIEWER'}
+              renderRecordActions={(record) => (
+                <button
+                  onClick={() =>
+                    navigate(
+                      `/record-context?resource=${resource}&id=${record.id}`,
+                    )
+                  }
+                >
+                  Related records, ownership and workflows
+                </button>
+              )}
             />
           ) : path === '/pipeline' ? (
             <Card title="Sales pipeline">

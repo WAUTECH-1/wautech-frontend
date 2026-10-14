@@ -93,7 +93,7 @@ export function RecordTable({
                   {'amount' in row
                     ? row.amount === null
                       ? '—'
-                      : `${row.currency} ${row.amount.toLocaleString()}`
+                      : `${row.currency} ${amountLabel(row.amount)}`
                     : 'email' in row
                       ? row.email || '—'
                       : '—'}
@@ -128,3 +128,4 @@ export function RecordTable({
     </div>
   );
 }
+import { amountLabel } from './decimal';

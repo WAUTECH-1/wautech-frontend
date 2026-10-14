@@ -1,4 +1,5 @@
 import { CrmApi } from '@wautech/umer/api';
+import { recordsChanged } from './refresh';
 import type { Resource, Requests } from '@wautech/umer/contracts';
 import type { ListQuery } from '@wautech/umer/api';
 import type { AuthState } from './auth';
@@ -32,7 +33,7 @@ export type CrmOperations = Pick<
   | 'archive'
   | 'changeLeadStatus'
   | 'changeOpportunityStage'
->;
+> & { listPage?: CrmApi['listPage'] };
 export class IntegrationBlocked extends Error {
   constructor(public reason: 'session' | 'organization' | 'changed') {
     super(
@@ -95,13 +96,20 @@ export function createCrmAdapter(
   };
   const client = new CrmApi(config.baseUrl, organizationId, guarded);
   // Keep auth methods outside CRM's public integration interface.
-  async function scoped<T>(action: () => Promise<T>): Promise<T> {
+  async function scoped<T>(
+    action: () => Promise<T>,
+    changed = false,
+  ): Promise<T> {
     verify();
     const result = await action();
     verify();
+    if (changed) recordsChanged();
     return result;
   }
   const operations: CrmOperations = {
+    listPage(resource, query, page, size, signal) {
+      return scoped(() => client.listPage(resource, query, page, size, signal));
+    },
     list<K extends Resource>(
       resource: K,
       query?: ListQuery,
@@ -116,29 +124,29 @@ export function createCrmAdapter(
       return scoped(async () => {
         await client.refreshCsrf();
         return client.create(resource, body);
-      });
+      }, true);
     },
     update<K extends Resource>(resource: K, id: string, body: Requests[K]) {
       return scoped(async () => {
         await client.refreshCsrf();
         return client.update(resource, id, body);
-      });
+      }, true);
     },
     archive: (resource, id) =>
       scoped(async () => {
         await client.refreshCsrf();
         return client.archive(resource, id);
-      }),
+      }, true),
     changeLeadStatus: (id, status) =>
       scoped(async () => {
         await client.refreshCsrf();
         return client.changeLeadStatus(id, status);
-      }),
+      }, true),
     changeOpportunityStage: (id, stage) =>
       scoped(async () => {
         await client.refreshCsrf();
         return client.changeOpportunityStage(id, stage);
-      }),
+      }, true),
   };
   return { operations, dispose: () => lifecycle.abort() };
 }

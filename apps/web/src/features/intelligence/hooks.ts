@@ -14,5 +14,10 @@ export function useDataset<T>(store: ScopedStore<T>) {
     store.getSnapshot,
   );
   useEffect(() => store.acquire(), [store]);
+  useEffect(() => {
+    const refresh = () => void store.refresh();
+    window.addEventListener('wautech:records-changed', refresh);
+    return () => window.removeEventListener('wautech:records-changed', refresh);
+  }, [store]);
   return state;
 }
