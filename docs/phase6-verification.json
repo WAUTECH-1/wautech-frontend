@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-14",
+  "timezone": "America/Los_Angeles",
+  "decision": "NOT READY — BLOCKERS REMAIN",
+  "backendIntegratedBase": "fcb963a3ec8a36f83c891ccc9a316bcd435b667e",
+  "frontendIntegratedBase": "4ad05928cdad1f7bded23b4e530922bf98d77f1e",
+  "backendHardenedVerify": {
+    "discovered": 413,
+    "passed": 395,
+    "skipped": 18,
+    "failures": 0,
+    "errors": 0,
+    "packaged": true
+  },
+  "frontend": {
+    "webTests": 215,
+    "asadTests": 10,
+    "umerTests": 36,
+    "wajahatTests": 36,
+    "totalTests": 297,
+    "typecheckedProjects": 5,
+    "productionBuilds": 4,
+    "lint": "pass",
+    "format": "pass"
+  },
+  "hardenedRealHttp": {
+    "discovered": 18,
+    "passed": 17,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "provider": "mocked",
+    "database": "disposable PostgreSQL"
+  },
+  "browser": {
+    "fullAcceptance": false,
+    "firstBridge": "failed intentionally after independent page changes",
+    "retryBridge": "failed after browser download tool timeout and fixture deadline",
+    "observed": [
+      "login",
+      "session restoration",
+      "organization discovery and ADMIN switching",
+      "exact 5101-company dashboard aggregates",
+      "company create/read/filter/edit/archive",
+      "archive Cancel autofocus",
+      "reporting page"
+    ],
+    "mobile": "not verified",
+    "wcag": "not verified",
+    "csvDownload": "tool timeout; HTTP export tests pass independently"
+  },
+  "recovery": {
+    "scope": "local disposable logical dump/restore",
+    "successfulMigrations": 24,
+    "restoredCompanies": 5101,
+    "productionBackupAutomation": false
+  },
+  "security": {
+    "npmRegistryMatches": 0,
+    "backendInitialCoordinates": 96,
+    "backendInitialMatches": 18,
+    "backendHardenedCoordinates": 97,
+    "backendHardenedMatches": 2,
+    "springExceptions": ["GHSA-j9f9-w8pj-32f8", "GHSA-pc63-qcmh-9cmg"],
+    "deployedTlsAndThrottling": "unverified",
+    "historySecretScan": "zero high-confidence AWS/private-key/OpenAI-key pattern matches across locally fetched histories"
+  },
+  "artifacts": {
+    "webIndexSha256": "F8043CEBACF7ED21C105A941DFC1557A9575E7EE3C0BCD3DC60C9A0D3458553F",
+    "hardenedJarSha256": "E08D8523D7956F4EEA130B0E60DB094F689DA47765576729CB0E7BC004DC338A"
+  },
+  "hostedCiAndReview": "not certified by available connector evidence",
+  "liveAi": "not verified",
+  "productionDeployed": false,
+  "realBusinessRecordsModified": false
+}
